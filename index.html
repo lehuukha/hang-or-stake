@@ -150,6 +150,17 @@
   .ebadge.forum{ border-color:var(--s3); color:var(--s3); }
   .empty{ color:var(--muted); font-size:14px; padding:14px 4px; }
 
+  .votebar{ display:flex; align-items:center; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .votebar .vlab{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
+                  text-transform:uppercase; color:var(--muted); }
+  .vbtn{ font:inherit; font-size:12px; font-weight:600; padding:4px 10px; border-radius:3px; cursor:pointer;
+         border:1px solid var(--edge); background:var(--panel); color:var(--ink); }
+  .vbtn:hover{ border-color:var(--accent); }
+  .vbtn b{ font-family:"IBM Plex Mono",monospace; font-weight:500; color:var(--accent); }
+  .vbtn:disabled{ opacity:.55; cursor:default; }
+  .vmsg{ font-size:11.5px; color:var(--muted); }
+  .vlink{ font-size:12px; }
+
   /* ---- footer ---- */
   .sitefoot{ margin-top:64px; background:var(--panel); border-top:1px solid var(--edge); }
   .footgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:28px; padding:34px 0 22px; }
@@ -190,7 +201,7 @@
     footage, a park office's own recommendations, forum surveys, and our own stays — never from vibes, and every
     claim wears its evidence tag.</p>
     <div class="statrow">
-      <span><b>70</b>sites</span><span><b>17</b>areas</span><span><b id="stat-scored">—</b>hang-scored</span>
+      <span><b>71</b>sites</span><span><b>18</b>areas</span><span><b id="stat-scored">—</b>hang-scored</span>
       <span><b>1</b>field-tested</span>
     </div>
   </div>
@@ -226,7 +237,10 @@
       hammockforums or reviewer. <strong>Inferred</strong> — read from terrain; scout before you commit.</p>
       <p class="sub">Solo: every site is solo-bookable unless marked <strong>group only</strong>. A <strong>solo pick</strong>
       is a site whose sources specifically flag seclusion, quiet, or low foot traffic — the ones worth going to alone.
-      The "Solo trips" filter hides group-only sites.</p></div>
+      The "Solo trips" filter hides group-only sites.</p>
+      <p class="sub">Stay reports: each site has a "Stayed here?" row. On the interactive (claude.ai) copy, crew members
+      with edit access can tally a hang or tent stay directly — the page saves itself and everyone sees the count. On
+      this public copy, the link files a stay report on GitHub; reports get folded into the scores on the next update.</p></div>
     <div><h3>Field rules</h3>
       <ul>
         <li>Hammocks are legal in MN state parks — camp in designated sites and don't damage trees
@@ -236,6 +250,8 @@
         <li>A workable hang span is ~12–16 ft; 10 ft won't fit a tarp. Long straps rescue marginal sites.</li>
         <li>No campfires at MN Valley backcountry sites. Permit needed on the riverway between Hwy 8 and the High Bridge.</li>
         <li>Poison ivy at Sand Dunes; widow-makers flagged at Lake Maria B8 &amp; B17; horses on the B7 trail May–Nov.</li>
+        <li>The DNR reservation site shows a photo and description for every numbered site — check the trees before
+            you book. Afton sells all-you-can-cut wood for $6 by the campground.</li>
         <li>Solo playbook from r/MinnesotaCamping: walk-in and cart-in sites sit far from the RV/generator loops;
             weekdays and shoulder season (late April, Sept–Nov) empty the parks out; first-come sites near popular
             areas fill by Wednesday or Thursday; state-forest sites book same-day only.</li>
@@ -245,6 +261,8 @@
         <li>Our trips (Pine Ridge, Wild River)</li>
         <li>MN Hiker — Afton &amp; Lake Maria site walkthroughs</li>
         <li>Cipher-Tu Productions — SCOUT series</li>
+        <li>Wrongway Campaggin — per-site hammock trip videos (Lake Maria B2/B4/B5/B7+8/B14, Wild River, Afton 18,
+            Gov. Knowles)</li>
         <li>hammockforums — <a href="https://www.hammockforums.net/forum/archive/index.php/t-121851.html">state parks</a>,
             <a href="https://www.hammockforums.net/forum/archive/index.php/t-47683.html">metro hangs</a>,
             <a href="https://www.hammockforums.net/forum/archive/index.php/t-132831.html">Rum River</a></li>
@@ -266,12 +284,13 @@
   </div>
 </div></footer>
 
+<script type="application/json" id="stay-data">{}</script>
 <script>
 // [park, site, hang(0-5|null), tent(0-5|null), hangVerdict, hangs, spans, ground, setting, notes, quote, evidence, tentBasis]
 const SITES=[
 ["Afton","Site 25",5,4,"Best in park","3+","11–13 ft, plus a ~15","Flat, lots of tent room","Next to a small open prairie; far end of the trail, little foot traffic","Multiple usable pairs plus room for many tents. Neighbors site 27. A forum hanger independently confirmed the far end of Afton has the good trees.","an excellent campsite for hammockers … this is the best one by far","verbatim","lots of space for lots of tents"],
 ["Afton","Site 3",4,3,"Good","several","not measured","Two tent pads","Wooded, uphill from sites 0/1/2","The densest timber he found; likely why the park keeps a wooded map for hammockers.","lots of trees … plenty of spots for hammocks here","verbatim","two tent pads"],
-["Afton","Site 6",4,3,"Good","2–3","not measured","Two adjacent tent pads","Wooded, primitive outhouse nearby","Roomier than nearby 5; convenient to the privy.","hammocking check — you probably get two in there, three if you're lucky","verbatim","two adjacent pads"],
+["Afton","Site 6",4,3,"Good","2–3","not measured","Two adjacent tent pads","Wooded, primitive outhouse nearby","Roomier than nearby 5; convenient to the privy. Independently seconded by a hammock camper walking the campground: 'probably a pretty good hammock camping one.'","hammocking check — you probably get two in there, three if you're lucky","verbatim","two adjacent pads"],
 ["Afton","Site 22",4,1,"Good","2","not measured","Flat, a little muddy on one side","End of the road past 21","No real tent pads, so it favors hangers.","probably more hammock friendly than anything","verbatim","no tent pads per se"],
 ["Afton","Site 27",3,2,"Decent","~2","~10 ft (short hammock) + a longer pair","One flat spot by the ring; rest on a slant","End of the road up the main hill","The 10 ft pair only works with a short hammock. Neighbors site 25.","a good spot for about two hammocks maybe, and then one comfortable tent","verbatim","one comfortable tent, second on a slant"],
 ["Afton","Site 21",3,3,"Decent","1–2","~12 ft","Two tent pads","Nestled in woods, not visible from 20","A second hang exists but sits on a deer trail — skip that one.","in general looks like one solid hammock spot","verbatim","two tent pads"],
@@ -284,7 +303,7 @@ const SITES=[
 ["Afton","Site 1",2,3,"Marginal","maybe 1","not measured","Two tent pads","Top of the first hill","First site in; minimal beyond pads, table, ring.","maybe a hammock spot over there, and really that's about it","verbatim","two tent pads"],
 ["Afton","Site 4",1,2,"Poor","maybe 1","not measured","Grass, no designated pads","Overlooking the valley, just off the path","Grass site with few trees.","not really any hammock spots — maybe this one, just maybe","verbatim","grass, no designated pads"],
 ["Afton","Site 8",1,4,"Poor","maybe 1","11–12 ft","Open prairie, lots of tent space","Beautiful prairie, big view; privy nearby","Two gigantic trees but nothing else usable.","doesn't look like there's any real hammock spots — maybe those two","verbatim","mostly a tent site; fits a couple big ones"],
-["Afton","Site 18",1,2,"Poor","maybe 1","not measured","One tent pad","River view; fire ring right on the edge","The one candidate pair sits too close to the tent pad.","not too much in the way of hammock — maybe one over there","verbatim","one pad, cliff-edge ring"],
+["Afton","Site 18",3,2,"Confirmed hang","1-2","not measured","One tent pad","River view; fire ring right on the edge","CONFLICT RESOLVED by a real stay: MN Hiker discounted the tree pair for sitting too close to the tent pad — a hammock camper then slung directly over the pad, stayed dry through rain, and woke to the St. Croix beyond his toes. Fine solo; awkward if a tenter needs the pad.","plenty of trees which make nice options for hammock camping … I can see the St. Croix River just beyond my toes","verbatim","one pad, cliff-edge ring"],
 ["Afton","Site 17",1,3,"Poor","maybe 1","not measured","Designated tent site plus a flat spot","Deep woods above a ravine, drop-off at the edge","The only pair straddles a deer trail — he wouldn't risk it.","I wouldn't mess with that — you end up with deer inside your tarp","verbatim","more of a tent site; one flat spot for sure"],
 ["Afton","Site 2",1,2,"Poor","maybe 1","not measured","One large tent pad","Across from site 0","","as far as hammocking goes it doesn't look very promising — maybe one over yonder","verbatim","one large pad"],
 ["Afton","Site 12",1,5,"Poor","workable but bad","~15–16 ft (long) or ~10 (tarp won't fit)","Flat, flat, flat — big tent capacity","Heavy deer sign","His usual pair here is 15–16 ft; the alternative is ~10 ft, too short for his tarp.","this is a tent site for sure","verbatim","you could have a small community in this one"],
@@ -297,11 +316,11 @@ const SITES=[
 ["Afton","Site 0",null,2,"Not assessed","","","No tent pads","Very quick exit back to the trail","Only the fire ring and picnic table noted; no hammock read given.","campsite 0 has no tent pads — just a nice happy place for you to set up","none","no pads; open spot"],
 ["Afton","Site 9",null,2,"Not assessed","","","Tent pad next to the fire ring","Prairie; grass and flowers in spring; deer everywhere","Oversized old fire scars eat into the usable space. No hammock read given.","big fires people had don't quite allow you to camp where you think you should","none","fire scars limit the space"],
 ["Afton","Site 19",null,3,"Not assessed","","","Two tent pads on two levels","River view like 18; on a cliff edge","Flagged as a poor choice with small children. No hammock read given.","just like 18, it's on the edge of a cliff","none","two pads on two levels"],
-["Lake Maria","B2",5,4,"Best in park","many","your pick","Flat throughout","On a peninsula; little trails down to the lake","He has hung here himself. B1–B3 trailhead lot holds only 5–6 cars. Mind the central fire ring and wind when pitching.","you could hang a hammock just about anywhere … there's just so many spots","verbatim","put a tent pretty much anywhere"],
+["Lake Maria","B2",5,4,"Best in park","many","your pick","Flat throughout","On a peninsula over Putnam Lake; trails down to the shoreline","Two independent hammock campers have hung here — one says 'anywhere,' the other counts room for two or three with a lake view from the fly. Trumpeter swans and cranes overfly; a beaver lodge across the lake. B1–B3 lot holds only 5–6 cars.","you could hang a hammock just about anywhere … there's just so many spots","verbatim","put a tent pretty much anywhere"],
 ["Lake Maria","B11",5,5,"Star site","4–5","not measured","Flat, flat, flat; drains fast","End of the line — secluded and big; no lake view","Largest site he saw. Skip the hang that crosses the latrine path; one rock at the entrance.","I'd say B11 is your star campsite so far","verbatim","space like you wouldn't believe — up to six-person tents"],
 ["Lake Maria","B13",5,4,"Excellent","3","bring slightly larger straps","Flat, little leaf litter, can get muddy","Wooded, no lake view","Three spans called out one after another. No widow-makers overhead.","an A for hammocks — just bring slightly larger straps","verbatim","flat, graded well for tents too"],
 ["Lake Maria","B6",4,3,"Good","2–3","one pair under 10 ft — reach farther","Back end noticeably slanted; flat near the ring","Right on the pond (turtles); its own privy","Options inside and outside the site; don't hang across the walking/deer trail.","you could hang two or three in here","verbatim","five or six people comfortably"],
-["Lake Maria","B4",4,4,"Good","2–3","not measured","Large, slightly slanted; muddy low, dry up top","Over a little bridge; swamp on both sides","Rivals B11 for size. Bring bug spray.","we got one, we got two, and maybe a third spot if you want to sleep over a stump","verbatim","a great tent site, not gonna lie"],
+["Lake Maria","B4",4,4,"Good — twice confirmed","2–3","not measured","Large, spacious, mostly open; own private latrine ~100 yds out","Over a wooden bridge; small-lake view behind the hang trees; half the walk is on a private spur trail","Both sources agree: MN Hiker counted 2–3 spots, and a hammock camper later hung between 'conveniently placed trees' facing the water. Bugs can be fierce — bring the net; an afternoon breeze helps.","look at those conveniently placed trees for hammock camping","verbatim","a great tent site, not gonna lie (MN Hiker)"],
 ["Lake Maria","B9",3,3,"Decent","1–2","not measured","Cozy but good; two tent spots","Privy shared with B10, uphill","","good for hammocks, good for tents","verbatim","two decent-sized tents"],
 ["Lake Maria","B1",3,3,"Decent (from afar)","some","not measured","Up on a hill, some slanted ground","Occupied when filmed — assessed at a distance","Rated green for hammocks with room for 4 tents, but never walked.","definitely some trees in there for hammocking","verbatim","room for four tents (from afar)"],
 ["Lake Maria","G2 Oak Hill (group)",3,4,"Moderate","a few","thick trunks — big straps","Slanted near the lot; very flat farther in","Group site over a pond; ~2.5 fire rings","Big enough that even modest tree density yields several hangs; ~20 people fit.","modestly hammock friendly, even for a big site","verbatim","very flat spots; ~20 people"],
@@ -310,16 +329,16 @@ const SITES=[
 ["Lake Maria","B15",1,4,"Poor","1 (a stretch)","long — barely worked","Flat, flat, flat","Overlooks Maria Lake; shares a privy with B14","He and his wife stayed here; the single hang was a real reach. 4 inches of rain that night.","the only place I could find a hammock was from here to there, and it was a stretch","verbatim","flat flat flat; a great site"],
 ["Lake Maria","B10",1,3,"Poor","1","not measured","Slanted across the site; flat by the food box","Uphill climb in; privy shared with B9","The one hang option risks blocking the latrine path.","not the best for hammocking, pretty good for tenting","verbatim","pretty good for tenting"],
 ["Lake Maria","B17",1,4,"Poor","maybe 1, tricky","not measured","Decently flat, good tent space","Most secluded of the near sites; swamp with frogs behind","Woodpecker damage and a clear widow-maker — don't camp under it. Don't hang over the latrine trail.","you might be able to finagle one in here, but it's probably going to be tricky","verbatim","tents are great for B17"],
-["Lake Maria","B5",1,4,"Poor","maybe 1","small hammock only","Level in spots; slanted and lumpy near the ring","Very easy walk in; water and privy close","The other option means hanging toward the privy — don't.","a very tent friendly site — not very friendly for hammocks, sorry guys","verbatim","very tent friendly"],
+["Lake Maria","B5",2,4,"Confirmed, but limited","1 cluster","most trees too small","Hilltop clearing over a small lake; tent pads level","Very easy walk in (10–15 min); swans, geese and ducks on the lake below","UPGRADED by a real stay: MN Hiker saw almost nothing, but a hammock camper found the one workable cluster by the picnic table and slept fine. Caveat from his night: the hang runs east–west, so west lake weather can blow in one end of a tarp.","trees for hammock camping were a little bit limited … the most suitable ones were this cluster near the picnic table, and it worked just fine","verbatim","very tent friendly (MN Hiker)"],
 ["Lake Maria","B3",0,2,"Avoid for hanging","0","trees too far apart","Slanted on a hill","By the camper cabin and water","The site that taught him to check tree spacing — trunks huge and too widely spaced. Counterpoint for tenters: a r/MinnesotaCamping regular calls B3 their favorite secluded fall site (dog-friendly trips) — a good site, just not for hammocks.","the trees are too far apart for hammocking, and they're huge","verbatim","all right enough for tenting, on a slant"],
 ["Lake Maria","G1 Whitetail (group)",null,4,"Not assessed","","","Lots of good flat space, upper and lower","True group site over a pond; own privy; 2 fire rings","No hammock read given. The pad next to the privy is the short straw if the wind is wrong.","more space than you can think of — this is a true group campsite","none","flat space galore"],
-["Lake Maria","B14",null,4,"Gap-filled (SCOUT)","","not stated","Two prime tent areas","Best view — 'pretty much right on' Lake Maria; latrine shared with B15","Most popular site, first to book (both sources agree). One big awesome tree; no pair info — tent-first until walked.","probably the most popular site … I would highly recommend this site","none","tent-prime; he'd book it first with a tent"],
-["Lake Maria","B8",1,3,"Poor (inferred)","0–1","trees a little far apart","Mild slant; flat tent area with roots","Close to the lake with a view; new bear locker","INFERRED downgrade: the SCOUT walkthrough notes the trees sit far apart and a widow-maker on site — both bad signs for hanging.","this site looks amazing — tree is a little far away … widow-maker action","inferred","flat tent area with roots"],
-["Lake Maria","B7",null,3,"Gap-filled (SCOUT)","","not stated","Island-feel knoll; steep climb after a marsh bridge","Most secluded; surrounded by marsh; birch on site","The SCOUT narrator's favorite in the park — but he's a tent camper and gives no tree-spacing read. Horses on the trail May 1–Nov 1.","it kind of feels like you're on an island … I absolutely love this site","none","tent spots for two; high-effort approach"],
+["Lake Maria","B14",4,4,"Confirmed hang","2+","not stated","Two tent pads, one in a tree cluster","Lakeside view; secluded a couple minutes off the main trail; latrine shared with B15 but far from both","CONFIRMED: a hammock camper slung in the tree cluster by the second pad and recommends the site outright. Still the most popular site in the park — first to book. Frogs can croak loudly ALL night in season.","one of the tent pads is in a nice cluster of trees, which is perfect for hammock camping … a great place to hang a hammock","verbatim","two pads; he'd book it first with a tent (SCOUT)"],
+["Lake Maria","B8",3,3,"Decent (sources split)","1–2","conflicting reads","Mild slant; THREE tent pads, two in the trees","Secluded, surrounded by trees, lake view; latrine isolated on the hilltop","SOURCES SPLIT: a hammock-focused camper who walked in scouting hangs saw 'decent options'; the tent-camper SCOUT walkthrough thought the trees sat far apart and flagged a widow-maker. Weight the specialist, but look up before you commit.","there seem to be some decent options for hanging a hammock at the site","verbatim","three tent pads"],
+["Lake Maria","B7",4,3,"Confirmed hang","several","not stated","Hilltop clearing; two tent pads; private latrine before the bridge","Most secluded; surrounded by marsh and cattails; lake glimpse through the trees, ~½ mi walk to the shore","CONFIRMED: a hammock camper hung here through heavy overnight rain and stayed dry (west-facing tarp side). Also the SCOUT narrator's favorite site in the park. ~1 mile easy hike, then a bridge and a short climb. Horses on the trail May 1–Nov 1.","plenty of trees for hammock camping … we had a heavy rain that night and I stayed high and dry","verbatim","two tent pads on the knoll"],
 ["Wild River","Pine Ridge",5,3,"Field-tested — 4 hung","7+ (3 by the ring + 4 off the pad)","not measured","Dedicated tent pad; fire ring; latrine","Backpack site","OUR STAY: three hangable spots right near the fire ring, and just off the tent-pad area a spot that took four hammocks side by side. Easy group hangs — a whole crew fits without touching the obvious spots. Walk the edges; the marked spots undersell it.","three confirmed near the fire ring — and four side by side just off the tent pad","field","dedicated tent pad on site"],
 ["Wild River","Aspen Knob",4,3,"Confirmed hang","2+","not stated","Tent pad, fire ring, bear box, own latrine","1.3 mi in; 150–200 ft off the main trail, fully wooded, little sky","PARK OFFICE RECOMMENDED for hammocks by email, and the videographer hung here. Gentler hills than Afton; wood gatherable.","those two trees in the center of the frame are the best options for hanging a hammock","official","tent pad areas by the hang trees"],
-["Wild River","Spring Creek",3,null,"Office-recommended","not stated","not stated","Backpack site off the River Trail","Along the St. Croix, ~1 mi from the boat landing","The other site the park office named for hammocks; no first-hand hang footage found.","the park office … recommended this one as well as Aspen Knob","official",""],
-["Wild River","Deer Creek",3,3,"One good hang","1","not stated","Fire ring and table overlooking creek and river","~30 min hike from the visitor center; canoe-accessible","A camper found a pine-grove nook that fits a small tent — or a hammock.","a spot nestled in some pine trees … the perfect spot to hang a hammock","forum","pine nook fits a smaller tent"],
+["Wild River","Spring Creek",4,3,"Confirmed hang","2+","not stated","Spacious clearing; own latrine set well back","Only ~10 min from the boat-landing lot, a couple hundred feet off the River Trail","Office-recommended AND now hung: a hammock camper found the pair immediately. One caveat — a sometimes-busy Wisconsin road across the river carries motorcycle noise on summer Sunday afternoons; it quiets by evening. Deer wandered into camp.","check out these two trees, which look like they were just planted for hammock campers like me","verbatim","spacious clearing in the trees"],
+["Wild River","Deer Creek",3,4,"One good hang","1","not stated","Large, open, sunny; three tent pads carved from the brush; stairs down to the riverbank","~1 mi from the boat landing past a beaver pond, right on the St. Croix","Two independent sources agree on exactly one hang spot, near the site entrance. Otherwise a tent site — big flat grass, big river view. Horses use the trail by day; secluded at night.","not a lot in the way of trees for hammock camping, except for one location … close to the entrance","verbatim","three neat tent pads, flat grass"],
 ["Wild River","Buck Hill",0,3,"Avoid for hanging","0","—","Beautiful site otherwise","Backpack site","A four-hammock group had to abandon it and rebook.","there is not a single hammock option … not hammock friendly at all","verbatim","'gorgeous' — their gripe was hammocks, not tents"],
 ["Wild River","Dry Creek",null,null,"Not assessed","","","","Beyond a run of steep hills past Aspen Knob","The Aspen Knob videographer turned around at the hills; office warned wood may be scarce.","a lot of hills, including this really steep one that made me think enough was enough","none",""],
 ["Cleary Lake Regional","Lakeside walk-in",3,null,"One good site","several trees","not stated","Walk-in on a low-traffic trail; no neighboring sites","Right on the lake — closest option to the metro here (Prior Lake)","The OTHER Cleary walk-ins are explicitly NOT hammock-friendly — book the lakeside one. A canoe-in island group site also has room.","the one by the lake has some real nice trees to string up from","forum",""],
@@ -337,8 +356,9 @@ const SITES=[
 ["Cannon River Wilderness Area","Hike-in sites (4)",3,3,"Riverbank hangs reported","enough for several","not surveyed","Free, first-come; tables, fire rings, vault toilet May–Oct","850 wooded acres of the Cannon valley between Northfield and Faribault (~50 min S)","FREE and first-come — the no-reservation escape hatch when everything else is booked. ~10-minute walk in; at least one site has riverbank hammock space per campers' reports.","at least one offering enough space to set up hammocks along the riverbank","forum","primitive tent sites, ~10 min walk"],
 ["Rum River State Forest","Dispersed",4,3,"Confirmed winter hang","plenty","your pick","Free dispersed camping off gravel forest roads","Flat, easy forest near Milaca (~1 hr N)","A hammockforums regular filmed a December hang here: easy roads, easy terrain, no big deadfall. Solo-friendly and free.","plenty of campsite locations for hammocks or tents","forum","room for tents anywhere"],
 ["St. Croix Riverway (NPS)","Paddle-in sites (13)",null,3,"Not assessed","","not surveyed","Free, first-come river campsites; fire rings","Wooded banks between WI Interstate Park and Somerset Landing, via Osceola","The solo-paddle option: 13 free NPS sites reachable only by water. A permit is required to camp between US Hwy 8 and the Soo Line High Bridge. Trees line the banks but nobody has rated hangs.","no fees are charged for … campsites (which are first come, first served)","none","riverbank tent sites"],
-["Stanley Eddy Park Reserve","Walk-in & hike-in sites",null,3,"Not assessed","","not surveyed","$5/night, reservable online","Wright County reserve southwest of Lake Maria (~55 min W)","Named twice on r/MinnesotaCamping for private solo camping: some sites are an easy walk-in, others take a longer hike, all fairly private — and at $5 the cheapest reservable overnight on this list. Nobody has rated the trees.","some are easy walk-in sites and others take a longer hike, all fairly private","forum","tent sites, walk or hike in"],
+["Stanley Eddy Park Reserve","Walk-in & hike-in sites",null,3,"Not assessed","","not surveyed","FREE with a Special Use Permit (online form or 763-682-7693); open year-round","Wright County reserve southwest of Lake Maria (~55 min W); rolling hills, lakes and marsh across three units","Named twice on r/MinnesotaCamping for private solo camping: some sites are an easy walk-in, others take a longer hike, all fairly private. Wright County lists the carry-in sites as free by permit (a redditor remembered $5 — the county's word wins). Nobody has rated the trees.","some are easy walk-in sites and others take a longer hike, all fairly private","forum","tent sites, walk or hike in"],
 ["St. Croix / Chengwatana SF","Boulder Campground & dispersed",null,3,"Not assessed","","your pick","Primitive campground + free dispersed; low ground can be wet","State forests near Pine City / Hinckley (~1 hr 10 NE)","Reddit's last-minute escape valve: quiet, first-come, and a hammockforums poster uses Boulder as the trailhead for dispersed hikes. State-forest sites book same-day only — check in the morning, pay, drive up.","have always thought Boulder Campground in St. Croix State Forest was nice … super secluded","forum","primitive drive-in and dispersed"],
+["Gov. Knowles SF (WI)","Backpack sites (9), Randall Creek confirmed",4,3,"Confirmed hang","2 easy trees at Randall Creek","not stated","Primitive sites along the trail; creek crossings on wooden bridges","55-mile forest strip on the Wisconsin bank of the St. Croix (Grantsburg, ~1 hr 15 NE)","FREE — nine backpack sites, reserved by emailing the forest HQ at least 7 days ahead for a permit (WI DNR). A hammock camper hung at Randall Creek 'between two very conveniently located trees,' filtered creek water, and fought ticks and mosquitoes — bring the net.","I set up my hammock between two very conveniently located trees at my site — that was great","verbatim","flat primitive sites"],
 ];
 const PARKS=[
  ["Afton","~30 min E · backpack-in only","St. Croix bluffs above Afton Alps. All 27 sites hike-in; walked site-by-site by MN Hiker. The good hammock trees cluster at the far end of the trail (25 / 27 / 22). r/MinnesotaCamping concurs on the 14–22 corridor for seclusion, and notes the firewood and water live up top by the sites — no hauling."],
@@ -358,6 +378,7 @@ const PARKS=[
  ["St. Croix Riverway (NPS)","paddle access · free","Thirteen free first-come campsites on the federal riverway between Interstate Park and Somerset Landing — reachable only by canoe or kayak."],
  ["Stanley Eddy Park Reserve","~55 min W · walk-in, $5","Wright County sleeper pick from r/MinnesotaCamping: private walk-in and hike-in sites, five bucks a night, reservable online."],
  ["St. Croix / Chengwatana SF","~1 hr 10 NE · primitive, same-day","Two state forests near Pine City: Boulder Campground plus free dispersed camping. Same-day booking only — the quiet, no-plan option."],
+ ["Gov. Knowles SF (WI)","~1 hr 15 NE · backpack, free","Wisconsin's 55-mile forest strip along the St. Croix: nine free backpack sites, permit by email a week ahead. A confirmed hang at Randall Creek."],
 ];
 // schematic map positions (640x560 viewBox)
 const POS={"Rum River State Forest":[278,52,"l"],"Sand Dunes SF":[252,108,"l"],"Lake Maria":[178,142,"l"],
@@ -365,18 +386,21 @@ const POS={"Rum River State Forest":[278,52,"l"],"Sand Dunes SF":[252,108,"l"],"
 "William O'Brien":[452,196,"r"],"Lake Elmo Park Reserve":[392,244,"r"],"Afton":[449,292,"r"],
 "Cleary Lake Regional":[272,348,"l"],"MN Valley SRA":[210,392,"l"],"Cannon River Wilderness Area":[322,458,"l"],
 "Nerstrand Big Woods":[380,478,"r"],"Sakatah Lake":[268,496,"l"],"Frontenac":[556,432,"r"],
-"Stanley Eddy Park Reserve":[122,214,"l"],"St. Croix / Chengwatana SF":[512,50,"r"]};
+"Stanley Eddy Park Reserve":[122,214,"l"],"St. Croix / Chengwatana SF":[512,50,"r"],
+"Gov. Knowles SF (WI)":[478,118,"r"]};
 const SHORT={"Rum River State Forest":"Rum River SF","Crow-Hassan Park Reserve":"Crow-Hassan",
 "St. Croix Riverway (NPS)":"NPS Riverway","Lake Elmo Park Reserve":"Lake Elmo","Cleary Lake Regional":"Cleary Lake",
 "Cannon River Wilderness Area":"Cannon River","Nerstrand Big Woods":"Nerstrand","William O'Brien":"Wm. O'Brien",
-"Stanley Eddy Park Reserve":"Stanley Eddy","St. Croix / Chengwatana SF":"State forests NE"};
+"Stanley Eddy Park Reserve":"Stanley Eddy","St. Croix / Chengwatana SF":"State forests NE",
+"Gov. Knowles SF (WI)":"Gov. Knowles (WI)"};
 // solo suitability: 2 = solo pick (source flags seclusion/quiet/low traffic), 1 = solo-bookable, 0 = group-only
 const SOLO2=new Set(["Afton|Site 25","Afton|Site 16","Lake Maria|B7","Lake Maria|B11","Lake Maria|B17",
 "Wild River|Aspen Knob","Wild River|Dry Creek","Frontenac|Cart-in C6","Cleary Lake Regional|Lakeside walk-in",
 "Cannon River Wilderness Area|Hike-in sites (4)","Rum River State Forest|Dispersed",
 "St. Croix Riverway (NPS)|Paddle-in sites (13)","Lake Elmo Park Reserve|Hike-in sites (5)",
 "Sand Dunes SF|Dispersed / Ann Lake walk-ins","Nerstrand Big Woods|Walk-in sites (4)",
-"Stanley Eddy Park Reserve|Walk-in & hike-in sites","St. Croix / Chengwatana SF|Boulder Campground & dispersed"]);
+"Stanley Eddy Park Reserve|Walk-in & hike-in sites","St. Croix / Chengwatana SF|Boulder Campground & dispersed",
+"Gov. Knowles SF (WI)|Backpack sites (9), Randall Creek confirmed"]);
 const SOLO0=new Set(["Crow-Hassan Park Reserve|Group hike-in camps","Lake Maria|G1 Whitetail (group)",
 "Lake Maria|G2 Oak Hill (group)"]);
 function soloOf(s){ const k=s[0]+"|"+s[1]; return SOLO0.has(k)?0:SOLO2.has(k)?2:1; }
@@ -425,7 +449,51 @@ function row(s){
       return txt?'<p><span class="k">Ground &amp; tents</span>'+txt+"</p>":""; })()+
     (s[9]?'<p><span class="k">Worth knowing</span>'+s[9]+"</p>":"")+
     (s[10]?'<p class="quote">&ldquo;'+s[10]+'&rdquo;</p>':"")+
-    '<span class="ebadge '+s[11]+'">'+EV[s[11]]+"</span></div></details>";
+    '<span class="ebadge '+s[11]+'">'+EV[s[11]]+"</span>"+votebar(s)+"</div></details>";
+}
+// ---- stay reports: live voting on the claude.ai copy, GitHub-issue fallback on the static copy ----
+let STAY={}; try{ STAY=JSON.parse(document.getElementById("stay-data").textContent)||{}; }catch(e){}
+let ARTIFACT=null, VOTE_STATE="static"; // static | live | busy
+function votebar(s){
+  const k=s[0]+"|"+s[1], v=STAY[k]||{h:0,t:0};
+  const counts=(v.h||v.t)?' <span class="vmsg">('+(v.h||0)+' hang · '+(v.t||0)+' tent so far)</span>':"";
+  if(VOTE_STATE==="static"){
+    const title=encodeURIComponent("Stay report: "+s[0]+" — "+s[1]);
+    const body=encodeURIComponent("Site: "+s[0]+" / "+s[1]+"\nGear: hammock or tent?\nHangs found: \nWhat the listing gets wrong or misses: \n");
+    return '<div class="votebar"><span class="vlab">Stayed here?</span>'+
+      '<a class="vlink" href="https://github.com/lehuukha/hang-or-stake/issues/new?title='+title+'&body='+body+
+      '" target="_blank" rel="noopener">Log a stay report →</a>'+counts+'</div>';
+  }
+  const dis=VOTE_STATE==="busy"?" disabled":"";
+  return '<div class="votebar"><span class="vlab">Stayed here?</span>'+
+    '<button class="vbtn"'+dis+' onclick="vote(event,\''+k.replace(/'/g,"\\'")+'\',\'h\')">Hung here <b>'+(v.h||0)+'</b></button>'+
+    '<button class="vbtn"'+dis+' onclick="vote(event,\''+k.replace(/'/g,"\\'")+'\',\'t\')">Tented here <b>'+(v.t||0)+'</b></button>'+
+    '<span class="vmsg" id="vmsg-'+btoa(k).replace(/[^a-zA-Z0-9]/g,"")+'"></span></div>';
+}
+async function vote(ev,key,kind){
+  ev.preventDefault(); ev.stopPropagation();
+  if(!ARTIFACT||VOTE_STATE==="busy") return;
+  VOTE_STATE="busy"; render();
+  try{
+    const res=await fetch(location.href,{cache:"no-store"});
+    const src=await res.text();
+    const re=/(<script type="application\/json" id="stay-data">)([\s\S]*?)(<\/script>)/;
+    const m=src.match(re);
+    if(!m) throw new Error("marker");
+    let data={}; try{ data=JSON.parse(m[2])||{}; }catch(e){}
+    const v=data[key]||(data[key]={h:0,t:0});
+    v[kind]=(v[kind]||0)+1;
+    await ARTIFACT.publish(src.replace(re,"$1"+JSON.stringify(data)+"$3"));
+    // on success every open view (this one included) reloads to the new version
+  }catch(e){
+    VOTE_STATE="live"; STAY[key]=STAY[key]||{h:0,t:0}; render();
+    const el=document.getElementById("vmsg-"+btoa(key).replace(/[^a-zA-Z0-9]/g,""));
+    if(el) el.textContent = (e&&/not_(granted|writer)/.test(String(e.code||e)))?
+      "View-only access — ask for edit access to vote.":"Someone else just voted — reopen to see the tally.";
+  }
+}
+if(typeof window!=="undefined"&&window.claude&&typeof claude.use==="function"){
+  claude.use("artifact").then(a=>{ if(a){ ARTIFACT=a; VOTE_STATE="live"; render(); } }).catch(()=>{});
 }
 function bestHang(p){ let b=null;
   for(const s of SITES) if(s[0]===p&&s[2]!=null) b=b==null?s[2]:Math.max(b,s[2]);
