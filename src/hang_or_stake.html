@@ -1,0 +1,556 @@
+<title>Hang or Stake</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ground:#EFF1EA; --panel:#F7F8F3; --edge:#D8DDD0; --edge-soft:#E4E8DD; --ink:#1F2922; --muted:#5C685E;
+    --accent:#33628C; --accent-soft:#33628C1E; --quote:#4A5A50; --water:#9FBFD6; --ring:#C4CBBB;
+    --s5:#3E7C59; --s4:#7BA05B; --s3:#C9A227; --s2:#C97F2C; --s1:#B65F3A; --s0:#9A4A44; --sx:#8A948B;
+    --chipink:#FFFFFF; --dot-off:#C9CFC2;
+  }
+  :root[data-gear="tent"]{ --accent:#3E7C59; --accent-soft:#3E7C591E; }
+  :root[data-gear="either"]{ --accent:#7A5C43; --accent-soft:#7A5C431E; }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#151A16; --panel:#1A211C; --edge:#2C352E; --edge-soft:#232B25; --ink:#E4E8E0; --muted:#97A398;
+      --accent:#8FB4D9; --accent-soft:#8FB4D91E; --quote:#AEB9AF; --water:#3A5468; --ring:#39433B;
+      --s5:#6FAF8B; --s4:#95B472; --s3:#D4B34A; --s2:#D49555; --s1:#C67C5C; --s0:#B56A64; --sx:#6E7A70;
+      --chipink:#141A16; --dot-off:#39433B;
+    }
+    :root:not([data-theme="light"])[data-gear="tent"]{ --accent:#86BC9C; --accent-soft:#86BC9C1E; }
+    :root:not([data-theme="light"])[data-gear="either"]{ --accent:#C2A183; --accent-soft:#C2A1831E; }
+  }
+  :root[data-theme="dark"]{
+    --ground:#151A16; --panel:#1A211C; --edge:#2C352E; --edge-soft:#232B25; --ink:#E4E8E0; --muted:#97A398;
+    --accent:#8FB4D9; --accent-soft:#8FB4D91E; --quote:#AEB9AF; --water:#3A5468; --ring:#39433B;
+    --s5:#6FAF8B; --s4:#95B472; --s3:#D4B34A; --s2:#D49555; --s1:#C67C5C; --s0:#B56A64; --sx:#6E7A70;
+    --chipink:#141A16; --dot-off:#39433B;
+  }
+  :root[data-theme="dark"][data-gear="tent"]{ --accent:#86BC9C; --accent-soft:#86BC9C1E; }
+  :root[data-theme="dark"][data-gear="either"]{ --accent:#C2A183; --accent-soft:#C2A1831E; }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+  body{ background:var(--ground); color:var(--ink); font-family:"Source Sans 3",system-ui,sans-serif;
+        margin:0; line-height:1.5; font-size:15.5px; }
+  a{ color:var(--accent); }
+  .shell{ max-width:1140px; margin:0 auto; padding:0 22px; }
+
+  /* ---- masthead ---- */
+  .masthead{ position:sticky; top:0; z-index:30; background:var(--ground); border-bottom:1px solid var(--edge); }
+  .mastrow{ display:flex; align-items:center; gap:16px; padding:10px 0; flex-wrap:wrap; }
+  .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); margin-right:auto; }
+  .brand svg{ width:34px; height:30px; display:block; }
+  .brand .wm{ font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:21px; line-height:1;
+              letter-spacing:-.01em; }
+  .brand .tag{ display:block; font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--muted);
+               letter-spacing:.06em; margin-top:2px; }
+  .gear{ display:flex; border:1.5px solid var(--accent); border-radius:3px; overflow:hidden; }
+  .gear button{ font:inherit; font-weight:700; font-size:13.5px; padding:7px 14px; border:0; cursor:pointer;
+                background:transparent; color:var(--accent); display:flex; gap:7px; align-items:center; }
+  .gear button svg{ width:20px; height:13px; }
+  .gear button.on{ background:var(--accent); color:var(--chipink); }
+  .gear button:focus-visible, .pchip:focus-visible, .minsel:focus-visible, .search:focus-visible,
+  details.site summary:focus-visible, .mapdot:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+  /* ---- intro + map ---- */
+  .lede{ display:grid; grid-template-columns:minmax(300px,5fr) minmax(330px,6fr); gap:34px; align-items:center;
+         padding:34px 0 12px; }
+  @media (max-width:840px){ .lede{ grid-template-columns:1fr; } }
+  .lede h1{ font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:clamp(28px,4vw,42px);
+            line-height:1.06; margin:0 0 12px; text-wrap:balance; }
+  .lede p{ color:var(--muted); margin:0 0 16px; max-width:56ch; }
+  .lede p strong{ color:var(--ink); }
+  .statrow{ display:flex; gap:22px; font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted); }
+  .statrow b{ display:block; font-family:"Bricolage Grotesque",sans-serif; font-size:23px; color:var(--ink);
+              font-weight:800; line-height:1.1; }
+  .mapbox{ background:var(--panel); border:1px solid var(--edge); border-radius:4px; padding:10px 10px 4px; }
+  .mapbox svg{ width:100%; height:auto; display:block; }
+  .mapfoot{ display:flex; justify-content:space-between; font-family:"IBM Plex Mono",monospace; font-size:10px;
+            color:var(--muted); padding:4px 6px 6px; }
+  .mapdot{ cursor:pointer; }
+  .maplabel{ font-family:"Source Sans 3",sans-serif; font-size:11.5px; fill:var(--ink); }
+  .maplabel.dim{ fill:var(--muted); }
+  .rivlabel{ font-family:"IBM Plex Mono",monospace; font-size:9px; fill:var(--water); letter-spacing:.08em; }
+  .ringlabel{ font-family:"IBM Plex Mono",monospace; font-size:9px; fill:var(--muted); }
+
+  /* ---- toolbar ---- */
+  .toolbar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:16px 0 6px;
+            border-top:1px solid var(--edge-soft); margin-top:20px; }
+  .toolbar .lbl{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); letter-spacing:.05em; }
+  .search{ font:inherit; font-size:13.5px; padding:7px 11px; border:1px solid var(--edge); border-radius:3px;
+           background:var(--panel); color:var(--ink); flex:1; min-width:170px; max-width:300px; }
+  .search::placeholder{ color:var(--muted); }
+  .minsel{ font:inherit; font-size:13.5px; padding:7px 9px; border:1px solid var(--edge); border-radius:3px;
+           background:var(--panel); color:var(--ink); }
+  .pchips{ display:flex; flex-wrap:wrap; gap:6px; padding:8px 0 4px; }
+  .pchip{ font:inherit; font-size:12.5px; font-weight:600; padding:4px 10px; border-radius:3px; cursor:pointer;
+          border:1px solid var(--edge); background:var(--panel); color:var(--muted); }
+  .pchip.on{ background:var(--accent-soft); border-color:var(--accent); color:var(--ink); }
+  .pchip .n{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; opacity:.75; }
+
+  /* ---- park sections as index ---- */
+  .parkhead{ display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 14px; margin:38px 0 2px;
+             border-bottom:2px solid var(--ink); padding-bottom:6px; }
+  .parkhead h2{ font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:23px; margin:0; }
+  .parkmeta{ font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); letter-spacing:.03em;
+             margin-left:auto; }
+  .parknote{ color:var(--muted); font-size:14px; max-width:88ch; margin:8px 0 4px; }
+
+  details.site{ border-bottom:1px solid var(--edge-soft); }
+  details.site summary{ list-style:none; cursor:pointer; display:grid; align-items:center; gap:6px 16px;
+    grid-template-columns:minmax(180px,1.3fr) 150px 150px minmax(160px,1fr); padding:10px 4px; }
+  details.site summary::-webkit-details-marker{ display:none; }
+  details.site[open]{ background:var(--panel); }
+  details.site summary:hover .sitename{ color:var(--accent); }
+  .sitename{ font-family:"Bricolage Grotesque",sans-serif; font-weight:600; font-size:16.5px; line-height:1.25; }
+  .vchip{ display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+          padding:2px 8px; border-radius:2px; color:var(--chipink); margin-top:3px; white-space:nowrap; }
+  .meter{ display:flex; align-items:center; gap:7px; font-size:12px; }
+  .meter .lab{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+               width:42px; color:var(--muted); }
+  .meter.active .lab{ color:var(--ink); font-weight:500; }
+  .meter .dots{ display:flex; gap:3.5px; }
+  .meter .dot{ width:8px; height:8px; border-radius:50%; background:var(--dot-off); }
+  .meter .cap{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); }
+  .meter.dim{ opacity:.45; }
+  .spancell{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted);
+             overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  @media (max-width:760px){
+    details.site summary{ grid-template-columns:1fr 1fr; }
+    .spancell{ display:none; }
+    details.site summary > .namecell{ grid-column:1 / -1; }
+  }
+  .body{ padding:4px 16px 16px; font-size:14px; max-width:86ch; }
+  .body p{ margin:9px 0 0; }
+  .body .k{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+            color:var(--accent); display:block; margin-bottom:1px; }
+  .quote{ font-style:italic; color:var(--quote); padding-left:18px; position:relative; }
+  .quote::before{ content:"\201C"; position:absolute; left:0; top:-2px; font-family:"Bricolage Grotesque",serif;
+                  font-size:22px; font-style:normal; color:var(--accent); line-height:1; }
+  .spill{ display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.07em;
+          text-transform:uppercase; border:1px solid var(--accent); color:var(--accent); border-radius:2px;
+          padding:1.5px 6px; margin:3px 0 0 6px; vertical-align:1px; }
+  .spill.grp{ border-color:var(--edge); color:var(--muted); }
+  .ebadge{ display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.08em;
+           text-transform:uppercase; border:1px solid var(--edge); border-radius:2px; padding:2px 7px;
+           color:var(--muted); margin-top:11px; }
+  .ebadge.field{ border-color:var(--accent); color:var(--chipink); background:var(--accent); }
+  .ebadge.verbatim{ border-color:var(--s5); color:var(--s5); }
+  .ebadge.official{ border-color:var(--accent); color:var(--accent); }
+  .ebadge.forum{ border-color:var(--s3); color:var(--s3); }
+  .empty{ color:var(--muted); font-size:14px; padding:14px 4px; }
+
+  .votebar{ display:flex; align-items:center; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .votebar .vlab{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
+                  text-transform:uppercase; color:var(--muted); }
+  .vbtn{ font:inherit; font-size:12px; font-weight:600; padding:4px 10px; border-radius:3px; cursor:pointer;
+         border:1px solid var(--edge); background:var(--panel); color:var(--ink); }
+  .vbtn:hover{ border-color:var(--accent); }
+  .vbtn b{ font-family:"IBM Plex Mono",monospace; font-weight:500; color:var(--accent); }
+  .vbtn:disabled{ opacity:.55; cursor:default; }
+  .vmsg{ font-size:11.5px; color:var(--muted); }
+  .vlink{ font-size:12px; }
+
+  /* ---- footer ---- */
+  .sitefoot{ margin-top:64px; background:var(--panel); border-top:1px solid var(--edge); }
+  .footgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:28px; padding:34px 0 22px; }
+  .footgrid h3{ font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+                color:var(--muted); margin:0 0 10px; font-weight:500; }
+  .footgrid p, .footgrid li{ font-size:13.5px; color:var(--ink); }
+  .footgrid ul{ margin:0; padding-left:16px; }
+  .footgrid li{ margin:4px 0; }
+  .footgrid .sub{ color:var(--muted); }
+  .baseline{ border-top:1px solid var(--edge-soft); padding:14px 0 26px; display:flex; flex-wrap:wrap; gap:6px 22px;
+             font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); }
+</style>
+
+<header class="masthead"><div class="shell mastrow">
+  <a class="brand" href="#" onclick="setPark('all');return false;">
+    <svg viewBox="0 0 40 34" fill="none" stroke="currentColor" aria-hidden="true">
+      <path d="M5 3v28M35 3v28" stroke-width="3" stroke-linecap="round"/>
+      <path d="M5 9c7 9 23 9 30 0" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M20 17l-7 12h14l-7-12zm0 0v12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span><span class="wm">Hang or Stake</span><span class="tag">MN METRO OVERNIGHT GUIDE</span></span>
+  </a>
+  <div class="gear" role="group" aria-label="Gear mode">
+    <button id="g-hang" class="on" onclick="setGear('hang')">
+      <svg viewBox="0 0 44 28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M4 4v20M40 4v20M4 8c8 12 28 12 36 0"/></svg>Hammock</button>
+    <button id="g-tent" onclick="setGear('tent')">
+      <svg viewBox="0 0 44 28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 4L4 25h36L22 4zm0 0v21"/></svg>Tent</button>
+    <button id="g-either" onclick="setGear('either')">Either</button>
+  </div>
+</div></header>
+
+<div class="shell">
+<section class="lede">
+  <div>
+    <h1>Where to hang — or pitch — within an hour of the Cities.</h1>
+    <p><strong>Every overnight-able site we know of, scored twice: once for hammocks, once for tents.</strong>
+    Flip the gear switch in the header and the whole guide re-sorts. Scores come from site-by-site walkthrough
+    footage, a park office's own recommendations, forum surveys, and our own stays — never from vibes, and every
+    claim wears its evidence tag.</p>
+    <div class="statrow">
+      <span><b>71</b>sites</span><span><b>18</b>areas</span><span><b id="stat-scored">—</b>hang-scored</span>
+      <span><b>1</b>field-tested</span>
+    </div>
+  </div>
+  <figure class="mapbox" style="margin:0">
+    <div id="map"></div>
+    <figcaption class="mapfoot"><span>tap a dot to filter · sized by site count · colored by best hang score</span>
+    <span>schematic, not to scale</span></figcaption>
+  </figure>
+</section>
+
+<div class="toolbar">
+  <span class="lbl">FILTER</span>
+  <select class="minsel" id="minsel" onchange="setMin(this.value)" aria-label="Minimum score">
+    <option value="0">Any score</option><option value="3">Score 3+</option>
+    <option value="4">Score 4+</option><option value="5">Only 5s</option>
+  </select>
+  <button class="pchip" id="solobtn" onclick="setSolo()" aria-pressed="false">Solo trips</button>
+  <input class="search" id="q" type="search" placeholder="Search sites, features, notes…" oninput="setQ(this.value)">
+</div>
+<div class="pchips" id="parkchips"></div>
+
+<main id="parks"></main>
+</div>
+
+<footer class="sitefoot"><div class="shell">
+  <div class="footgrid">
+    <div><h3>About this guide</h3>
+      <p>A working reference for hammock and tent overnights around the Twin Cities, kept by one hammock crew and
+      updated after every trip. Ratings are secondhand unless tagged <em>field-tested</em>; tree spans are eyeball
+      estimates from the people who stood there.</p>
+      <p class="sub">Evidence tags: <strong>Field-tested</strong> — we hung there ourselves. <strong>Verbatim</strong> —
+      said on camera at the site. <strong>Official rec</strong> — named by the park office. <strong>Forum report</strong> —
+      hammockforums or reviewer. <strong>Inferred</strong> — read from terrain; scout before you commit.</p>
+      <p class="sub">Solo: every site is solo-bookable unless marked <strong>group only</strong>. A <strong>solo pick</strong>
+      is a site whose sources specifically flag seclusion, quiet, or low foot traffic — the ones worth going to alone.
+      The "Solo trips" filter hides group-only sites.</p>
+      <p class="sub">Stay reports: each site has a "Stayed here?" row. On the interactive (claude.ai) copy, crew members
+      with edit access can tally a hang or tent stay directly — the page saves itself and everyone sees the count. On
+      this public copy, the link files a stay report on GitHub; reports get folded into the scores on the next update.</p></div>
+    <div><h3>Field rules</h3>
+      <ul>
+        <li>Hammocks are legal in MN state parks — camp in designated sites and don't damage trees
+            (<a href="https://www.revisor.mn.gov/rules/?id=6100">MN Rules ch. 6100</a>). Carry 2″ straps.</li>
+        <li>Reservations required, even for backpack sites — <a href="https://reservemn.usedirect.com/MinnesotaWeb/">reservemn</a>.
+            Cannon River and the NPS riverway are the first-come exceptions.</li>
+        <li>A workable hang span is ~12–16 ft; 10 ft won't fit a tarp. Long straps rescue marginal sites.</li>
+        <li>No campfires at MN Valley backcountry sites. Permit needed on the riverway between Hwy 8 and the High Bridge.</li>
+        <li>Poison ivy at Sand Dunes; widow-makers flagged at Lake Maria B8 &amp; B17; horses on the B7 trail May–Nov.</li>
+        <li>The DNR reservation site shows a photo and description for every numbered site — check the trees before
+            you book. Afton sells all-you-can-cut wood for $6 by the campground.</li>
+        <li>Solo playbook from r/MinnesotaCamping: walk-in and cart-in sites sit far from the RV/generator loops;
+            weekdays and shoulder season (late April, Sept–Nov) empty the parks out; first-come sites near popular
+            areas fill by Wednesday or Thursday; state-forest sites book same-day only.</li>
+      </ul></div>
+    <div><h3>Sources</h3>
+      <ul>
+        <li>Our trips (Pine Ridge, Wild River)</li>
+        <li>MN Hiker — Afton &amp; Lake Maria site walkthroughs</li>
+        <li>Cipher-Tu Productions — SCOUT series</li>
+        <li>Wrongway Campaggin — per-site hammock trip videos (Lake Maria B2/B4/B5/B7+8/B14, Wild River, Afton 18,
+            Gov. Knowles)</li>
+        <li>hammockforums — <a href="https://www.hammockforums.net/forum/archive/index.php/t-121851.html">state parks</a>,
+            <a href="https://www.hammockforums.net/forum/archive/index.php/t-47683.html">metro hangs</a>,
+            <a href="https://www.hammockforums.net/forum/archive/index.php/t-132831.html">Rum River</a></li>
+        <li>r/MinnesotaCamping — <a href="https://www.reddit.com/r/MinnesotaCamping/comments/1ugmags/quiet_camping/">quiet camping</a>,
+            <a href="https://www.reddit.com/r/MinnesotaCamping/comments/1tly37w/single_person_quiet_car_camping/">solo trips</a>,
+            <a href="https://www.reddit.com/r/MinnesotaCamping/comments/1ue1tc3/nonreservable_campsite_experiences/">first-come sites</a>,
+            <a href="https://www.reddit.com/r/MinnesotaCamping/comments/1tykthl/looking_for_a_good_campsite_within_about_90_min/">near-metro recs</a></li>
+        <li><a href="https://www.youtube.com/watch?v=Tjev63PKq14">Wild River park-office email</a> (via trip video)</li>
+        <li><a href="https://www.dnr.state.mn.us/state_parks/index.html">MN DNR</a> ·
+            <a href="https://www.nps.gov/sacn">NPS</a> ·
+            <a href="https://www.ricecountymn.gov/facilities/facility/details/Cannon-River-Wilderness-Area-4">Rice Co.</a> ·
+            <a href="https://www.washingtoncountymn.gov/1820/Camping">Washington Co.</a> ·
+            <a href="https://www.threeriversparks.org/activity/camping">Three Rivers</a></li>
+      </ul></div>
+  </div>
+  <div class="baseline">
+    <span>Updated Aug 31, 2026</span><span>Conditions and rules change — verify before booking</span>
+    <span>Not affiliated with the MN DNR or NPS</span>
+  </div>
+</div></footer>
+
+<script type="application/json" id="stay-data">{}</script>
+<script>
+// [park, site, hang(0-5|null), tent(0-5|null), hangVerdict, hangs, spans, ground, setting, notes, quote, evidence, tentBasis]
+const SITES=[
+["Afton","Site 25",5,4,"Best in park","3+","11–13 ft, plus a ~15","Flat, lots of tent room","Next to a small open prairie; far end of the trail, little foot traffic","Multiple usable pairs plus room for many tents. Neighbors site 27. A forum hanger independently confirmed the far end of Afton has the good trees.","an excellent campsite for hammockers … this is the best one by far","verbatim","lots of space for lots of tents"],
+["Afton","Site 3",4,3,"Good","several","not measured","Two tent pads","Wooded, uphill from sites 0/1/2","The densest timber he found; likely why the park keeps a wooded map for hammockers.","lots of trees … plenty of spots for hammocks here","verbatim","two tent pads"],
+["Afton","Site 6",4,3,"Good","2–3","not measured","Two adjacent tent pads","Wooded, primitive outhouse nearby","Roomier than nearby 5; convenient to the privy. Independently seconded by a hammock camper walking the campground: 'probably a pretty good hammock camping one.'","hammocking check — you probably get two in there, three if you're lucky","verbatim","two adjacent pads"],
+["Afton","Site 22",4,1,"Good","2","not measured","Flat, a little muddy on one side","End of the road past 21","No real tent pads, so it favors hangers.","probably more hammock friendly than anything","verbatim","no tent pads per se"],
+["Afton","Site 27",3,2,"Decent","~2","~10 ft (short hammock) + a longer pair","One flat spot by the ring; rest on a slant","End of the road up the main hill","The 10 ft pair only works with a short hammock. Neighbors site 25.","a good spot for about two hammocks maybe, and then one comfortable tent","verbatim","one comfortable tent, second on a slant"],
+["Afton","Site 21",3,3,"Decent","1–2","~12 ft","Two tent pads","Nestled in woods, not visible from 20","A second hang exists but sits on a deer trail — skip that one.","in general looks like one solid hammock spot","verbatim","two tent pads"],
+["Afton","Site 11",3,4,"Decent","1–2","not measured","Mostly open, slightly tilted in spots","Under a distinctive shade tree; near water, wood and the privy","Big site.","a one, maybe two hammock site plus maybe three or four tents","verbatim","three or four tents fit"],
+["Afton","Site 7",3,3,"Decent","1","11–12 ft, second tree as backup","Open, muddy near the fire ring","Prairie site on a cliff edge, big view","Exposed — wind noise was constant on camera.","pretty open as a hammock spot, if you don't mind being on a cliff","verbatim","plenty of tent space"],
+["Afton","Site 13",2,3,"Marginal","1","~12 ft","Decent flat space for a couple of tents","Wooded, heavy deer traffic","One pair and that's it.","maybe a hammock spot from there to there … about 12 feet, that's about it","verbatim","flat space for a couple of tents"],
+["Afton","Site 15",2,4,"Marginal","1","~13 ft (a ~17 pair he'd skip)","Very flat — among the flattest in the park","Open site","Signs someone camped at the 13 ft pair before.","as far as hammocks, this is about a 13-foot gap","verbatim","very flat; definitely some tents"],
+["Afton","Site 20",2,3,"Marginal","1","~13.5 ft","Two tent pads","Wooded","One span only.","one spot right here, about thirteen and a half feet across — that's about it","verbatim","two tent pads"],
+["Afton","Site 26",2,2,"Marginal","1","not measured","Noticeably slanted; one flat spot near the ring","Big open field ringed by woods, corner of two roads","Longest walk in the park; the deer take refuge here.","a decent spot from that tree to that tree, and that's about it","verbatim","slanted; roughly two tents"],
+["Afton","Site 1",2,3,"Marginal","maybe 1","not measured","Two tent pads","Top of the first hill","First site in; minimal beyond pads, table, ring.","maybe a hammock spot over there, and really that's about it","verbatim","two tent pads"],
+["Afton","Site 4",1,2,"Poor","maybe 1","not measured","Grass, no designated pads","Overlooking the valley, just off the path","Grass site with few trees.","not really any hammock spots — maybe this one, just maybe","verbatim","grass, no designated pads"],
+["Afton","Site 8",1,4,"Poor","maybe 1","11–12 ft","Open prairie, lots of tent space","Beautiful prairie, big view; privy nearby","Two gigantic trees but nothing else usable.","doesn't look like there's any real hammock spots — maybe those two","verbatim","mostly a tent site; fits a couple big ones"],
+["Afton","Site 18",3,2,"Confirmed hang","1-2","not measured","One tent pad","River view; fire ring right on the edge","CONFLICT RESOLVED by a real stay: MN Hiker discounted the tree pair for sitting too close to the tent pad — a hammock camper then slung directly over the pad, stayed dry through rain, and woke to the St. Croix beyond his toes. Fine solo; awkward if a tenter needs the pad.","plenty of trees which make nice options for hammock camping … I can see the St. Croix River just beyond my toes","verbatim","one pad, cliff-edge ring"],
+["Afton","Site 17",1,3,"Poor","maybe 1","not measured","Designated tent site plus a flat spot","Deep woods above a ravine, drop-off at the edge","The only pair straddles a deer trail — he wouldn't risk it.","I wouldn't mess with that — you end up with deer inside your tarp","verbatim","more of a tent site; one flat spot for sure"],
+["Afton","Site 2",1,2,"Poor","maybe 1","not measured","One large tent pad","Across from site 0","","as far as hammocking goes it doesn't look very promising — maybe one over yonder","verbatim","one large pad"],
+["Afton","Site 12",1,5,"Poor","workable but bad","~15–16 ft (long) or ~10 (tarp won't fit)","Flat, flat, flat — big tent capacity","Heavy deer sign","His usual pair here is 15–16 ft; the alternative is ~10 ft, too short for his tarp.","this is a tent site for sure","verbatim","you could have a small community in this one"],
+["Afton","Site 5",1,2,"Poor","0–1","not measured","One pad, open space, edge of a drop-off","Across a ravine from 3; a real hike in","Poplar stand, but the trees are mostly up the hill off-site.","if you're gonna be hammocking, this is one I probably wouldn't go to","verbatim","one pad; cozy"],
+["Afton","Site 10",0,2,"Avoid for hanging","0","—","Tilted — the first non-flat site he saw","Closest to water, wood and the privy","Fine enough for a tent or two.","I wouldn't recommend hanging any hammocks in here — definitely not","verbatim","tilted but flat enough for most tents"],
+["Afton","Site 14",0,0,"Avoid","0","—","Slanted; the table area turns to mud","Right off the path; site 23 visible","The one site he'd actively avoid — bad for tents too.","out of all the campsites, 14 is one that I would try to avoid","verbatim","mud pit around the table; not tent friendly"],
+["Afton","Site 16",0,3,"Avoid for hanging","0","—","Space for a few tents","Best privacy in the park — a ring of trees and shrubbery","Tent-only, but the nicest privacy screen he found.","space for a few tents here and no hammocks — definitely a tent-only site","verbatim","a few tents behind a privacy wall"],
+["Afton","Site 23",0,2,"Avoid for hanging","0","—","Decently flat, slight slant","Open field, no shade","Pure field site.","there are no hammock sites whatsoever — this is a field campsite for sure","verbatim","a couple tents, snug"],
+["Afton","Site 24",0,2,"Avoid for hanging","0","—","Flat, slight downhill","Smaller site for smaller groups","Fits two tents.","as far as hammocks go, I would not bother","verbatim","big enough for two tents"],
+["Afton","Site 0",null,2,"Not assessed","","","No tent pads","Very quick exit back to the trail","Only the fire ring and picnic table noted; no hammock read given.","campsite 0 has no tent pads — just a nice happy place for you to set up","none","no pads; open spot"],
+["Afton","Site 9",null,2,"Not assessed","","","Tent pad next to the fire ring","Prairie; grass and flowers in spring; deer everywhere","Oversized old fire scars eat into the usable space. No hammock read given.","big fires people had don't quite allow you to camp where you think you should","none","fire scars limit the space"],
+["Afton","Site 19",null,3,"Not assessed","","","Two tent pads on two levels","River view like 18; on a cliff edge","Flagged as a poor choice with small children. No hammock read given.","just like 18, it's on the edge of a cliff","none","two pads on two levels"],
+["Lake Maria","B2",5,4,"Best in park","many","your pick","Flat throughout","On a peninsula over Putnam Lake; trails down to the shoreline","Two independent hammock campers have hung here — one says 'anywhere,' the other counts room for two or three with a lake view from the fly. Trumpeter swans and cranes overfly; a beaver lodge across the lake. B1–B3 lot holds only 5–6 cars.","you could hang a hammock just about anywhere … there's just so many spots","verbatim","put a tent pretty much anywhere"],
+["Lake Maria","B11",5,5,"Star site — confirmed","4–5","not measured","Flat, flat, flat; drains fast","75–100 yds off the trail, ~½ mi from the trail center — secluded and big; no lake view","Largest site MN Hiker saw, and a hammock camper has since slept a hang here (it was his first-ever hammock night — B11 is that forgiving). Skip the hang that crosses the latrine path; one rock at the entrance.","I'd say B11 is your star campsite so far","verbatim","space like you wouldn't believe — up to six-person tents"],
+["Lake Maria","B13",5,4,"Excellent","3","bring slightly larger straps","Flat, little leaf litter, can get muddy","Wooded, no lake view","Three spans called out one after another. No widow-makers overhead.","an A for hammocks — just bring slightly larger straps","verbatim","flat, graded well for tents too"],
+["Lake Maria","B6",4,3,"Good","2–3","one pair under 10 ft — reach farther","Back end noticeably slanted; flat near the ring","Right on the pond (turtles); its own privy","Options inside and outside the site; don't hang across the walking/deer trail.","you could hang two or three in here","verbatim","five or six people comfortably"],
+["Lake Maria","B4",4,4,"Good — twice confirmed","2–3","not measured","Large, spacious, mostly open; own private latrine ~100 yds out","Over a wooden bridge; small-lake view behind the hang trees; half the walk is on a private spur trail","Both sources agree: MN Hiker counted 2–3 spots, and a hammock camper later hung between 'conveniently placed trees' facing the water. Bugs can be fierce — bring the net; an afternoon breeze helps.","look at those conveniently placed trees for hammock camping","verbatim","a great tent site, not gonna lie (MN Hiker)"],
+["Lake Maria","B9",3,3,"Decent","1–2","not measured","Cozy but good; two tent spots","Privy shared with B10, uphill","","good for hammocks, good for tents","verbatim","two decent-sized tents"],
+["Lake Maria","B1",4,3,"Confirmed hang","2+","not measured","Up on a hill, some slanted ground","¾ mi through the woods plus a ¼-mi private spur trail — well tucked away","UPGRADED: MN Hiker only saw it from afar (occupied), but a hammock camper has since spent an October night hung here — trees everywhere on the walk in and at the site. He liked the park enough to come back within two months.","there's some hills and ups and downs, trees everywhere","verbatim","room for four tents (from afar, MN Hiker)"],
+["Lake Maria","G2 Oak Hill (group)",3,4,"Moderate","a few","thick trunks — big straps","Slanted near the lot; very flat farther in","Group site over a pond; ~2.5 fire rings","Big enough that even modest tree density yields several hangs; ~20 people fit.","modestly hammock friendly, even for a big site","verbatim","very flat spots; ~20 people"],
+["Lake Maria","B16",2,5,"Marginal","1–2","not measured","Nice tent pad plus a second flat area","Non-reservable; view toward Sloth Lake","Young and old growth, nothing in between. Oddly, every tree leans.","potential hammocking there, definite hammocking over there","verbatim","A-plus for tents — absolutely beautiful"],
+["Lake Maria","B12",2,3,"Marginal","1–2","~10 (tight), ~12, or ~16 ft","Very flat; one small rock and a dip","Wooded","All three options need long straps.","you got options, but you need big straps","verbatim","acceptable; two-person spots"],
+["Lake Maria","B15",1,4,"Poor","1 (a stretch)","long — barely worked","Flat, flat, flat","Overlooks Maria Lake; shares a privy with B14","He and his wife stayed here; the single hang was a real reach. 4 inches of rain that night.","the only place I could find a hammock was from here to there, and it was a stretch","verbatim","flat flat flat; a great site"],
+["Lake Maria","B10",1,3,"Poor","1","not measured","Slanted across the site; flat by the food box","Uphill climb in; privy shared with B9","The one hang option risks blocking the latrine path.","not the best for hammocking, pretty good for tenting","verbatim","pretty good for tenting"],
+["Lake Maria","B17",1,4,"Poor","maybe 1, tricky","not measured","Decently flat, good tent space","Most secluded of the near sites; swamp with frogs behind","Woodpecker damage and a clear widow-maker — don't camp under it. Don't hang over the latrine trail.","you might be able to finagle one in here, but it's probably going to be tricky","verbatim","tents are great for B17"],
+["Lake Maria","B5",2,4,"Confirmed, but limited","1 cluster","most trees too small","Hilltop clearing over a small lake; tent pads level","Very easy walk in (10–15 min); swans, geese and ducks on the lake below","UPGRADED by a real stay: MN Hiker saw almost nothing, but a hammock camper found the one workable cluster by the picnic table and slept fine. Caveat from his night: the hang runs east–west, so west lake weather can blow in one end of a tarp.","trees for hammock camping were a little bit limited … the most suitable ones were this cluster near the picnic table, and it worked just fine","verbatim","very tent friendly (MN Hiker)"],
+["Lake Maria","B3",0,2,"Avoid for hanging","0","trees too far apart","Slanted on a hill","By the camper cabin and water","The site that taught him to check tree spacing — trunks huge and too widely spaced. Counterpoint for tenters: a r/MinnesotaCamping regular calls B3 their favorite secluded fall site (dog-friendly trips) — a good site, just not for hammocks.","the trees are too far apart for hammocking, and they're huge","verbatim","all right enough for tenting, on a slant"],
+["Lake Maria","G1 Whitetail (group)",null,4,"Not assessed","","","Lots of good flat space, upper and lower","True group site over a pond; own privy; 2 fire rings","No hammock read given. The pad next to the privy is the short straw if the wind is wrong.","more space than you can think of — this is a true group campsite","none","flat space galore"],
+["Lake Maria","B14",4,4,"Confirmed hang","2+","not stated","Two tent pads, one in a tree cluster","Lakeside view; secluded a couple minutes off the main trail; latrine shared with B15 but far from both","CONFIRMED: a hammock camper slung in the tree cluster by the second pad and recommends the site outright. Still the most popular site in the park — first to book. Frogs can croak loudly ALL night in season.","one of the tent pads is in a nice cluster of trees, which is perfect for hammock camping … a great place to hang a hammock","verbatim","two pads; he'd book it first with a tent (SCOUT)"],
+["Lake Maria","B8",3,3,"Decent (sources split)","1–2","conflicting reads","Mild slant; THREE tent pads, two in the trees","Secluded, surrounded by trees, lake view; latrine isolated on the hilltop","SOURCES SPLIT: a hammock-focused camper who walked in scouting hangs saw 'decent options'; the tent-camper SCOUT walkthrough thought the trees sat far apart and flagged a widow-maker. Weight the specialist, but look up before you commit.","there seem to be some decent options for hanging a hammock at the site","verbatim","three tent pads"],
+["Lake Maria","B7",4,3,"Confirmed hang","several","not stated","Hilltop clearing; two tent pads; private latrine before the bridge","Most secluded; surrounded by marsh and cattails; lake glimpse through the trees, ~½ mi walk to the shore","CONFIRMED: a hammock camper hung here through heavy overnight rain and stayed dry (west-facing tarp side). Also the SCOUT narrator's favorite site in the park. ~1 mile easy hike, then a bridge and a short climb. Horses on the trail May 1–Nov 1.","plenty of trees for hammock camping … we had a heavy rain that night and I stayed high and dry","verbatim","two tent pads on the knoll"],
+["Wild River","Pine Ridge",5,3,"Field-tested — 4 hung","7+ (3 by the ring, 4+ on the ridge edge)","not measured","Dedicated tent pad; fire ring; latrine","Backpack site","OUR STAY (logged as stay report #1): three hangable spots by the fire ring / picnic table, and past the latrine at the edge of the ridge a run that took four full systems — hammocks AND tarps — side by side, with room for a few more. Best group-hang backpack site on this list. One caution for bigger parties: tarp footprints, not trees, become the constraint.","3 near fire ring / picnic table, 4+ past the latrine / edge of ridge … us 4 got our full systems set up no problem","field","dedicated tent pad on site"],
+["Wild River","Aspen Knob",4,3,"Confirmed hang","2+","not stated","Tent pad, fire ring, bear box, own latrine","1.3 mi in; 150–200 ft off the main trail, fully wooded, little sky","PARK OFFICE RECOMMENDED for hammocks by email, and the videographer hung here. Gentler hills than Afton; wood gatherable.","those two trees in the center of the frame are the best options for hanging a hammock","official","tent pad areas by the hang trees"],
+["Wild River","Spring Creek",4,3,"Confirmed hang","2+","not stated","Spacious clearing; own latrine set well back","Only ~10 min from the boat-landing lot, a couple hundred feet off the River Trail","Office-recommended AND now hung: a hammock camper found the pair immediately. One caveat — a sometimes-busy Wisconsin road across the river carries motorcycle noise on summer Sunday afternoons; it quiets by evening. Deer wandered into camp.","check out these two trees, which look like they were just planted for hammock campers like me","verbatim","spacious clearing in the trees"],
+["Wild River","Deer Creek",3,4,"One good hang","1","not stated","Large, open, sunny; three tent pads carved from the brush; stairs down to the riverbank","~1 mi from the boat landing past a beaver pond, right on the St. Croix","Two independent sources agree on exactly one hang spot, near the site entrance. Otherwise a tent site — big flat grass, big river view. Horses use the trail by day; secluded at night.","not a lot in the way of trees for hammock camping, except for one location … close to the entrance","verbatim","three neat tent pads, flat grass"],
+["Wild River","Buck Hill",0,3,"Avoid for hanging","0","—","Beautiful site otherwise","Backpack site","A four-hammock group had to abandon it and rebook.","there is not a single hammock option … not hammock friendly at all","verbatim","'gorgeous' — their gripe was hammocks, not tents"],
+["Wild River","Dry Creek",null,null,"Not assessed","","","","Beyond a run of steep hills past Aspen Knob","The Aspen Knob videographer turned around at the hills; office warned wood may be scarce.","a lot of hills, including this really steep one that made me think enough was enough","none",""],
+["Cleary Lake Regional","Lakeside walk-in",3,null,"One good site","several trees","not stated","Walk-in on a low-traffic trail; no neighboring sites","Right on the lake — closest option to the metro here (Prior Lake)","The OTHER Cleary walk-ins are explicitly NOT hammock-friendly — book the lakeside one. A canoe-in island group site also has room.","the one by the lake has some real nice trees to string up from","forum",""],
+["Nerstrand Big Woods","Walk-in sites (4)",null,3,"Likely good (forum-backed)","","not surveyed","Tent-only walk-ins; easy access; well spread out","Old-growth maple–basswood 'Big Woods'; waterfall hike; ~40 min south","r/MinnesotaCamping's quiet-camping pick: the walk-in loop sits in a totally separate part of the park from the campground, with the sites spread out among lots of trees. Still no hang-specific survey — but trees + quiet + separation is the right recipe.","totally separate part of the park … the walk-in sites are pretty spread out, lots of trees","forum","designated tent-only sites"],
+["Frontenac","Cart-in C6",null,1,"Most private (inferred)","","not stated","Ground rough and lumpy — poor for tents, which favors a hammock if pairs exist","Over the bluff from Lake Pepin, facing Maiden Rock","INFERRED: the SCOUT narrator (tent camper) never rates hangs; he calls C6 the most private site in the park. Scout trees in person.","this is the most private site … laying a tent on this wouldn't be kind","inferred","laying a tent on this wouldn't be kind"],
+["Frontenac","Cart-in C3",null,4,"Narrator's pick (inferred)","","not stated","Level grass, good fire pit","Closest to the (very nice) vault toilet; C4 close next door","His favorite cart-in and the one he booked; a 'really cool tree' on site. No hammock info.","you got this really cool tree right here … my favorite site so far here","inferred","level grass; lots of tents went here"],
+["Frontenac","Backpack sites (2)",null,null,"Not assessed","","","Wood provided","A hike out from the cart-in area; the two sites sit near each other","Exist per the SCOUT narrator; no captioned walkthrough found.","there are backpack sites over there … they do provide wood over there","none",""],
+["Sand Dunes SF","Dispersed / Ann Lake walk-ins",3,3,"Confirmed hangs","your pick","your pick","Free dispersed camping plus walk-in sites at the campground","Oak/pine forest by Zimmerman; quietest after a hard freeze","Forum hangers camp here without hassle — but POISON IVY is endemic: one regular got it badly twice, once in early spring through long clothing.","the last 2 times I ventured into the Sand Dunes … I got poison ivy pretty bad","forum","dispersed — pick your ground"],
+["Sakatah Lake","Site 3 (drive-in)",5,3,"Group-hang best","8–10","not stated","Drive-in campground — not backpacking","Rangers hammock-friendly; on the Singing Hills bike trail (Waterville)","From a 2017 four-sister survey for group hangs. Max 6 campers/site. Runners-up: site 1 (4–6), sites 6 &amp; 8 (5–6), site 11 (3–4). Three bike-in sites unsurveyed.","Site 3: 8–10 hammocks — full site-by-site list in the thread","forum","drive-in pad"],
+["MN Valley SRA","Lawrence Unit walk-ins (8)",null,3,"Not assessed","","not surveyed","8 secluded walk-in sites, plus 25 drive-in","Minnesota River bottoms hardwood forest near Jordan","River-bottom cottonwood/maple forest should offer pairs, but nobody has rated hangs here. Bugs are serious in the bottoms in summer.","the Lawrence Unit has 25 scenic, well-spaced campsites and 8 secluded walk-in campsites","none","secluded walk-in sites"],
+["MN Valley SRA","Backcountry hike-in / boat-in",null,3,"Not assessed","","not surveyed","Rustic backcountry sites — NO CAMPFIRES, even where a ring exists","Along the 35-mile trail between Chaska and Belle Plaine","The closest true backcountry-style camping to the metro (~35 min). No fires at these sites is a DNR rule, not a suggestion.","campfires are not allowed in backcountry (hike-in/backpack and boat-in) campsites","none","rustic sites off the state trail"],
+["Lake Elmo Park Reserve","Hike-in sites (5)",null,3,"Not assessed","","not surveyed","One tent per site; 100–300 yards from the lot","Rolling oak woods and prairie ~25 min east of St. Paul","The shortest carry on this list — a starter overnight. No pets; bathrooms and water at the Nordic Center. Nobody has rated the trees.","five hike-in tent sites … between 100 yards and 300 yards from the parking lot","none","one tent per site"],
+["Crow-Hassan Park Reserve","Group hike-in camps",null,3,"Not assessed","","not surveyed","Hike-in, bike-in and ride-in group sites","Prairie and oak savanna on the Crow River (Hanover, ~35 min NW)","Three Rivers runs these as GROUP camps — right shape for a friends' hang trip, wrong shape for solo. Elm Creek has the same setup.","group camp hike-in, bike-in and horseback ride-in sites are available at Crow-Hassan","none","group tent camping"],
+["William O'Brien","Walk-in tent sites (2)",null,3,"Not assessed","","not surveyed","Two walk-in sites for a more secluded stay","St. Croix riverside park at Marine on St. Croix (~45 min NE)","Only two, so they book out. Rolling moraine, savanna and hardwoods; forum hangers name the park but nobody has rated these two sites.","two walk-in tent sites for those looking for a more secluded experience","none","walk-in tent sites"],
+["Cannon River Wilderness Area","Hike-in sites (4)",3,3,"Riverbank hangs reported","enough for several","not surveyed","Free, first-come; tables, fire rings, vault toilet May–Oct","850 wooded acres of the Cannon valley between Northfield and Faribault (~50 min S)","FREE and first-come — the no-reservation escape hatch when everything else is booked. ~10-minute walk in; at least one site has riverbank hammock space per campers' reports.","at least one offering enough space to set up hammocks along the riverbank","forum","primitive tent sites, ~10 min walk"],
+["Rum River State Forest","Dispersed",4,3,"Confirmed winter hang","plenty","your pick","Free dispersed camping off gravel forest roads","Flat, easy forest near Milaca (~1 hr N)","A hammockforums regular filmed a December hang here: easy roads, easy terrain, no big deadfall. Solo-friendly and free.","plenty of campsite locations for hammocks or tents","forum","room for tents anywhere"],
+["St. Croix Riverway (NPS)","Paddle-in sites (13)",null,3,"Not assessed","","not surveyed","Free, first-come river campsites; fire rings","Wooded banks between WI Interstate Park and Somerset Landing, via Osceola","The solo-paddle option: 13 free NPS sites reachable only by water. A permit is required to camp between US Hwy 8 and the Soo Line High Bridge. Trees line the banks but nobody has rated hangs.","no fees are charged for … campsites (which are first come, first served)","none","riverbank tent sites"],
+["Stanley Eddy Park Reserve","Walk-in & hike-in sites",null,3,"Not assessed","","not surveyed","FREE with a Special Use Permit (online form or 763-682-7693); open year-round","Wright County reserve southwest of Lake Maria (~55 min W); rolling hills, lakes and marsh across three units","Named twice on r/MinnesotaCamping for private solo camping: some sites are an easy walk-in, others take a longer hike, all fairly private. Wright County lists the carry-in sites as free by permit (a redditor remembered $5 — the county's word wins). Nobody has rated the trees.","some are easy walk-in sites and others take a longer hike, all fairly private","forum","tent sites, walk or hike in"],
+["St. Croix / Chengwatana SF","Boulder Campground & dispersed",null,3,"Not assessed","","your pick","Primitive campground + free dispersed; low ground can be wet","State forests near Pine City / Hinckley (~1 hr 10 NE)","Reddit's last-minute escape valve: quiet, first-come, and a hammockforums poster uses Boulder as the trailhead for dispersed hikes. State-forest sites book same-day only — check in the morning, pay, drive up.","have always thought Boulder Campground in St. Croix State Forest was nice … super secluded","forum","primitive drive-in and dispersed"],
+["Gov. Knowles SF (WI)","Backpack sites (9), Randall Creek confirmed",4,3,"Confirmed hang","2 easy trees at Randall Creek","not stated","Primitive sites along the trail; creek crossings on wooden bridges","55-mile forest strip on the Wisconsin bank of the St. Croix (Grantsburg, ~1 hr 15 NE)","FREE — nine backpack sites, reserved by emailing the forest HQ at least 7 days ahead for a permit (WI DNR). A hammock camper hung at Randall Creek 'between two very conveniently located trees,' filtered creek water, and fought ticks and mosquitoes — bring the net.","I set up my hammock between two very conveniently located trees at my site — that was great","verbatim","flat primitive sites"],
+];
+const PARKS=[
+ ["Afton","~30 min E · backpack-in only","St. Croix bluffs above Afton Alps. All 27 sites hike-in; walked site-by-site by MN Hiker. The good hammock trees cluster at the far end of the trail (25 / 27 / 22). r/MinnesotaCamping concurs on the 14–22 corridor for seclusion, and notes the firewood and water live up top by the sites — no hauling."],
+ ["Lake Maria","~45 min NW · backpack & cart-in","Big-woods remnant at Monticello, all pack-in sites — a hammock favorite on the forums. Sandhill cranes can call all night in season."],
+ ["Sand Dunes SF","~45 min NW · dispersed, free","State forest by Zimmerman: the closest legal dispersed hanging to the metro. Watch the poison ivy."],
+ ["Cleary Lake Regional","~30 min S · walk-in","Three Rivers park at Prior Lake — the quick-overnighter option."],
+ ["Nerstrand Big Woods","~40 min S · walk-in","Old-growth maple–basswood south of Northfield. Four tent-only walk-ins; no one has surveyed the trees yet. Hit the Nerstrand Meat Market on the way."],
+ ["Wild River","~1 hr NE · backpack-in","18 miles of the St. Croix near North Branch, 8 backpack sites — the park office will tell you which suit hammocks, and already has: Aspen Knob and Spring Creek. Our own trip added Pine Ridge, where four of us hung side by side."],
+ ["Frontenac","~1 hr SE · cart-in & backpack","Bluff country over Lake Pepin at Red Wing. Six cart-ins (C1–C6) plus two backpack sites; hammock potential unproven."],
+ ["Sakatah Lake","~1 hr S · drive-in","Not backpacking — but the only campground anywhere with a published site-by-site hammock-capacity survey, so it's the group-hang park."],
+ ["Lake Elmo Park Reserve","~25 min E · hike-in","Washington County reserve with five hike-in tent sites a few hundred yards from the car — the easiest first solo overnight on this list."],
+ ["MN Valley SRA","~35 min SW · walk-in & backcountry","Minnesota River bottoms from Chaska to Belle Plaine: 8 walk-in sites at the Lawrence Unit plus rustic hike-in/boat-in backcountry sites. No campfires at the backcountry ones."],
+ ["Crow-Hassan Park Reserve","~35 min NW · group hike-in","Three Rivers prairie reserve on the Crow River. Group hike-in camps only — bring the crew."],
+ ["William O'Brien","~45 min NE · walk-in","St. Croix riverside park with exactly two walk-in tent sites plus the drive-in campground. Book early."],
+ ["Cannon River Wilderness Area","~50 min S · hike-in, free","Rice County's 850-acre river valley: four free first-come hike-in/canoe sites. The no-reservation fallback."],
+ ["Rum River State Forest","~1 hr N · dispersed, free","Flat, easy state forest by Milaca with free dispersed camping — filmed and confirmed by a winter hammock hanger."],
+ ["St. Croix Riverway (NPS)","paddle access · free","Thirteen free first-come campsites on the federal riverway between Interstate Park and Somerset Landing — reachable only by canoe or kayak."],
+ ["Stanley Eddy Park Reserve","~55 min W · walk-in, $5","Wright County sleeper pick from r/MinnesotaCamping: private walk-in and hike-in sites, five bucks a night, reservable online."],
+ ["St. Croix / Chengwatana SF","~1 hr 10 NE · primitive, same-day","Two state forests near Pine City: Boulder Campground plus free dispersed camping. Same-day booking only — the quiet, no-plan option."],
+ ["Gov. Knowles SF (WI)","~1 hr 15 NE · backpack, free","Wisconsin's 55-mile forest strip along the St. Croix: nine free backpack sites, permit by email a week ahead. A confirmed hang at Randall Creek."],
+];
+// schematic map positions (640x560 viewBox)
+const POS={"Rum River State Forest":[278,52,"l"],"Sand Dunes SF":[252,108,"l"],"Lake Maria":[178,142,"l"],
+"Crow-Hassan Park Reserve":[213,188,"l"],"Wild River":[428,92,"r"],"St. Croix Riverway (NPS)":[449,150,"r"],
+"William O'Brien":[452,196,"r"],"Lake Elmo Park Reserve":[392,244,"r"],"Afton":[449,292,"r"],
+"Cleary Lake Regional":[272,348,"l"],"MN Valley SRA":[210,392,"l"],"Cannon River Wilderness Area":[322,458,"l"],
+"Nerstrand Big Woods":[380,478,"r"],"Sakatah Lake":[268,496,"l"],"Frontenac":[556,432,"r"],
+"Stanley Eddy Park Reserve":[122,214,"l"],"St. Croix / Chengwatana SF":[512,50,"r"],
+"Gov. Knowles SF (WI)":[478,118,"r"]};
+const SHORT={"Rum River State Forest":"Rum River SF","Crow-Hassan Park Reserve":"Crow-Hassan",
+"St. Croix Riverway (NPS)":"NPS Riverway","Lake Elmo Park Reserve":"Lake Elmo","Cleary Lake Regional":"Cleary Lake",
+"Cannon River Wilderness Area":"Cannon River","Nerstrand Big Woods":"Nerstrand","William O'Brien":"Wm. O'Brien",
+"Stanley Eddy Park Reserve":"Stanley Eddy","St. Croix / Chengwatana SF":"State forests NE",
+"Gov. Knowles SF (WI)":"Gov. Knowles (WI)"};
+// solo suitability: 2 = solo pick (source flags seclusion/quiet/low traffic), 1 = solo-bookable, 0 = group-only
+const SOLO2=new Set(["Afton|Site 25","Afton|Site 16","Lake Maria|B7","Lake Maria|B11","Lake Maria|B17",
+"Wild River|Aspen Knob","Wild River|Dry Creek","Frontenac|Cart-in C6","Cleary Lake Regional|Lakeside walk-in",
+"Cannon River Wilderness Area|Hike-in sites (4)","Rum River State Forest|Dispersed",
+"St. Croix Riverway (NPS)|Paddle-in sites (13)","Lake Elmo Park Reserve|Hike-in sites (5)",
+"Sand Dunes SF|Dispersed / Ann Lake walk-ins","Nerstrand Big Woods|Walk-in sites (4)",
+"Stanley Eddy Park Reserve|Walk-in & hike-in sites","St. Croix / Chengwatana SF|Boulder Campground & dispersed",
+"Gov. Knowles SF (WI)|Backpack sites (9), Randall Creek confirmed"]);
+const SOLO0=new Set(["Crow-Hassan Park Reserve|Group hike-in camps","Lake Maria|G1 Whitetail (group)",
+"Lake Maria|G2 Oak Hill (group)"]);
+function soloOf(s){ const k=s[0]+"|"+s[1]; return SOLO0.has(k)?0:SOLO2.has(k)?2:1; }
+const EV={field:"Field-tested",verbatim:"Verbatim",official:"Official rec",forum:"Forum report",inferred:"Inferred",none:"Not assessed"};
+const RAMP=["--s0","--s1","--s2","--s3","--s4","--s5"];
+const TENTV=["Avoid","Poor","Marginal","Decent","Good","Excellent"];
+let gear="hang", park="all", min=0, q="", solo=false;
+
+function scoreOf(s){ const h=s[2], t=s[3];
+  if(gear==="hang") return h; if(gear==="tent") return t;
+  if(h==null&&t==null) return null; return Math.max(h??-1,t??-1); }
+function vchip(s){ const h=s[2], t=s[3];
+  if(gear==="tent") return t==null?["Unknown","--sx"]:[TENTV[t],RAMP[t]];
+  if(gear==="either"){ if(h==null&&t==null) return ["Unknown","--sx"];
+    if(h==null) return ["Tent (hang untested)",RAMP[t]]; if(t==null) return ["Hammock",RAMP[h]];
+    if(h>t) return ["Bring the hammock",RAMP[h]]; if(t>h) return ["Bring the tent",RAMP[t]];
+    return ["Either works",RAMP[h]]; }
+  return [s[4], s[2]==null?"--sx":RAMP[s[2]]]; }
+function dots(v){ let o='<span class="dots">';
+  for(let i=1;i<=5;i++) o+='<span class="dot"'+(v!=null&&i<=v?' style="background:var('+RAMP[v]+')"':'')+'></span>';
+  return o+'</span><span class="cap">'+(v==null?"–":v)+'</span>'; }
+function esc(x){ return String(x).replace(/&(?!amp;)/g,"&amp;").replace(/</g,"&lt;"); }
+function matches(s){
+  const sc=scoreOf(s);
+  if(solo&&soloOf(s)===0) return false;
+  if(min>0&&(sc==null||sc<min)) return false;
+  if(q){ const hay=(s[0]+" "+s[1]+" "+s[4]+" "+s[7]+" "+s[8]+" "+s[9]+" "+s[10]).toLowerCase();
+    if(!hay.includes(q)) return false; }
+  return true;
+}
+function row(s){
+  const [vtext,vcol]=vchip(s);
+  const spans=(s[6]?"spans: "+s[6]:"")+(s[5]?(s[6]?" · ":"")+"hangs: "+s[5]:"");
+  return '<details class="site"><summary>'+
+    '<span class="namecell"><span class="sitename">'+esc(s[1])+'</span><br><span class="vchip" style="background:var('+vcol+')">'+esc(vtext)+"</span>"+
+    (soloOf(s)===2?'<span class="spill">Solo pick</span>':soloOf(s)===0?'<span class="spill grp">Group only</span>':"")+"</span>"+
+    '<span class="meter '+(gear==="tent"?"dim":"active")+'"><span class="lab">Hang</span>'+dots(s[2])+"</span>"+
+    '<span class="meter '+(gear==="hang"?"dim":"active")+'"><span class="lab">Stake</span>'+dots(s[3])+"</span>"+
+    '<span class="spancell">'+esc(spans)+"</span>"+
+    "</summary>"+
+    '<div class="body">'+
+    (s[8]?'<p><span class="k">Setting</span>'+esc(s[8])+"</p>":"")+
+    (function(){ const g=s[7], tb=s[12];
+      const extra = tb && (!g || !g.toLowerCase().includes(tb.toLowerCase().slice(0,18))) ? tb : "";
+      const txt = g ? esc(g)+(extra?" — "+esc(extra):"") : (extra?esc(extra):"");
+      return txt?'<p><span class="k">Ground &amp; tents</span>'+txt+"</p>":""; })()+
+    (s[9]?'<p><span class="k">Worth knowing</span>'+s[9]+"</p>":"")+
+    (s[10]?'<p class="quote">&ldquo;'+s[10]+'&rdquo;</p>':"")+
+    '<span class="ebadge '+s[11]+'">'+EV[s[11]]+"</span>"+votebar(s)+"</div></details>";
+}
+// ---- stay reports: live voting on the claude.ai copy, GitHub-issue fallback on the static copy ----
+let STAY={}; try{ STAY=JSON.parse(document.getElementById("stay-data").textContent)||{}; }catch(e){}
+let ARTIFACT=null, VOTE_STATE="static"; // static | live | busy
+function votebar(s){
+  const k=s[0]+"|"+s[1], v=STAY[k]||{h:0,t:0};
+  const counts=(v.h||v.t)?' <span class="vmsg">('+(v.h||0)+' hang · '+(v.t||0)+' tent so far)</span>':"";
+  if(VOTE_STATE==="static"){
+    const title=encodeURIComponent("Stay report: "+s[0]+" — "+s[1]);
+    const body=encodeURIComponent("Site: "+s[0]+" / "+s[1]+"\nGear: hammock or tent?\nHangs found: \nWhat the listing gets wrong or misses: \n");
+    return '<div class="votebar"><span class="vlab">Stayed here?</span>'+
+      '<a class="vlink" href="https://github.com/lehuukha/hang-or-stake/issues/new?title='+title+'&body='+body+
+      '" target="_blank" rel="noopener">Log a stay report →</a>'+counts+'</div>';
+  }
+  const dis=VOTE_STATE==="busy"?" disabled":"";
+  return '<div class="votebar"><span class="vlab">Stayed here?</span>'+
+    '<button class="vbtn"'+dis+' onclick="vote(event,\''+k.replace(/'/g,"\\'")+'\',\'h\')">Hung here <b>'+(v.h||0)+'</b></button>'+
+    '<button class="vbtn"'+dis+' onclick="vote(event,\''+k.replace(/'/g,"\\'")+'\',\'t\')">Tented here <b>'+(v.t||0)+'</b></button>'+
+    '<span class="vmsg" id="vmsg-'+btoa(k).replace(/[^a-zA-Z0-9]/g,"")+'"></span></div>';
+}
+async function vote(ev,key,kind){
+  ev.preventDefault(); ev.stopPropagation();
+  if(!ARTIFACT||VOTE_STATE==="busy") return;
+  VOTE_STATE="busy"; render();
+  try{
+    const res=await fetch(location.href,{cache:"no-store"});
+    const src=await res.text();
+    const re=/(<script type="application\/json" id="stay-data">)([\s\S]*?)(<\/script>)/;
+    const m=src.match(re);
+    if(!m) throw new Error("marker");
+    let data={}; try{ data=JSON.parse(m[2])||{}; }catch(e){}
+    const v=data[key]||(data[key]={h:0,t:0});
+    v[kind]=(v[kind]||0)+1;
+    await ARTIFACT.publish(src.replace(re,"$1"+JSON.stringify(data)+"$3"));
+    // on success every open view (this one included) reloads to the new version
+  }catch(e){
+    VOTE_STATE="live"; STAY[key]=STAY[key]||{h:0,t:0}; render();
+    const el=document.getElementById("vmsg-"+btoa(key).replace(/[^a-zA-Z0-9]/g,""));
+    if(el) el.textContent = (e&&/not_(granted|writer)/.test(String(e.code||e)))?
+      "View-only access — ask for edit access to vote.":"Someone else just voted — reopen to see the tally.";
+  }
+}
+if(typeof window!=="undefined"&&window.claude&&typeof claude.use==="function"){
+  claude.use("artifact").then(a=>{ if(a){ ARTIFACT=a; VOTE_STATE="live"; render(); } }).catch(()=>{});
+}
+function bestHang(p){ let b=null;
+  for(const s of SITES) if(s[0]===p&&s[2]!=null) b=b==null?s[2]:Math.max(b,s[2]);
+  return b; }
+function drawMap(){
+  const cx=316, cy=262;
+  let g='<svg viewBox="0 0 640 560" role="img" aria-label="Schematic map of camping areas around the Twin Cities">';
+  g+='<circle cx="'+cx+'" cy="'+cy+'" r="95" fill="none" stroke="var(--ring)" stroke-dasharray="3 5"/>';
+  g+='<circle cx="'+cx+'" cy="'+cy+'" r="195" fill="none" stroke="var(--ring)" stroke-dasharray="3 5"/>';
+  g+='<text class="ringlabel" x="'+(cx+68)+'" y="'+(cy-72)+'">~30 MIN</text>';
+  g+='<text class="ringlabel" x="'+(cx+140)+'" y="'+(cy-142)+'">~60 MIN</text>';
+  g+='<path d="M258 60 C262 130 280 200 300 240 C318 272 340 292 372 306 C420 328 470 344 500 372 C532 400 548 416 560 436" fill="none" stroke="var(--water)" stroke-width="4" stroke-linecap="round" opacity=".8"/>';
+  g+='<path d="M430 38 C436 100 440 170 444 220 C447 262 452 300 462 332 C470 356 486 372 500 372" fill="none" stroke="var(--water)" stroke-width="3.4" stroke-linecap="round" opacity=".8"/>';
+  g+='<path d="M120 470 C160 440 200 416 228 396 C262 370 292 322 306 286" fill="none" stroke="var(--water)" stroke-width="3.4" stroke-linecap="round" opacity=".8"/>';
+  g+='<text class="rivlabel" x="408" y="66" text-anchor="end">ST. CROIX</text>';
+  g+='<text class="rivlabel" x="248" y="88" text-anchor="end">MISSISSIPPI</text>';
+  g+='<text class="rivlabel" x="130" y="492">MINNESOTA R.</text>';
+  g+='<rect x="'+(cx-14)+'" y="'+(cy-9)+'" width="28" height="18" rx="2" fill="var(--muted)" opacity=".85"/>';
+  g+='<text class="ringlabel" x="'+cx+'" y="'+(cy+30)+'" text-anchor="middle" style="fill:var(--ink)">MPLS · ST PAUL</text>';
+  for(const p of PARKS){
+    const pos=POS[p[0]]; if(!pos) continue;
+    const n=SITES.filter(s=>s[0]===p[0]).length;
+    const b=bestHang(p[0]);
+    const r=n>=15?11:n>=5?8:5.5;
+    const col=b==null?"var(--sx)":"var(--"+RAMP[b].slice(2)+")";
+    const on=park===p[0];
+    const lbl=SHORT[p[0]]||p[0];
+    const anchor=pos[2]==="l"?"end":"start";
+    const lx=pos[2]==="l"?pos[0]-r-6:pos[0]+r+6;
+    g+='<g class="mapdot" tabindex="0" role="button" aria-label="Filter to '+esc(lbl)+'" onclick="setPark(\''+p[0].replace(/'/g,"\\'")+'\')" onkeydown="if(event.key===\'Enter\')setPark(\''+p[0].replace(/'/g,"\\'")+'\')">'+
+      '<circle cx="'+pos[0]+'" cy="'+pos[1]+'" r="'+r+'" fill="'+col+'" stroke="'+(on?"var(--ink)":"var(--panel)")+'" stroke-width="'+(on?3:1.5)+'"/>'+
+      '<text class="maplabel'+(on?"":" dim")+'" x="'+lx+'" y="'+(pos[1]+4)+'" text-anchor="'+anchor+'">'+esc(lbl)+"</text></g>";
+  }
+  g+="</svg>";
+  document.getElementById("map").innerHTML=g;
+}
+function render(){
+  document.documentElement.setAttribute("data-gear",gear);
+  ["hang","tent","either"].forEach(g=>document.getElementById("g-"+g).classList.toggle("on",g===gear));
+  const chips=PARKS.map(p=>{
+    const n=SITES.filter(s=>s[0]===p[0]&&matches(s)).length;
+    return '<button class="pchip'+(park===p[0]?" on":"")+'" onclick="setPark(\''+p[0].replace(/'/g,"\\'")+'\')">'+esc(SHORT[p[0]]||p[0])+' <span class="n">'+n+"</span></button>";});
+  document.getElementById("parkchips").innerHTML=
+    '<button class="pchip'+(park==="all"?" on":"")+'" onclick="setPark(\'all\')">All areas <span class="n">'+SITES.filter(matches).length+"</span></button>"+chips.join("");
+  let html="";
+  for(const p of PARKS){
+    if(park!=="all"&&park!==p[0]) continue;
+    const rows=SITES.filter(s=>s[0]===p[0]&&matches(s))
+      .sort((a,b)=>((scoreOf(b)??-1)-(scoreOf(a)??-1)));
+    if(!rows.length&&park==="all") continue;
+    html+='<section><div class="parkhead"><h2>'+esc(p[0])+'</h2><span class="parkmeta">'+esc(p[1])+" · "+rows.length+" listed</span></div><p class=\"parknote\">"+p[2]+"</p>";
+    html+=rows.length?rows.map(row).join(""):'<p class="empty">No sites match the current filters.</p>';
+    html+="</section>";
+  }
+  document.getElementById("parks").innerHTML=html||'<p class="empty">No sites match. Loosen the score filter or clear the search.</p>';
+  const scored=SITES.filter(s=>s[2]!=null).length;
+  const st=document.getElementById("stat-scored"); if(st) st.textContent=scored;
+  drawMap();
+}
+function setGear(g){ gear=g; try{ localStorage.setItem("hos-gear",g); }catch(e){} render(); }
+function setPark(p){ park=(park===p?"all":p); render();
+  if(p!=="all"&&park===p){ const el=document.getElementById("parks"); if(el) el.scrollIntoView({block:"start"}); } }
+function setMin(v){ min=+v; render(); }
+function setSolo(){ solo=!solo; const b=document.getElementById("solobtn");
+  b.classList.toggle("on",solo); b.setAttribute("aria-pressed",solo?"true":"false"); render(); }
+function setQ(v){ q=v.trim().toLowerCase(); render(); }
+try{ const g=localStorage.getItem("hos-gear"); if(g==="hang"||g==="tent"||g==="either") gear=g; }catch(e){}
+render();
+</script>
