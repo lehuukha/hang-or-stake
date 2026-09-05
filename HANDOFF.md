@@ -23,7 +23,7 @@ A single-page guide to overnight campsites near the Twin Cities, Minnesota, scor
 ## Workflow to change the page
 1. Edit `src/hang_or_stake.html` (or regenerate it from the CSV with the build scripts).
 2. `python src/publish_pages.py` (after fixing the `SP` path) to write `index.html`.
-3. Commit and push `master`; Pages redeploys in about a minute.
+3. Commit and push `main`; Pages redeploys in about a minute.
 
 ## Open items as of 2026-09-05
 - Lake Maria B11: confirmed bear locker on site (owner, 2026-09-04). Walk-in distance still not recorded.
