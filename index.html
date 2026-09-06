@@ -8,255 +8,31 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏕</text></svg>">
 </head>
 <body>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
 <style>
-:root{color-scheme:light;--ground:#f6f7f8;--panel:#fff;--ink:#192c26;--muted:#5c6c66;--edge:#dce3df;--edge-soft:#ebefed;--accent:#22634d;--accent-soft:#eaf3ee;--quote:#425d51;--water:#7695a5;--ring:#ced9d3;--s5:#22634d;--s4:#22634d;--s3:#85601f;--s2:#915132;--s1:#915132;--s0:#915132;--sx:#627469;--chipink:#fff;--dot-off:#dce5df;--shadow:0 8px 28px #192c2606;--z-header:2;--z-skip:3}
-
-:root[data-theme="dark"]{color-scheme:dark;--ground:#111b17;--panel:#18251f;--ink:#f0f5f2;--muted:#b3c4ba;--edge:#384d40;--edge-soft:#293d31;--accent:#afe1c6;--accent-soft:#273f32;--quote:#bfd1c5;--water:#91b5c5;--ring:#445c4c;--s5:#afe1c6;--s4:#afe1c6;--s3:#dfc38c;--s2:#edb297;--s1:#edb297;--s0:#edb297;--sx:#b1c2b6;--chipink:#142019}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:100px}
-body{margin:0;background:var(--ground);color:var(--ink);font:15px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-button,input,select{font:inherit}
-button,summary,select{cursor:pointer}
-a{color:var(--accent);text-underline-offset:4px}
-button,a,input,select,summary{touch-action:manipulation}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,.mapdot:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-button{color:var(--ink)}
-button,a{transition:background .18s ease-out,color .18s ease-out,border-color .18s ease-out}
-h1,h2,h3{line-height:1.18;text-wrap:balance}
-p{max-width:70ch;text-wrap:pretty}
-.shell{max-width:1240px;margin:auto;padding:0 36px}
-.skip{position:fixed;top:-100px;left:16px;background:var(--panel);padding:12px;z-index:var(--z-skip)}
-.skip:focus{top:8px}
-.masthead{border-bottom:1px solid var(--edge-soft);background:var(--panel);position:sticky;top:0;z-index:var(--z-header)}
-.mastrow{display:flex;align-items:center;min-height:80px;gap:36px}
-.brand{display:flex;align-items:center;gap:11px;color:var(--ink);text-decoration:none;font-weight:800;font-size:21px;letter-spacing:-.03em;white-space:nowrap}
-.brand-mark{display:grid;place-items:center;background:#22634d;color:white;width:39px;height:39px;border-radius:11px}
-.brand svg{width:29px;height:27px}
-.top-nav{display:flex;gap:26px;align-self:stretch;margin-left:20px}
-.top-nav a{display:flex;align-items:center;font-size:13px;font-weight:700;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent}
-.top-nav a.active{color:var(--ink);border-color:var(--accent)}
-.nav-end{margin-left:auto;display:flex;align-items:center;gap:20px}
-.locality{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.locality svg{width:15px;height:15px}
-.theme-btn{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--edge);border-radius:50%;background:var(--panel);color:var(--ink)}
-.theme-btn svg{width:17px;height:17px}
-.theme-btn:hover{background:var(--accent-soft)}
-.intro-band{background:var(--panel);border-bottom:1px solid var(--edge)}
-.intro{display:grid;grid-template-columns:1.6fr 1fr;gap:80px;align-items:center;padding-top:48px;padding-bottom:45px}
-.eyebrow{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:var(--accent);margin:0 0 14px;display:flex;align-items:center;gap:8px}
-.eyebrow::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%}
-.intro h1{font-size:46px;letter-spacing:-.04em;font-weight:800;margin:0 0 17px;max-width:15ch}
-.intro p.description{font-size:15px;color:var(--muted);line-height:1.75;max-width:49ch;margin:0}
-.field-note{padding:22px 0 22px 30px;border-left:1px solid var(--edge)}
-.note-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:15px;color:var(--muted);font-size:11px;font-weight:600}
-.verified{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:11px;font-weight:700}
-.verified svg{height:14px;width:14px}
-.field-note h2{font-size:23px;font-weight:800;letter-spacing:-.03em;margin:0 0 8px}
-.field-note p{font-size:13px;color:var(--muted);margin:0 0 17px;line-height:1.75}
-.inline-action{border:0;background:transparent;padding:0;min-height:36px;display:inline-flex;gap:15px;align-items:center;color:var(--accent);font-weight:750;font-size:12px}
-.inline-action span{font-size:19px;transition:transform .18s ease-out}
-.inline-action:hover span{transform:translateX(4px)}
-.explorer{padding-top:30px;padding-bottom:16px}
-.explore-tools{display:flex;justify-content:space-between;gap:24px;align-items:center;margin-bottom:28px}
-.gear{display:flex;gap:4px;padding:4px;background:var(--edge-soft);border-radius:9px}
-.gear button{border:1px solid transparent;border-radius:6px;padding:10px 20px;min-height:44px;background:transparent;color:var(--muted);font-weight:700;font-size:13px;display:flex;gap:8px;align-items:center;justify-content:center}
-.gear button svg{width:18px;height:18px}
-.gear button.on{background:var(--panel);color:var(--ink);border-color:var(--edge);box-shadow:0 2px 4px #172c2210}
-.search-wrap{position:relative;max-width:380px;flex:1}
-.search-wrap svg{position:absolute;left:15px;top:15px;width:18px;height:18px;color:var(--muted)}
-.search{width:100%;min-height:48px;border:1px solid var(--edge);border-radius:8px;background:var(--panel);color:var(--ink);padding:12px 15px 12px 43px;font-size:13px}
-.search::placeholder{color:var(--muted)}
-.explore-grid{display:grid;grid-template-columns:214px minmax(0,1fr);gap:38px;align-items:start}
-.finder{position:sticky;top:104px}
-.finder>summary{display:none}
-.filter-title{font-size:14px;font-weight:800;margin:0 0 23px}
-.field{display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
-.field>label{font-size:12px;font-weight:750}
-.minsel{width:100%;min-height:44px;border:1px solid var(--edge);border-radius:6px;background:var(--panel);color:var(--ink);padding:9px 10px;font-size:12px}
-.check{display:flex;align-items:center;gap:10px;min-height:44px;font-size:12px;font-weight:600;cursor:pointer}
-.check input{width:16px;height:16px;accent-color:var(--accent);margin:0}
-.filter-checks{border-top:1px solid var(--edge);padding-top:12px;margin-top:6px}
-.text-btn{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:4px;padding:10px 0;min-height:44px;font-size:12px}
-.text-btn:hover{color:var(--accent)}
-.map-button{width:100%;display:flex;gap:10px;align-items:center;justify-content:center;min-height:44px;background:var(--panel);border:1px solid var(--edge);border-radius:6px;color:var(--ink);font-size:12px;font-weight:700;margin-top:18px}
-.map-button svg{width:16px;height:16px}
-.map-button:hover{border-color:var(--accent)}
-.filter-note{margin-top:22px;color:var(--muted);font-size:11px;line-height:1.8;max-width:26ch}
-.filter-note a{font-weight:650}
-.results-bar{display:flex;justify-content:space-between;gap:18px;align-items:center;min-height:36px;margin-bottom:18px}
-.results-bar h2{font-size:17px;letter-spacing:-.02em;margin:0}
-.results-bar p{font-size:11px;color:var(--muted);margin:4px 0 0}
-.results-note{font-size:10px;color:var(--muted);white-space:nowrap}
-.park-section{margin-bottom:30px}
-.parkhead{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 0 14px}
-.park-title-group h2{font-size:22px;letter-spacing:-.035em;margin:0 0 5px}
-.parkmeta{font-size:11px;color:var(--muted)}
-.park-count{font-size:11px;color:var(--muted);background:var(--edge-soft);padding:4px 8px;border-radius:5px;white-space:nowrap}
-.park-about{margin:0 0 14px;color:var(--muted);font-size:12px}
-.park-about summary{padding:2px 0;list-style:none;display:inline-flex;gap:6px;align-items:center}
-.park-about summary::after{content:'+';font-size:15px}
-.park-about[open] summary::after{content:'−'}
-.park-about summary::-webkit-details-marker{display:none}
-.park-about p{margin:8px 0 16px;line-height:1.8}
-.site-list{background:var(--panel);border:1px solid var(--edge);border-radius:10px;box-shadow:var(--shadow)}
-.site+.site,.more-sites{border-top:1px solid var(--edge-soft)}
-.site>summary{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) 76px 76px 26px;gap:18px;align-items:center;padding:22px 24px;border-radius:9px}
-.site>summary::-webkit-details-marker{display:none}
-.site>summary:hover{background:var(--accent-soft)}
-.site[open]>summary{background:var(--accent-soft);border-radius:9px 9px 0 0}
-.site-title{font-size:16px;font-weight:800;line-height:1.4;display:block;letter-spacing:-.015em}
-.site-meta{display:flex;gap:6px 12px;flex-wrap:wrap;color:var(--muted);font-size:10px;margin-top:7px;align-items:center}
-.site-meta .field-mark{color:var(--accent);font-weight:750;display:flex;align-items:center;gap:4px}
-.site-meta .field-mark svg{width:12px;height:12px}
-.site-meta .solo-mark{color:var(--accent);font-weight:650}
-.site-meta .group-mark{font-weight:650}
-.rating{font-size:13px;text-align:center;white-space:nowrap}
-.rating .lab{display:block;color:var(--muted);font-size:10px;margin-bottom:5px;font-weight:600}
-.rating b{font-size:23px;font-weight:750;font-variant-numeric:tabular-nums;letter-spacing:-.05em}
-.rating .denom{font-size:10px;color:var(--muted);margin-left:2px}
-.rating.selected b{color:var(--accent)}
-.chevron{font-size:20px;line-height:1;color:var(--muted);transition:transform .18s ease-out;border:1px solid var(--edge);width:26px;height:26px;border-radius:50%;display:grid;place-items:center}
-.site[open] .chevron{transform:rotate(90deg)}
-.body{padding:6px 24px 24px;border-top:1px solid var(--edge-soft);font-size:13px;line-height:1.8}
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0 26px;padding-bottom:20px;border-bottom:1px solid var(--edge-soft)}
-.facts div{min-width:0}
-.facts dt{font-size:11px;color:var(--muted)}
-.facts dd{margin:4px 0 0;font-size:13px;font-weight:700}
-.body h3{font-size:12px;font-weight:800;margin:22px 0 8px}
-.body p{margin:8px 0;overflow-wrap:anywhere;color:var(--muted)}
-.body .quote{margin:14px 0;font-size:15px;font-style:italic;color:var(--ink);line-height:1.75}
-.evidence{border-top:1px solid var(--edge);margin-top:24px;padding-top:16px}
-.evidence summary{font-weight:700;color:var(--accent);min-height:32px;font-size:12px}
-.evidence .ebadge{font-size:11px;color:var(--muted)}
-.votebar{display:flex;align-items:center;gap:9px;margin-top:18px;flex-wrap:wrap;font-size:11px}
-.vlink{padding:6px 0;font-weight:650}
-.vbtn{padding:8px 12px;border:1px solid var(--edge);border-radius:6px;background:var(--panel)}
-.vmsg{color:var(--muted);font-size:11px}
-.more-sites>summary{padding:16px 24px;font-size:12px;font-weight:700;color:var(--accent);list-style:none;text-align:center;min-height:48px}
-.more-sites>summary::-webkit-details-marker{display:none}
-.more-sites>summary::after{content:' +';font-size:16px;margin-left:5px}
-.more-sites[open]>summary::after{content:' −'}
-.more-sites .site{border-top:1px solid var(--edge-soft)}
-.empty{padding:38px;background:var(--panel);border:1px solid var(--edge);border-radius:10px}
-.empty h3{margin:0 0 10px;font-size:20px}
-.empty p{color:var(--muted);margin:0 0 8px;font-size:13px}
-.sitefoot{margin-top:40px;border-top:1px solid var(--edge);background:var(--panel);padding:30px 0}
-.reference>summary{font-size:13px;font-weight:700;padding:10px 0}
-.footgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:35px;padding:22px 0}
-.footgrid h3{font-size:15px;margin:0 0 14px}
-.footgrid p,.footgrid li{font-size:12px;color:var(--muted)}
-.footgrid ul{padding-left:18px}
-.footgrid li{margin-bottom:10px}
-.baseline{font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:24px}
-.noscript{padding:22px;background:var(--panel)}
-.map-dialog{color:var(--ink);background:var(--panel);border:1px solid var(--edge);border-radius:14px;width:min(680px,calc(100% - 24px));max-height:90dvh;padding:24px;box-shadow:0 30px 100px #0003}
-.map-dialog::backdrop{background:#10291ed0}
-.dialog-head{display:flex;justify-content:space-between;align-items:center;gap:16px}
-.dialog-head h2{font-size:21px;margin:0}
-.close-button{background:var(--ground);border:1px solid var(--edge);border-radius:50%;font-size:21px;width:36px;height:36px;display:grid;place-items:center}
-.mapbox{margin:16px 0 0}
-.mapbox svg{width:100%;height:auto;display:block}
-.mapfoot{font-size:11px;color:var(--muted);padding-top:8px}
-.mapdot{cursor:pointer}
-.maplabel{font:13px Manrope,sans-serif;fill:var(--ink)}
-.maplabel.dim{fill:var(--muted)}
-.rivlabel{font:10px system-ui;fill:var(--water)}
-.ringlabel{font:11px system-ui;fill:var(--muted)}
-
-@media(max-width:1000px){.shell{padding:0 26px}
-.intro{gap:38px}
-.intro h1{font-size:39px}
-.locality{display:none}
-.explore-grid{grid-template-columns:190px minmax(0,1fr);gap:26px}
-.site>summary{grid-template-columns:minmax(0,1fr) 54px 54px 24px;gap:12px;padding:20px}
-.results-note{display:none}
-}
-
-@media(max-width:700px){html{scroll-padding-top:84px}
-.shell{padding:0 20px}
-.mastrow{min-height:68px;gap:14px}
-.brand{font-size:18px}
-.brand-mark{width:33px;height:33px;border-radius:9px}
-.brand svg{width:24px;height:24px}
-.top-nav{margin-left:auto;gap:0}
-.top-nav a{font-size:11px}
-.top-nav a.active{display:none}
-.nav-end{margin-left:0}
-.theme-btn{width:32px;height:32px}
-.intro{grid-template-columns:1fr;padding-top:32px;padding-bottom:28px;gap:22px}
-.intro h1{font-size:37px;max-width:13ch;margin-bottom:12px}
-.intro p.description{font-size:13px;max-width:38ch}
-.eyebrow{font-size:9px;margin-bottom:12px}
-.field-note{border-left:0;border-top:1px solid var(--edge);padding:18px 0 0}
-.note-head{margin-bottom:8px;font-size:10px}
-.field-note h2{font-size:18px;margin-bottom:4px}
-.field-note p{display:none}
-.inline-action{font-size:11px;min-height:32px}
-.explorer{padding-top:22px}
-.explore-tools{flex-direction:column;gap:14px;align-items:stretch;margin-bottom:16px}
-.gear button{flex:1;min-height:42px;padding:8px 10px;font-size:12px}
-.gear button svg{width:16px;height:16px}
-.search-wrap{max-width:none}
-.explore-grid{grid-template-columns:1fr;gap:22px}
-.finder{position:static;border:1px solid var(--edge);border-radius:8px;background:var(--panel);padding:0 14px}
-.finder>summary{display:flex;justify-content:space-between;align-items:center;min-height:46px;font-size:12px;font-weight:750;list-style:none}
-.finder>summary::-webkit-details-marker{display:none}
-.finder>summary::after{content:'+';font-size:19px}
-.finder[open]>summary::after{content:'−'}
-.filter-title{display:none}
-.filter-content{padding:8px 0 16px;display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
-.field{margin-bottom:14px}
-.filter-checks{grid-column:1/-1;display:flex;justify-content:space-between;gap:8px}
-.check{font-size:11px}
-.filter-note{display:none}
-.map-button{margin-top:0}
-.text-btn{justify-self:start}
-.results-bar{margin-bottom:3px}
-.results-bar h2{font-size:16px}
-.results-bar p{font-size:10px;max-width:35ch}
-.parkhead{padding:20px 0 10px}
-.park-title-group h2{font-size:22px}
-.parkmeta{font-size:10px}
-.park-count{font-size:10px}
-.park-about{font-size:11px;margin-bottom:12px}
-.site>summary{grid-template-columns:minmax(0,1fr) 45px 45px 18px;padding:19px 14px;gap:9px}
-.site-title{font-size:14px}
-.site-meta{font-size:10px;gap:4px 8px}
-.site-meta .field-mark svg{width:11px;height:11px}
-.rating b{font-size:20px}
-.rating .lab{font-size:10px}
-.rating .denom{font-size:10px}
-.chevron{width:19px;height:19px;font-size:16px}
-.body{padding:4px 15px 20px;font-size:13px}
-.facts{grid-template-columns:1fr;gap:14px}
-.facts dd{font-size:13px}
-.footgrid{grid-template-columns:1fr}
-.baseline{font-size:10px}
-.more-sites>summary{font-size:11px;padding:14px}
-.map-dialog{padding:15px}
-.dialog-head h2{font-size:18px}
-}
-
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}
-*,*::before,*::after{transition:none!important}
-}
-
+:root{color-scheme:light;--ground:#f5f4ef;--panel:#fff;--ink:#22352e;--muted:#606d66;--edge:#dce0d8;--edge-soft:#edf0e9;--accent:#255b43;--accent-soft:#e9efe5;--quote:#465d4f;--water:#7a989c;--ring:#cbd4ca;--s5:#255b43;--s4:#255b43;--s3:#886229;--s2:#9b5135;--s1:#9b5135;--s0:#9b5135;--sx:#68726b}
+:root[data-theme=dark]{color-scheme:dark;--ground:#17231d;--panel:#1e2d25;--ink:#eff3e9;--muted:#b7c4b9;--edge:#3e5043;--edge-soft:#2b3c30;--accent:#c3dfac;--accent-soft:#33462f;--quote:#c3d6bd;--water:#91b5c5;--ring:#445c4c;--s5:#c3dfac;--s4:#c3dfac;--s3:#ebca94;--s2:#edb297;--s1:#edb297;--s0:#edb297;--sx:#b1c2b6}
+*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font:14px/1.55 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}::selection{background:var(--accent);color:var(--panel)}*{scrollbar-color:var(--edge) transparent;scrollbar-width:thin}button,input,select{font:inherit;color:inherit}button,a,input,select,summary{touch-action:manipulation}button,select,summary{cursor:pointer}a{color:var(--accent);text-underline-offset:4px}button{background:none;border:0}button:hover{background:var(--accent-soft)}button,a,summary,input,select{outline-offset:4px} :focus-visible{outline:2px solid var(--accent)}input{caret-color:var(--accent)}h1,h2,h3,h4,p{margin:0}h1,h2,h3{line-height:1.15;letter-spacing:-.03em;text-wrap:balance}p{max-width:72ch}button svg{width:18px;height:18px;flex:none} .shell{max-width:1440px;margin:auto;padding:0 40px}.skip{position:fixed;top:-100px;background:var(--panel);padding:12px;z-index:10}.skip:focus{top:8px}.masthead{background:var(--panel);border-bottom:1px solid var(--edge)}.mastrow{height:68px;display:flex;align-items:center;gap:48px}.brand{color:var(--ink);font-size:19px;letter-spacing:-.035em;font-weight:800;display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}.brand-mark{display:grid;place-items:center;color:var(--accent);width:30px;height:30px}.brand svg{width:30px;height:30px}.top-nav{display:flex;gap:28px;height:100%}.top-nav button{padding:0;border-bottom:2px solid transparent;color:var(--muted);font-size:12px;font-weight:700}.top-nav button.active{border-color:var(--accent);color:var(--ink)}.top-nav button:hover{background:none;color:var(--accent)}.nav-end{margin-left:auto;display:flex;gap:18px;align-items:center}.locality{font-size:11px;color:var(--muted)}.theme-btn{display:grid;place-items:center;width:36px;height:36px;border-radius:50%}.page-heading{padding:27px 0 23px;display:flex;justify-content:space-between;align-items:end;gap:20px}.page-heading h1{font-size:29px;font-weight:700}.page-heading p{font-size:12px;color:var(--muted);margin-top:7px}.quiet-link{font-size:12px;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:7px;min-height:40px}.toolbar{display:flex;align-items:center;gap:12px;padding-bottom:20px;border-bottom:1px solid var(--edge)}.search-wrap{position:relative;flex:1}.search-wrap svg{position:absolute;width:17px;height:17px;left:14px;top:14px;color:var(--muted)}.search{height:44px;width:100%;border:1px solid var(--edge);border-radius:8px;background:var(--panel);padding:0 14px 0 41px;font-size:12px}.search::placeholder{color:var(--muted)}.gear{display:flex;background:var(--edge-soft);padding:3px;border-radius:8px;flex:none}.gear button{border-radius:6px;font-size:12px;padding:9px 14px;min-height:38px;color:var(--muted)}.gear button.on{background:var(--panel);color:var(--ink);font-weight:700}.area-select{height:44px;max-width:205px;border:1px solid var(--edge);border-radius:8px;background:var(--panel);padding:0 28px 0 12px;font-size:12px}.filters-wrap{position:relative}.filters-wrap>summary{min-height:44px;display:flex;align-items:center;gap:7px;padding:0 14px;border:1px solid var(--edge);border-radius:8px;background:var(--panel);font-size:12px;list-style:none}.filters-wrap>summary::-webkit-details-marker{display:none}.filters-wrap svg{width:16px;height:16px}.filter-content{position:absolute;right:0;top:52px;width:255px;background:var(--panel);border-radius:12px;padding:20px;box-shadow:0 12px 40px #12201825;z-index:3}.field label{font-size:12px;display:block;margin-bottom:8px}.field select{width:100%;height:40px;border:1px solid var(--edge);border-radius:6px;background:var(--panel);padding:0 8px;font-size:12px}.filter-checks{display:grid;gap:15px;margin:18px 0}.check{display:flex;align-items:center;gap:8px;font-size:12px}.check input{accent-color:var(--accent);width:17px;height:17px}.text-btn{font-size:12px;color:var(--accent);text-decoration:underline;text-underline-offset:4px;min-height:36px;padding:0}.workspace{display:grid;grid-template-columns:minmax(340px, .9fr) minmax(0,1.4fr);gap:32px;padding:20px 0 35px;align-items:start}.list-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;min-height:25px}.list-head h2{font-size:12px;letter-spacing:0;font-weight:700}.list-head span{font-size:10px;color:var(--muted)}.site-list{background:var(--panel);border:1px solid var(--edge);border-radius:12px;overflow:hidden}.site-row{width:100%;display:grid;grid-template-columns:minmax(0,1fr) 47px 47px;gap:15px;text-align:left;align-items:center;padding:15px 18px;min-height:86px;border-bottom:1px solid var(--edge-soft)}.site-row:last-child{border-bottom:0}.site-row[aria-pressed=true]{background:var(--accent-soft)}.row-place{display:block;font-size:11px;color:var(--muted);margin-bottom:3px}.row-name{display:block;font-size:14px;font-weight:750;letter-spacing:-.02em;line-height:1.35}.row-status{display:block;font-size:10px;color:var(--muted);margin-top:4px}.row-status.owned{color:var(--accent);font-weight:650}.rating{text-align:center;white-space:nowrap;font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}.rating .lab{display:block;font-size:9px;margin-bottom:4px}.rating b{font-size:18px;color:var(--ink);font-weight:700;letter-spacing:-.03em}.rating.selected b{color:var(--accent)}.rating .denom{font-size:9px}.more-button{display:block;width:100%;height:44px;border:1px solid var(--edge);border-radius:8px;margin-top:10px;font-size:12px}.list-foot{font-size:10px;color:var(--muted);padding:14px 1px;display:flex;justify-content:space-between;gap:10px}.detail-panel{background:var(--panel);border:1px solid var(--edge);border-radius:12px;min-width:0;overflow:hidden;position:sticky;top:22px;max-height:calc(100dvh - 44px);overflow-y:auto}.detail-header{padding:27px 30px 22px;background:var(--panel)}.detail-location{font-size:12px;color:var(--muted);margin:0 0 8px}.detail-header h2{font:500 43px/1.05 Newsreader,Georgia,serif;letter-spacing:-.035em}.detail-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:15px;font-size:11px;color:var(--muted)}.detail-meta .owned{color:var(--accent);font-weight:700}.detail-tabs{display:flex;gap:24px;padding:0 30px;border-bottom:1px solid var(--edge)}.detail-tabs button{font-size:12px;color:var(--muted);min-height:45px;padding:0;border-bottom:2px solid transparent}.detail-tabs button.active{border-color:var(--accent);color:var(--ink);font-weight:700}.detail-tabs button:hover{background:none;color:var(--accent)}.detail-content{padding:25px 30px 30px;animation:appear .18s ease-out}.detail-content p,.detail-content li{font-size:13px;line-height:1.8;color:var(--muted);overflow-wrap:anywhere}.detail-content h3{font-size:13px;margin:23px 0 8px;font-weight:750;letter-spacing:0}.detail-content h3:first-child{margin-top:0}.detail-content .overview-lead{font-size:15px;line-height:1.75;color:var(--ink)}.facts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0;padding:22px 0;border-top:1px solid var(--edge-soft);border-bottom:1px solid var(--edge-soft)}.facts div{min-width:0}.facts dt{font-size:10px;color:var(--muted);margin-bottom:6px}.facts dd{font-size:12px;font-weight:650;margin:0;overflow-wrap:anywhere}.report-action{padding:13px 0;color:var(--accent);font-size:12px;font-weight:700;display:flex;gap:10px;align-items:center}.detail-bottom{border-top:1px solid var(--edge-soft);margin-top:25px;padding-top:16px;display:flex;justify-content:space-between;gap:14px;align-items:center}.detail-bottom p{font-size:10px;line-height:1.65;max-width:38ch}.detail-bottom a{white-space:nowrap;font-size:11px;font-weight:700}.log-byline{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--muted);margin-bottom:15px}.trip-log .log-title{font:500 32px/1.2 Newsreader,Georgia,serif;letter-spacing:-.025em;margin:0 0 17px}.trip-log .log-lead{font-size:14px;color:var(--ink)}.log-section{margin:23px 0}.log-section h4{font-size:12px;margin:0 0 7px}.log-source{font-size:10px!important;margin-top:22px;color:var(--muted)}.quote{margin:15px 0;font:400 19px/1.6 Newsreader,Georgia,serif;color:var(--ink)}.evidence{margin:25px 0 0;border-top:1px solid var(--edge);padding-top:16px}.evidence summary{font-size:12px;color:var(--accent);font-weight:650;padding-bottom:12px}.research-note ul{padding-left:18px}.research-note li{margin:8px 0}.empty{padding:30px 20px}.empty h3{font-size:19px;margin-bottom:10px}.empty p{font-size:12px;color:var(--muted)}.mobile-back{display:none}.sitefoot{max-width:900px;margin:35px auto}.sitefoot .shell{padding:0 25px}.reference>summary{font-size:26px;font-weight:700;list-style:none;pointer-events:none}.footgrid{display:block}.footgrid>div{margin:35px 0}.footgrid h3{font-size:18px;margin-bottom:16px}.footgrid p,.footgrid li{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px}.baseline{font-size:11px;color:var(--muted);border-top:1px solid var(--edge);padding-top:20px;display:flex;flex-wrap:wrap;gap:14px}.map-dialog{color:var(--ink);background:var(--panel);border:0;border-radius:14px;width:min(680px,calc(100% - 24px));max-height:90dvh;padding:24px;box-shadow:0 30px 100px #0003}.map-dialog::backdrop{background:#10291eb0}.dialog-head{display:flex;justify-content:space-between;align-items:center;gap:16px}.dialog-head h2{font-size:22px}.close-button{border-radius:50%;font-size:24px;width:40px;height:40px}.mapbox{margin:16px 0 0}.mapbox svg{width:100%;height:auto;display:block}.mapfoot{font-size:11px;color:var(--muted);padding-top:8px}.mapdot{cursor:pointer}.maplabel{font:13px Manrope,sans-serif;fill:var(--ink)}.maplabel.dim{fill:var(--muted)}.rivlabel{font:10px system-ui;fill:var(--water)}.ringlabel{font:11px system-ui;fill:var(--muted)}[hidden]{display:none!important}@keyframes appear{from{opacity:.6}to{opacity:1}}
+@media(min-width:1500px){.shell{max-width:1360px}.workspace{gap:42px}}
+@media(max-width:1000px){.shell{padding:0 24px}.mastrow{gap:30px}.locality{display:none}.toolbar{flex-wrap:wrap;gap:10px}.search-wrap{min-width:220px}.area-select{max-width:170px}.workspace{gap:20px;grid-template-columns:minmax(295px,.9fr) minmax(0,1.2fr)}.detail-header,.detail-content{padding:22px}.detail-tabs{padding:0 22px}.site-row{padding:14px;gap:10px}.detail-header h2{font-size:37px}}
+@media(max-width:720px){.shell{padding:0 18px}.mastrow{height:61px;gap:18px;flex-wrap:wrap}.brand{font-size:17px;gap:7px}.brand-mark{width:25px}.brand svg{width:25px}.top-nav{gap:15px;margin-left:auto}.top-nav button{font-size:11px}.nav-end{display:none}.page-heading{padding:24px 0 18px}.page-heading h1{font-size:26px}.page-heading p{font-size:11px;max-width:31ch}.quiet-link{font-size:11px}.toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding-bottom:18px}.search-wrap{grid-column:1/-1;min-width:0}.gear{grid-column:1/-1;justify-content:stretch}.gear button{flex:1}.area-select{width:100%;max-width:none}.filters-wrap>summary{justify-content:center}.workspace{display:block;padding-top:14px}.detail-panel{display:none;position:static;max-height:none;border:0;border-radius:0;background:var(--ground)}.workspace.mobile-detail .list-column{display:none}.workspace.mobile-detail .detail-panel{display:block}.mobile-back{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--accent);min-height:44px;padding:0 0 8px}.detail-header{padding:15px 0 20px;background:var(--ground)}.detail-header h2{font-size:42px}.detail-tabs{padding:0;gap:25px}.detail-content{padding:23px 0}.detail-content p{font-size:14px}.detail-content .overview-lead{font-size:16px}.facts{gap:22px 18px}.facts dd{font-size:12px}.site-row{padding:14px 16px;min-height:86px;grid-template-columns:minmax(0,1fr) 43px 43px;gap:10px}.row-name{font-size:14px}.list-foot{font-size:10px}.detail-bottom{align-items:start;flex-direction:column}.trip-log .log-title{font-size:31px}.sitefoot{margin-top:25px}body.detail-open .page-heading,body.detail-open .toolbar{display:none}body.detail-open .workspace{padding-top:10px}.filter-content{width:245px}.detail-content .log-source{font-size:11px!important}}
+@media(max-width:360px){.shell{padding:0 14px}.brand{font-size:15px}.top-nav{gap:12px}.top-nav button{font-size:10px}.brand-mark{display:none}.quiet-link{font-size:10px}.site-row{padding:13px 12px}.row-status{font-size:9px}}
+@media(max-width:720px){.page-heading{display:block;padding:20px 0 16px}.page-heading h1{font-size:24px}.page-heading p{max-width:none;font-size:11px}.page-heading>.quiet-link{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
 </style>
 
 <a class="skip" href="#parks">Skip to campsites</a>
-<header class="masthead"><div class="shell mastrow"><a class="brand" href="./" aria-label="Hang or Stake home"><span class="brand-mark"><svg viewBox="0 0 40 34" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 3v28M35 3v28M5 9c7 9 23 9 30 0M20 17l-7 12h14l-7-12z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hang or Stake</a><nav class="top-nav" aria-label="Main navigation"><a class="active" href="#explore">Explore campsites</a><a class="header-link" href="#guide">The guide</a></nav><div class="nav-end"><span class="locality"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 8c0 5-6 10-6 10S4 13 4 8a6 6 0 1 1 12 0Z"/><circle cx="10" cy="8" r="2"/></svg>Twin Cities, Minnesota</span><button class="theme-btn" onclick="toggleTheme()" aria-label="Switch to dark theme" id="theme-btn"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 12A7 7 0 0 1 8 3a7 7 0 1 0 8 9Z"/></svg></button></div></div></header>
-<div class="intro-band"><section class="shell intro"><div><p class="eyebrow">A local guide to sleeping outside</p><h1>Your next night outside.</h1><p class="description">Find the right trees. Or a little level ground. Campsites around the Twin Cities, with firsthand stays and sources you can actually check.</p></div><aside class="field-note" aria-label="Latest field report"><div class="note-head"><span>Latest from the field</span><span class="verified"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="m6 10 3 3 5-6"/></svg>Field-tested</span></div><h2>Lake Maria, B11</h2><p>A solo overnight among the big woods. Bear locker confirmed, several hanging options, and a few lessons in tarp line length.</p><button class="inline-action" onclick="openB11()">Read the September 5–6 stay report <span aria-hidden="true">↗</span></button></aside></section></div>
-<section class="shell explorer" id="explore" aria-label="Explore campsites"><div class="explore-tools"><div class="gear" role="group" aria-label="Camping setup"><button id="g-hang" onclick="setGear('hang')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4v16M21 4v16M3 8c4 10 14 10 18 0"/></svg>Hammock</button><button id="g-tent" onclick="setGear('tent')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3 10 17H2L12 3Zm0 0v17"/></svg>Tent</button><button id="g-either" onclick="setGear('either')" aria-pressed="false">Either works</button></div><div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input class="search" id="q" type="search" aria-label="Search the guide" placeholder="Search a park, campsite, or feature" oninput="setQ(this.value)"></div></div>
-<div class="explore-grid"><details class="finder" id="filters" open><summary>Filter campsites <span id="filter-count"></span></summary><div class="filter-content"><h2 class="filter-title">Make it your kind of trip.</h2><div class="field"><label for="area">Where to?</label><select class="minsel" id="area" onchange="setPark(this.value)" aria-label="Area"><option value="all">All areas</option></select></div><div class="field"><label for="minsel">Minimum rating</label><select class="minsel" id="minsel" onchange="setMin(this.value)"><option value="0">Any rating</option><option value="3">3 / 5 or better</option><option value="4">4 / 5 or better</option><option value="5">5 / 5 only</option></select></div><div class="filter-checks"><label class="check"><input type="checkbox" id="solobtn" onchange="setSolo()">Hide group-only</label><label class="check"><input type="checkbox" id="fieldonly" onchange="setField(this.checked)">Field-tested only</label></div><button class="text-btn" onclick="resetFilters()">Reset filters</button><button class="map-button" onclick="document.getElementById('area-map').showModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2V5Zm6-2v16m6-14v16"/></svg>Explore the area map</button><p class="filter-note">A good rating is a starting point. Open any campsite to see the evidence and what remains unknown. <a href="#guide" onclick="document.getElementById('guide').open=true">About the ratings</a></p></div></details><div class="results"><div class="results-bar"><div><h2 id="result-count" role="status" aria-live="polite"></h2><p id="result-context"></p></div><span class="results-note">Hammock &amp; tent ratings / 5</span></div><main id="parks" tabindex="-1" aria-label="Campsite results"></main></div></div><noscript><p class="noscript">Enable JavaScript to search the guide, or read the <a href="https://github.com/lehuukha/hang-or-stake/blob/main/data/MN_Hammock_Spots_Afton_LakeMaria.csv">Afton and Lake Maria source table</a>.</p></noscript></section>
+<header class="masthead"><div class="shell mastrow"><a class="brand" href="./"><span class="brand-mark"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4v22M26 4v22M4 10c5 12 17 12 22 0M15 5 8 25h14L15 5Z"/></svg></span>Hang or Stake</a><nav class="top-nav" aria-label="Main navigation"><button id="nav-explore" onclick="setView('explore')">Campsites</button><button id="nav-logs" onclick="showTripLogs()">Trip logs</button><button id="nav-guide" onclick="setView('guide')">About</button></nav><div class="nav-end"><span class="locality">Twin Cities &amp; beyond</span><button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Switch to dark theme"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 12A7 7 0 0 1 8 3a7 7 0 1 0 8 9Z"/></svg></button></div></div></header>
+<main class="shell" id="explore"><div class="page-heading"><div><h1 id="page-title">Find your next campsite.</h1><p id="page-description">Good trees. Level ground. Evidence to help you choose.</p></div><button class="quiet-link" onclick="document.getElementById('area-map').showModal()">Area map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button></div>
+<div class="toolbar" id="toolbar"><div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input class="search" id="q" type="search" aria-label="Search campsites" placeholder="Search a park, site or feature" oninput="setQ(this.value)"></div><div class="gear" role="group" aria-label="Camping setup"><button id="g-hang" onclick="setGear('hang')" aria-pressed="true">Hammock</button><button id="g-tent" onclick="setGear('tent')" aria-pressed="false">Tent</button><button id="g-either" onclick="setGear('either')" aria-pressed="false">Either</button></div><select id="area" class="area-select" aria-label="Area" onchange="setPark(this.value)"></select><details class="filters-wrap" id="filters"><summary><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 6h16M2 14h16M6 3v6m8 2v6"/></svg>Filters <span id="filter-count"></span></summary><div class="filter-content"><div class="field"><label for="minsel">Minimum rating</label><select id="minsel" onchange="setMin(this.value)"><option value="0">Any rating</option><option value="3">3 / 5 or better</option><option value="4">4 / 5 or better</option><option value="5">5 / 5 only</option></select></div><div class="filter-checks"><label class="check"><input type="checkbox" id="solobtn" onchange="setSolo()">Hide group-only</label><label class="check"><input type="checkbox" id="fieldonly" onchange="setField(this.checked)">Owner stays only</label></div><button class="text-btn" onclick="resetFilters()">Reset filters</button><br><button class="text-btn" onclick="document.getElementById('area-map').showModal()">Open area map</button></div></details></div>
+<div class="workspace" id="workspace"><section class="list-column" aria-label="Campsite results"><div class="list-head"><h2 id="result-count" role="status" aria-live="polite"></h2><span id="result-context"></span></div><div id="parks" tabindex="-1"></div><div class="list-foot"><span>Ratings are guide assessments.</span><button class="text-btn" onclick="setView('guide')">How we rate</button></div></section><section class="detail-panel" id="site-detail" tabindex="-1" aria-label="Selected campsite"></section></div><noscript><p>Enable JavaScript to browse campsites. The <a href="https://github.com/lehuukha/hang-or-stake/">source guide</a> is also available.</p></noscript></main>
 <dialog id="area-map" class="map-dialog" aria-labelledby="map-title"><div class="dialog-head"><h2 id="map-title">Find your corner of Minnesota.</h2><button class="close-button" aria-label="Close area map" onclick="document.getElementById('area-map').close()">×</button></div><figure class="mapbox"><div id="map"></div><figcaption class="mapfoot">Select an area to filter the list. Schematic only, not a navigation map. Dots show the best hammock rating in each area.</figcaption></figure></dialog>
 <footer class="sitefoot"><div class="shell">
   <details class="reference" id="guide"><summary>About the guide, ratings &amp; sources</summary><div class="footgrid">
-    <div><h3>About this guide</h3>
+    <div><h3>About this guide</h3><button class="text-btn" onclick="toggleTheme()">Switch light / dark appearance</button>
       <p>A working reference for hammock and tent overnights around the Twin Cities, kept by one hammock crew and
-      updated after every trip. Ratings are secondhand unless tagged <em>field-tested</em>; tree spans are eyeball
-      estimates from the people who stood there.</p>
+      updated after every trip. Ratings are guide assessments, not official park ratings. Owner stays are tagged <em>field-tested</em>.
+      Source checks state their scope; entries not yet rechecked are labeled. Older tree-span estimates are not measurements.</p>
       <p class="sub">Evidence tags: <strong>Field-tested</strong> — we hung there ourselves. <strong>Video quote</strong> —
       said on camera at the site. <strong>Park recommendation</strong> — named by the park office. <strong>Community report</strong> —
       hammockforums or reviewer. <strong>Inferred</strong> — read from terrain; scout before you commit.</p>
@@ -264,21 +40,13 @@ p{max-width:70ch;text-wrap:pretty}
       is a site whose sources specifically flag seclusion, quiet, or low foot traffic — the ones worth going to alone.
       The "Hide group-only" filter removes those sites from the results.</p>
       <p class="sub">Stayed somewhere listed here? Open the campsite details to send a stay report through GitHub.</p></div>
-    <div><h3>Field rules</h3>
-      <ul>
-        <li>Hammocks are legal in MN state parks — camp in designated sites and don't damage trees
-            (<a href="https://www.revisor.mn.gov/rules/?id=6100">MN Rules ch. 6100</a>). Carry 2″ straps.</li>
-        <li>Reservations required, even for backpack sites — <a href="https://reservemn.usedirect.com/MinnesotaWeb/">reservemn</a>.
-            Cannon River and the NPS riverway are the first-come exceptions.</li>
-        <li>A workable hang span is ~12–16 ft; 10 ft won't fit a tarp. Long straps rescue marginal sites.</li>
-        <li>No campfires at MN Valley backcountry sites. Permit needed on the riverway between Hwy 8 and the High Bridge.</li>
-        <li>Poison ivy at Sand Dunes; widow-makers flagged at Lake Maria B8 &amp; B17; horses on the B7 trail May–Nov.</li>
-        <li>The DNR reservation site shows a photo and description for every numbered site — check the trees before
-            you book. Afton sells all-you-can-cut wood for $6 by the campground.</li>
-        <li>Solo playbook from r/MinnesotaCamping: walk-in and cart-in sites sit far from the RV/generator loops;
-            weekdays and shoulder season (late April, Sept–Nov) empty the parks out; first-come sites near popular
-            areas fill by Wednesday or Thursday; state-forest sites book same-day only.</li>
-      </ul></div>
+    <div><h3>Before you book</h3><ul>
+      <li>MN DNR: overnight in designated campsites; hang over managed public-use areas. Trees must be at least 12 inches in diameter at attachment; straps at least 1 inch wide. One hammock per tree. Follow closures and add padding if bark is damaged. <a href="https://www.dnr.state.mn.us/state_parks/hammocking.html">DNR hammock guidance</a>.</li>
+      <li>Three Rivers has its own requirements: trees at least 12 inches in diameter, flat nylon webbing at least 2 inches wide, additional bark protection and permitted locations. <a href="https://www.threeriversparks.org/page/hammock-slackline-use">Read the district policy</a>.</li>
+      <li>Book the specific campsite and verify current rules with its managing agency. County parks and Wisconsin sites do not automatically follow MN DNR policy.</li>
+      <li>Tree spacing alone does not prove a complete setup fits. Tarp length, tree circumference, suspension reach and permitted anchor locations matter. Unmeasured spans are not guaranteed fits.</li>
+      <li>Season, water availability, fees and fire restrictions can change. Official links in checked entries identify what was verified.</li>
+    </ul></div>
     <div><h3>Sources</h3>
       <ul>
         <li>Our trips (Pine Ridge, Wild River; Lake Maria B11, Sept 5-6, 2026)</li>
@@ -312,7 +80,7 @@ p{max-width:70ch;text-wrap:pretty}
 <script>
 // [park, site, hang(0-5|null), tent(0-5|null), hangVerdict, hangs, spans, ground, setting, notes, quote, evidence, tentBasis]
 const SITES=[
-["Afton","Site 25",5,4,"Best in park","3+","11–13 ft, plus a ~15","Flat, lots of tent room","Next to a small open prairie; far end of the trail, little foot traffic","Multiple usable pairs plus room for many tents. Neighbors site 27. A forum hanger independently confirmed the far end of Afton has the good trees.","an excellent campsite for hammockers … this is the best one by far","verbatim","lots of space for lots of tents"],
+["Afton","Site 25",0,null,"Trees removed; inferred no-hang","No hammock options reported in February 2025","not measured","April 2025 walkthrough reports tent space, uneven ground and possible puddling. Tent quality is not scored.","April 2025 walkthrough reports no shade or privacy.","The earlier best-in-park recommendation is superseded by a February 2025 tree-removal report and April 2025 walkthrough. The zero hammock score is an inference from those reports, not a new field test. Confirm current anchors with the park.","Looks like there used to be a tree here and unfortunately it got cut down.","inferred","Not independently scored; see the linked April 2025 walkthrough."],
 ["Afton","Site 3",4,3,"Good","several","not measured","Two tent pads","Wooded, uphill from sites 0/1/2","The densest timber he found; likely why the park keeps a wooded map for hammockers.","lots of trees … plenty of spots for hammocks here","verbatim","two tent pads"],
 ["Afton","Site 6",4,3,"Good","2–3","not measured","Two adjacent tent pads","Wooded, primitive outhouse nearby","Roomier than nearby 5; convenient to the privy. Independently seconded by a hammock camper walking the campground: 'probably a pretty good hammock camping one.'","hammocking check — you probably get two in there, three if you're lucky","verbatim","two adjacent pads"],
 ["Afton","Site 22",4,1,"Good","2","not measured","Flat, a little muddy on one side","End of the road past 21","No real tent pads, so it favors hangers.","probably more hammock friendly than anything","verbatim","no tent pads per se"],
@@ -326,11 +94,11 @@ const SITES=[
 ["Afton","Site 26",2,2,"Marginal","1","not measured","Noticeably slanted; one flat spot near the ring","Big open field ringed by woods, corner of two roads","Longest walk in the park; the deer take refuge here.","a decent spot from that tree to that tree, and that's about it","verbatim","slanted; roughly two tents"],
 ["Afton","Site 1",2,3,"Marginal","maybe 1","not measured","Two tent pads","Top of the first hill","First site in; minimal beyond pads, table, ring.","maybe a hammock spot over there, and really that's about it","verbatim","two tent pads"],
 ["Afton","Site 4",1,2,"Poor","maybe 1","not measured","Grass, no designated pads","Overlooking the valley, just off the path","Grass site with few trees.","not really any hammock spots — maybe this one, just maybe","verbatim","grass, no designated pads"],
-["Afton","Site 8",1,4,"Poor","maybe 1","11–12 ft","Open prairie, lots of tent space","Beautiful prairie, big view; privy nearby","Two gigantic trees but nothing else usable.","doesn't look like there's any real hammock spots — maybe those two","verbatim","mostly a tent site; fits a couple big ones"],
+["Afton","Site 8",4,null,"Hammock posts reported","Posts present; usable capacity unknown","not measured","Posts occupy the site; current tent layout has not been assessed.","Walkthrough describes an open site with some shade and some seclusion.","The April 2025 walkthrough identifies installed hammock posts. This contradicts the inherited tree-only assessment. The good hammock rating is this guide's interpretation, not a numerical rating from the creator. Post spacing and tarp fit remain unknown.","A lot of great poles.","verbatim","Not independently scored; walkthrough warns that posts may interfere with tent placement."],
 ["Afton","Site 18",3,2,"Confirmed hang","1-2","not measured","One tent pad","River view; fire ring right on the edge","CONFLICT RESOLVED by a real stay: MN Hiker discounted the tree pair for sitting too close to the tent pad — a hammock camper then slung directly over the pad, stayed dry through rain, and woke to the St. Croix beyond his toes. Fine solo; awkward if a tenter needs the pad.","plenty of trees which make nice options for hammock camping … I can see the St. Croix River just beyond my toes","verbatim","one pad, cliff-edge ring"],
 ["Afton","Site 17",1,3,"Poor","maybe 1","not measured","Designated tent site plus a flat spot","Deep woods above a ravine, drop-off at the edge","The only pair straddles a deer trail — he wouldn't risk it.","I wouldn't mess with that — you end up with deer inside your tarp","verbatim","more of a tent site; one flat spot for sure"],
 ["Afton","Site 2",1,2,"Poor","maybe 1","not measured","One large tent pad","Across from site 0","","as far as hammocking goes it doesn't look very promising — maybe one over yonder","verbatim","one large pad"],
-["Afton","Site 12",1,5,"Poor","workable but bad","~15–16 ft (long) or ~10 (tarp won't fit)","Flat, flat, flat — big tent capacity","Heavy deer sign","His usual pair here is 15–16 ft; the alternative is ~10 ft, too short for his tarp.","this is a tent site for sure","verbatim","you could have a small community in this one"],
+["Afton","Site 12",4,null,"Hammock posts reported","Posts present; usable capacity unknown","not measured","Walkthrough describes flat ground but posts in the middle of the site.","Some shade; another campsite is relatively close.","The newer walkthrough identifies hammock posts; a separate BWCA forum camper reports seeing them during a fall 2024 tent stay. The good hammock rating is this guide's interpretation. Post spacing and tarp fit remain unknown.","12 also has hammock poles.","verbatim","Flat ground reported, but tent placement around posts has not been independently scored."],
 ["Afton","Site 5",1,2,"Poor","0–1","not measured","One pad, open space, edge of a drop-off","Across a ravine from 3; a real hike in","Poplar stand, but the trees are mostly up the hill off-site.","if you're gonna be hammocking, this is one I probably wouldn't go to","verbatim","one pad; cozy"],
 ["Afton","Site 10",0,2,"Avoid for hanging","0","—","Tilted — the first non-flat site he saw","Closest to water, wood and the privy","Fine enough for a tent or two.","I wouldn't recommend hanging any hammocks in here — definitely not","verbatim","tilted but flat enough for most tents"],
 ["Afton","Site 14",0,0,"Avoid","0","—","Slanted; the table area turns to mud","Right off the path; site 23 visible","The one site he'd actively avoid — bad for tents too.","out of all the campsites, 14 is one that I would try to avoid","verbatim","mud pit around the table; not tent friendly"],
@@ -365,39 +133,39 @@ const SITES=[
 ["Wild River","Deer Creek",3,4,"One good hang","1","not stated","Large, open, sunny; three tent pads carved from the brush; stairs down to the riverbank","~1 mi from the boat landing past a beaver pond, right on the St. Croix","Two independent sources agree on exactly one hang spot, near the site entrance. Otherwise a tent site — big flat grass, big river view. Horses use the trail by day; secluded at night.","not a lot in the way of trees for hammock camping, except for one location … close to the entrance","verbatim","three neat tent pads, flat grass"],
 ["Wild River","Buck Hill",0,3,"Avoid for hanging","0","—","Beautiful site otherwise","Backpack site","A four-hammock group had to abandon it and rebook.","there is not a single hammock option … not hammock friendly at all","verbatim","'gorgeous' — their gripe was hammocks, not tents"],
 ["Wild River","Dry Creek",null,null,"Not assessed","","","","Beyond a run of steep hills past Aspen Knob","The Aspen Knob videographer turned around at the hills; office warned wood may be scarce.","a lot of hills, including this really steep one that made me think enough was enough","none",""],
-["Cleary Lake Regional","Lakeside walk-in",3,null,"One good site","several trees","not stated","Walk-in on a low-traffic trail; no neighboring sites","Right on the lake — closest option to the metro here (Prior Lake)","The OTHER Cleary walk-ins are explicitly NOT hammock-friendly — book the lakeside one. A canoe-in island group site also has room.","the one by the lake has some real nice trees to string up from","forum",""],
+["Cleary Lake Regional","Lakeside walk-in",null,null,"Exact campsite unknown","several trees","not measured","Walk-in on a low-traffic trail; no neighboring sites","Right on the lake — closest option to the metro here (Prior Lake)","The historical report does not establish a current bookable campsite number. Ask Three Rivers which site the lakeside description matches and confirm anchors before booking. The other walk-in sites have not been independently assessed.","the one by the lake has some real nice trees to string up from","forum",""],
 ["Nerstrand Big Woods","Walk-in sites (4)",null,3,"Likely good (forum-backed)","","not surveyed","Tent-only walk-ins; easy access; well spread out","Old-growth maple–basswood 'Big Woods'; waterfall hike; ~40 min south","r/MinnesotaCamping's quiet-camping pick: the walk-in loop sits in a totally separate part of the park from the campground, with the sites spread out among lots of trees. Still no hang-specific survey — but trees + quiet + separation is the right recipe.","totally separate part of the park … the walk-in sites are pretty spread out, lots of trees","forum","designated tent-only sites"],
 ["Frontenac","Cart-in C6",null,1,"Most private (inferred)","","not stated","Ground rough and lumpy — poor for tents, which favors a hammock if pairs exist","Over the bluff from Lake Pepin, facing Maiden Rock","INFERRED: the SCOUT narrator (tent camper) never rates hangs; he calls C6 the most private site in the park. Scout trees in person.","this is the most private site … laying a tent on this wouldn't be kind","inferred","laying a tent on this wouldn't be kind"],
 ["Frontenac","Cart-in C3",null,4,"Narrator's pick (inferred)","","not stated","Level grass, good fire pit","Closest to the (very nice) vault toilet; C4 close next door","His favorite cart-in and the one he booked; a 'really cool tree' on site. No hammock info.","you got this really cool tree right here … my favorite site so far here","inferred","level grass; lots of tents went here"],
 ["Frontenac","Backpack sites (2)",null,null,"Not assessed","","","Wood provided","A hike out from the cart-in area; the two sites sit near each other","Exist per the SCOUT narrator; no captioned walkthrough found.","there are backpack sites over there … they do provide wood over there","none",""],
 ["Sand Dunes SF","Dispersed / Ann Lake walk-ins",3,3,"Confirmed hangs","your pick","your pick","Free dispersed camping plus walk-in sites at the campground","Oak/pine forest by Zimmerman; quietest after a hard freeze","Forum hangers camp here without hassle — but POISON IVY is endemic: one regular got it badly twice, once in early spring through long clothing.","the last 2 times I ventured into the Sand Dunes … I got poison ivy pretty bad","forum","dispersed — pick your ground"],
-["Sakatah Lake","Site 3 (drive-in)",5,3,"Group-hang best","8–10","not stated","Drive-in campground — not backpacking","Rangers hammock-friendly; on the Singing Hills bike trail (Waterville)","From a 2017 four-sister survey for group hangs. Max 6 campers/site. Runners-up: site 1 (4–6), sites 6 &amp; 8 (5–6), site 11 (3–4). Three bike-in sites unsurveyed.","Site 3: 8–10 hammocks — full site-by-site list in the thread","forum","drive-in pad"],
+["Sakatah Lake","Site 3 (drive-in)",5,3,"Historical survey; verify current trees","8–10 estimated in 2017; not tested capacity","not measured","Drive-in campground — not backpacking","Drive-in camping near Waterville.","GingeGirl visually surveyed sites for a group and posted on January 11, 2017. The estimate is not a report of 8–10 occupied hammocks. Current trees, permitted occupancy and fit are unknown; check with the park before booking. The inherited rating has not been validated against present conditions.","Site 3: 8-10 hammocks","forum","Inherited drive-in assessment; current tent pad not independently checked."],
 ["MN Valley SRA","Lawrence Unit walk-ins (8)",null,3,"Not assessed","","not surveyed","8 secluded walk-in sites, plus 25 drive-in","Minnesota River bottoms hardwood forest near Jordan","River-bottom cottonwood/maple forest should offer pairs, but nobody has rated hangs here. Bugs are serious in the bottoms in summer.","the Lawrence Unit has 25 scenic, well-spaced campsites and 8 secluded walk-in campsites","none","secluded walk-in sites"],
 ["MN Valley SRA","Backcountry hike-in / boat-in",null,3,"Not assessed","","not surveyed","Rustic backcountry sites — NO CAMPFIRES, even where a ring exists","Along the 35-mile trail between Chaska and Belle Plaine","The closest true backcountry-style camping to the metro (~35 min). No fires at these sites is a DNR rule, not a suggestion.","campfires are not allowed in backcountry (hike-in/backpack and boat-in) campsites","none","rustic sites off the state trail"],
-["Lake Elmo Park Reserve","Hike-in sites (5)",null,3,"Not assessed","","not surveyed","One tent per site; 100–300 yards from the lot","Rolling oak woods and prairie ~25 min east of St. Paul","The shortest carry on this list — a starter overnight. No pets; bathrooms and water at the Nordic Center. Nobody has rated the trees.","five hike-in tent sites … between 100 yards and 300 yards from the parking lot","none","one tent per site"],
+["Lake Elmo Park Reserve","Hike-in sites (5)",null,3,"Not assessed","","not surveyed","One tent per site; 100–300 yards from the lot","Rolling oak woods and prairie ~25 min east of St. Paul","County lists the 2026 camping season as April 24 through October 17. Weekend stays require two nights; holiday weekends three. One tent per hike-in site. Water and bathrooms at the Nordic Center; no pets except service animals. Hammock permission and anchors remain unknown; ask the county.","Five hike-in tent sites. One tent per site.","none","one tent per site"],
 ["Crow-Hassan Park Reserve","Group hike-in camps",null,3,"Not assessed","","not surveyed","Hike-in, bike-in and ride-in group sites","Prairie and oak savanna on the Crow River (Hanover, ~35 min NW)","Three Rivers runs these as GROUP camps — right shape for a friends' hang trip, wrong shape for solo. Elm Creek has the same setup.","group camp hike-in, bike-in and horseback ride-in sites are available at Crow-Hassan","none","group tent camping"],
 ["William O'Brien","Walk-in tent sites (2)",null,3,"Not assessed","","not surveyed","Two walk-in sites for a more secluded stay","St. Croix riverside park at Marine on St. Croix (~45 min NE)","Only two, so they book out. Rolling moraine, savanna and hardwoods; forum hangers name the park but nobody has rated these two sites.","two walk-in tent sites for those looking for a more secluded experience","none","walk-in tent sites"],
-["Cannon River Wilderness Area","Hike-in sites (4)",3,3,"Riverbank hangs reported","enough for several","not surveyed","Free, first-come; tables, fire rings, vault toilet May–Oct","850 wooded acres of the Cannon valley between Northfield and Faribault (~50 min S)","FREE and first-come — the no-reservation escape hatch when everything else is booked. ~10-minute walk in; at least one site has riverbank hammock space per campers' reports.","at least one offering enough space to set up hammocks along the riverbank","forum","primitive tent sites, ~10 min walk"],
+["Cannon River Wilderness Area","Hike-in sites (4)",3,3,"Historical hammock report","enough for several","not surveyed","Four primitive campsites; first-come, no reservations. No running water.","850 wooded acres of the Cannon valley between Northfield and Faribault (~50 min S)","Rice County limits stays to three days and prohibits collecting or burning wood from the park. Current fee is unknown from the checked facility page. The older hammock report does not identify a campsite or measured anchors; its rating remains unverified.","at least one offering enough space to set up hammocks along the riverbank","forum","primitive tent sites, ~10 min walk"],
 ["Rum River State Forest","Dispersed",4,3,"Confirmed winter hang","plenty","your pick","Free dispersed camping off gravel forest roads","Flat, easy forest near Milaca (~1 hr N)","A hammockforums regular filmed a December hang here: easy roads, easy terrain, no big deadfall. Solo-friendly and free.","plenty of campsite locations for hammocks or tents","forum","room for tents anywhere"],
 ["St. Croix Riverway (NPS)","Paddle-in sites (13)",null,3,"Not assessed","","not surveyed","Free, first-come river campsites; fire rings","Wooded banks between WI Interstate Park and Somerset Landing, via Osceola","The solo-paddle option: 13 free NPS sites reachable only by water. A permit is required to camp between US Hwy 8 and the Soo Line High Bridge. Trees line the banks but nobody has rated hangs.","no fees are charged for … campsites (which are first come, first served)","none","riverbank tent sites"],
-["Stanley Eddy Park Reserve","Walk-in & hike-in sites",null,3,"Not assessed","","not surveyed","FREE with a Special Use Permit (online form or 763-682-7693); open year-round","Wright County reserve southwest of Lake Maria (~55 min W); rolling hills, lakes and marsh across three units","Named twice on r/MinnesotaCamping for private solo camping: some sites are an easy walk-in, others take a longer hike, all fairly private. Wright County lists the carry-in sites as free by permit (a redditor remembered $5 — the county's word wins). Nobody has rated the trees.","some are easy walk-in sites and others take a longer hike, all fairly private","forum","tent sites, walk or hike in"],
+["Stanley Eddy Park Reserve","Walk-in & hike-in sites",null,3,"Not assessed","","not surveyed","Backcountry camping in the north and south units; reservations required. County lists $5 per night.","Wright County reserve southwest of Lake Maria (~55 min W); rolling hills, lakes and marsh across three units","The current county listing supersedes the old free-permit claim. Check the reservation listing for the exact campsite. Hammock anchors remain unknown.","$5 per night","forum","tent sites, walk or hike in"],
 ["St. Croix / Chengwatana SF","Boulder Campground & dispersed",null,3,"Not assessed","","your pick","Primitive campground + free dispersed; low ground can be wet","State forests near Pine City / Hinckley (~1 hr 10 NE)","Reddit's last-minute escape valve: quiet, first-come, and a hammockforums poster uses Boulder as the trailhead for dispersed hikes. State-forest sites book same-day only — check in the morning, pay, drive up.","have always thought Boulder Campground in St. Croix State Forest was nice … super secluded","forum","primitive drive-in and dispersed"],
 ["Gov. Knowles SF (WI)","Backpack sites (9), Randall Creek confirmed",4,3,"Confirmed hang","2 easy trees at Randall Creek","not stated","Primitive sites along the trail; creek crossings on wooden bridges","55-mile forest strip on the Wisconsin bank of the St. Croix (Grantsburg, ~1 hr 15 NE)","FREE — nine backpack sites, reserved by emailing the forest HQ at least 7 days ahead for a permit (WI DNR). A hammock camper hung at Randall Creek 'between two very conveniently located trees,' filtered creek water, and fought ticks and mosquitoes — bring the net.","I set up my hammock between two very conveniently located trees at my site — that was great","verbatim","flat primitive sites"],
 ];
 const PARKS=[
- ["Afton","~30 min E · backpack-in only","St. Croix bluffs above Afton Alps. All 27 sites hike-in; walked site-by-site by MN Hiker. The good hammock trees cluster at the far end of the trail (25 / 27 / 22). r/MinnesotaCamping concurs on the 14–22 corridor for seclusion, and notes the firewood and water live up top by the sites — no hauling."],
+ ["Afton","~30 min E · backpack-in only","Backpack camping above the St. Croix. Read the updated site-level source checks: sites 8 and 12 have reported hammock posts; the former site 25 hammock recommendation is superseded by tree-removal reports."],
  ["Lake Maria","~45 min NW · backpack & cart-in","Big-woods remnant at Monticello, all pack-in sites — a hammock favorite on the forums. Sandhill cranes can call all night in season."],
  ["Sand Dunes SF","~45 min NW · dispersed, free","State forest by Zimmerman: the closest legal dispersed hanging to the metro. Watch the poison ivy."],
  ["Cleary Lake Regional","~30 min S · walk-in","Three Rivers park at Prior Lake — the quick-overnighter option."],
  ["Nerstrand Big Woods","~40 min S · walk-in","Old-growth maple–basswood south of Northfield. Four tent-only walk-ins; no one has surveyed the trees yet. Hit the Nerstrand Meat Market on the way."],
  ["Wild River","~1 hr NE · backpack-in","18 miles of the St. Croix near North Branch, 8 backpack sites — the park office will tell you which suit hammocks, and already has: Aspen Knob and Spring Creek. Our own trip added Pine Ridge, where four of us hung side by side."],
  ["Frontenac","~1 hr SE · cart-in & backpack","Bluff country over Lake Pepin at Red Wing. Six cart-ins (C1–C6) plus two backpack sites; hammock potential unproven."],
- ["Sakatah Lake","~1 hr S · drive-in","Not backpacking — but the only campground anywhere with a published site-by-site hammock-capacity survey, so it's the group-hang park."],
+ ["Sakatah Lake","~1 hr S · drive-in","Drive-in camping with a historical 2017 hammock survey. Estimated capacity needs a current check."],
  ["Lake Elmo Park Reserve","~25 min E · hike-in","Washington County reserve with five hike-in tent sites a few hundred yards from the car — the easiest first solo overnight on this list."],
  ["MN Valley SRA","~35 min SW · walk-in & backcountry","Minnesota River bottoms from Chaska to Belle Plaine: 8 walk-in sites at the Lawrence Unit plus rustic hike-in/boat-in backcountry sites. No campfires at the backcountry ones."],
  ["Crow-Hassan Park Reserve","~35 min NW · group hike-in","Three Rivers prairie reserve on the Crow River. Group hike-in camps only — bring the crew."],
  ["William O'Brien","~45 min NE · walk-in","St. Croix riverside park with exactly two walk-in tent sites plus the drive-in campground. Book early."],
- ["Cannon River Wilderness Area","~50 min S · hike-in, free","Rice County's 850-acre river valley: four free first-come hike-in/canoe sites. The no-reservation fallback."],
+ ["Cannon River Wilderness Area","Hike-in · first-come","Four primitive campsites; no reservations and no running water. Check county rules before departure."],
  ["Rum River State Forest","~1 hr N · dispersed, free","Flat, easy state forest by Milaca with free dispersed camping — filmed and confirmed by a winter hammock hanger."],
  ["St. Croix Riverway (NPS)","paddle access · free","Thirteen free first-come campsites on the federal riverway between Interstate Park and Somerset Landing — reachable only by canoe or kayak."],
  ["Stanley Eddy Park Reserve","~55 min W · walk-in, $5","Wright County sleeper pick from r/MinnesotaCamping: private walk-in and hike-in sites, five bucks a night, reservable online."],
@@ -418,8 +186,8 @@ const SHORT={"Rum River State Forest":"Rum River SF","Crow-Hassan Park Reserve":
 "Stanley Eddy Park Reserve":"Stanley Eddy","St. Croix / Chengwatana SF":"State forests NE",
 "Gov. Knowles SF (WI)":"Gov. Knowles (WI)"};
 // solo suitability: 2 = solo pick (source flags seclusion/quiet/low traffic), 1 = solo-bookable, 0 = group-only
-const SOLO2=new Set(["Afton|Site 25","Afton|Site 16","Lake Maria|B7","Lake Maria|B11","Lake Maria|B17",
-"Wild River|Aspen Knob","Wild River|Dry Creek","Frontenac|Cart-in C6","Cleary Lake Regional|Lakeside walk-in",
+const SOLO2=new Set(["Afton|Site 16","Lake Maria|B7","Lake Maria|B11","Lake Maria|B17",
+"Wild River|Aspen Knob","Wild River|Dry Creek","Frontenac|Cart-in C6",
 "Cannon River Wilderness Area|Hike-in sites (4)","Rum River State Forest|Dispersed",
 "St. Croix Riverway (NPS)|Paddle-in sites (13)","Lake Elmo Park Reserve|Hike-in sites (5)",
 "Sand Dunes SF|Dispersed / Ann Lake walk-ins","Nerstrand Big Woods|Walk-in sites (4)",
@@ -457,10 +225,108 @@ function matches(s){
   return true;
 }
 function rating(label,value,selected){return '<span class="rating'+(selected?' selected':'')+'"><span class="lab">'+label+'</span>'+(value==null?'<span>Unknown</span>':'<b>'+value+'</b><span class="denom"> / 5</span>')+'</span>';}
-function row(s){
+const TRIP_LOGS={
+  "Lake Maria|B11": {
+    "date": "September 5–6, 2026",
+    "type": "Solo hammock overnight",
+    "title": "A good site. A very warm night.",
+    "summary": "B11 worked well, and Lake Maria was a solid place to hike. The hammock felt comfortable; the main frustrations were short tarp lines and a pillow that was only okay.",
+    "facts": [
+      [
+        "Approach hike",
+        "About 4 miles"
+      ],
+      [
+        "Direct walk-in",
+        "About 0.75 mile, estimated"
+      ],
+      [
+        "Where I hung",
+        "Left of the bear locker, facing it"
+      ],
+      [
+        "Tree span",
+        "Not measured"
+      ]
+    ],
+    "sections": [
+      [
+        "The site",
+        "The bear locker was there, and I saw several places to hang. I estimated enough physical space for four hammocks comfortably plus two tents. I used one hammock setup; the larger capacity was an estimate, not a group test or a statement of permitted occupancy."
+      ],
+      [
+        "Setting up",
+        "The new whoopie slings seemed fully extended on my chosen trees. The tarp line was too short to use the Stingerz normally, so I wrapped it around a tree and tied a knot."
+      ],
+      [
+        "Through the night",
+        "I felt really hot until about 1–2 a.m., then put the top quilt over only my legs. The actual temperature is unknown. Bugs were manageable overall, but one or two mosquitoes got inside the net, and I had bites on my ankles and feet."
+      ],
+      [
+        "Comfort",
+        "I had trouble falling asleep, although the hammock itself felt fine. The pillow was neither bad nor particularly good. I wondered whether letting some air out would help."
+      ]
+    ]
+  },
+  "Wild River|Pine Ridge": {
+    "date": "Trip date not recorded",
+    "type": "Group hammock stay",
+    "title": "Four complete hangs, side by side.",
+    "summary": "Four of us fit our hammocks and tarps together along the ridge edge. There were other hanging options near the fire ring and picnic table.",
+    "facts": [
+      [
+        "Setups used",
+        "4 hammocks with tarps"
+      ],
+      [
+        "Where we hung",
+        "Ridge edge, past the latrine"
+      ],
+      [
+        "Other options observed",
+        "3 near the fire ring / picnic table"
+      ],
+      [
+        "Tree spans",
+        "Not measured"
+      ]
+    ],
+    "sections": [
+      [
+        "The group hang",
+        "Past the latrine, along the edge of the ridge, we set up four full hammock-and-tarp systems side by side without a problem. There appeared to be room for a few more, but we did not test a larger group."
+      ],
+      [
+        "Other places to hang",
+        "We found three hanging options near the fire ring and picnic table. These were additional options, not three more occupied setups during our stay."
+      ],
+      [
+        "Space to plan around",
+        "For a bigger group, account for the space each tarp needs as well as the trees. Tarp footprints were the main constraint noted in the report."
+      ]
+    ]
+  }
+};
+
+function tripLog(report){
+ return '<article class="trip-log" aria-label="Trip log"><div class="log-byline"><span>'+esc(report.date)+'</span><span>'+esc(report.type)+'</span></div><h3 class="log-title">'+esc(report.title)+'</h3><p class="log-lead">'+esc(report.summary)+'</p><dl class="facts">'+report.facts.map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>').join('')+'</dl>'+report.sections.map(([title,body])=>'<section class="log-section"><h4>'+esc(title)+'</h4><p>'+esc(body)+'</p></section>').join('')+'<p class="log-source">Owner-submitted stay report, edited for readability. Original wording and earlier evidence are in Sources &amp; notes.</p></article>';
+}
+const RESEARCH={"Afton|Site 25": {"note": "Earlier recommendation conflicts with newer reports of tree removal. Newer evidence takes priority; current conditions still need a park check.", "sources": [["Muddy Boots Camping: site 25, April 22, 2025; captions at 0:14", "https://www.youtube.com/watch?v=JNA984ypC78&t=14s"], ["BWCA: Mattbrome, February 23, 2025; tree removal report", "https://bwca.com/index.cfm?confID=1&forumID=12&fuseaction=forum.thread&threadId=1365760&vt=1740752120"]]}, "Afton|Site 8": {"note": "Walkthrough captions checked. Reddit linked the creator’s own walkthrough, so those two appearances are one source, not independent corroboration.", "sources": [["Muddy Boots Camping: site 8, April 19, 2025; posts at 0:27", "https://www.youtube.com/watch?v=QNFL-_f4cNA&t=27s"], ["Reddit: hammock sites, May 5, 2025", "https://www.reddit.com/r/MinnesotaCamping/comments/1kfjhdj/hammock_sites/"]]}, "Afton|Site 12": {"note": "Walkthrough captions and separate forum stay report support installed posts. Exact upload date was not verified.", "sources": [["Muddy Boots Camping: site 12; posts at 0:26", "https://www.youtube.com/watch?v=hFszPESqji8&t=26s"], ["BWCA: eagle98mn, February 22, 2025; posts observed in fall 2024", "https://bwca.com/index.cfm?confID=1&forumID=12&fuseaction=forum.thread&threadId=1365760&vt=1740752120"]]}, "Sakatah Lake|Site 3 (drive-in)": {"note": "Original forum survey checked. Source is dated January 11, 2017; current site suitability is unverified.", "sources": [["Hammock Forums: GingeGirl’s visual survey, January 11, 2017", "https://www.hammockforums.net/forum/archive/index.php/t-121851.html"]]}, "Lake Elmo Park Reserve|Hike-in sites (5)": {"note": "Official access, season and reservation rules checked. This does not verify hammock suitability or the inherited tent rating.", "sources": [["Washington County: camping reservations and hike-in facilities", "https://www.washingtoncountymn.gov/1820/Camping-Reservations"]]}, "Stanley Eddy Park Reserve|Walk-in & hike-in sites": {"note": "Official fee and reservation requirement checked. Hammock suitability and inherited tent rating remain unverified.", "sources": [["Wright County: Stanley Eddy camping", "https://www.wrightcountymn.gov/facilities/facility/details/Stanley-Eddy-Memorial-Park-Reserve-23"]]}, "Cannon River Wilderness Area|Hike-in sites (4)": {"note": "Official camping rules checked. The inherited hammock and tent ratings are not independently verified.", "sources": [["Rice County: Cannon River Wilderness Area", "https://www.ricecountymn.gov/facilities/facility/details/Cannon-River-Wilderness-Area-4"]]}};
+function researchNote(s){
+ const r=RESEARCH[s[0]+'|'+s[1]];
+ if(!r) return '<p class="log-source">'+(s[11]==='field'?'Owner stay report. Measurements remain limited to what was submitted.':'Inherited assessment. This campsite’s original source has not yet been independently rechecked.')+'</p>';
+ return '<section class="research-note"><h3>Source check · September 6, 2026</h3><p>'+esc(r.note)+'</p><ul>'+r.sources.map(([label,url])=>'<li><a href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(label)+'</a></li>').join('')+'</ul></section>';
+}
+function detail(s){
  const status=soloOf(s)===0?'Group only':soloOf(s)===2?'Solo pick':'';
- const notes=esc(s[9]).split(/(?<=\.) (?=Whoopie|Felt very hot|Bugs were|Earlier walkthrough|Existing hang)/).map(t=>'<p>'+t+'</p>').join('');
- return '<details class="site"><summary><span class="namecell"><span class="site-title">'+esc(s[1])+'</span><span class="site-meta">'+(status?'<span class="'+(soloOf(s)===0?'group-mark':'solo-mark')+'">'+status+'</span>':'')+'<span class="'+(s[11]==='field'?'field-mark':'')+'">'+(s[11]==='field'?'<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="m6 10 3 3 5-6"/></svg>':'')+esc(EV[s[11]])+'</span></span></span>'+rating('Hammock',s[2],gear!=='tent')+rating('Tent',s[3],gear!=='hang')+'<span class="chevron" aria-hidden="true">›</span></summary><div class="body"><dl class="facts"><div><dt>Hanging options</dt><dd>'+esc(s[5]||'Unknown')+'</dd></div><div><dt>Tree spans</dt><dd>'+esc(s[6]||'not measured')+'</dd></div></dl>'+(s[8]?'<h3>Setting &amp; access</h3><p>'+esc(s[8])+'</p>':'')+(s[7]?'<h3>Ground &amp; tents</h3><p>'+esc(s[7])+'</p>':'')+(s[9]?'<h3>What to know</h3>'+notes:'')+'<details class="evidence"><summary>Rating evidence · '+esc(EV[s[11]])+'</summary><p>'+esc(s[4])+'</p>'+(s[10]?'<blockquote class="quote">'+esc(s[10])+'</blockquote>':'')+(s[12]?'<h3>Tent rating basis</h3><p>'+esc(s[12])+'</p>':'')+'<p class="ebadge">'+esc(EV[s[11]])+'. <a href="#guide" onclick="document.getElementById(&quot;guide&quot;).open=true">How sources are used</a></p></details>'+votebar(s)+'</div></details>';
+ const report=TRIP_LOGS[s[0]+'|'+s[1]];
+ const standard='<dl class="facts"><div><dt>Hanging options</dt><dd>'+esc(s[5]||'Unknown')+'</dd></div><div><dt>Tree spans</dt><dd>'+esc(s[6]||'not measured')+'</dd></div></dl>'+(s[8]?'<h3>Setting &amp; access</h3><p>'+esc(s[8])+'</p>':'')+(s[7]?'<h3>Ground &amp; tents</h3><p>'+esc(s[7])+'</p>':'')+(s[9]?'<h3>What to know</h3><p>'+esc(s[9])+'</p>':'');
+ const evidence='<details class="evidence"><summary>'+(report?'Original report &amp; rating evidence':'Rating evidence · '+esc(EV[s[11]]))+'</summary><p>'+esc(s[4])+'</p>'+(s[10]?'<blockquote class="quote">'+esc(s[10])+'</blockquote>':'')+(report?'<h3>Original report notes</h3><p class="original-notes">'+esc(s[9])+'</p><h3>Site context</h3><p>'+esc(s[8])+'</p><p>'+esc(s[7])+'</p>':'')+(s[12]?'<h3>Tent rating basis</h3><p>'+esc(s[12])+'</p>':'')+'<p class="ebadge">'+esc(EV[s[11]])+'. <a href="#guide" onclick="setView(&quot;guide&quot;)">How sources are used</a></p></details>';
+ const key=s[0]+'|'+s[1];
+ const overview=report?'<p class="overview-lead">'+esc(report.summary)+'</p><dl class="facts">'+report.facts.map(([k,v])=>'<div><dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd></div>').join('')+'</dl><button class="report-action" onclick="setDetailTab(\'report\')">Read the full stay report <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>':standard;
+ const area=PARKS.find(p=>p[0]===s[0]);
+ const content=detailTab==='sources'?researchNote(s)+evidence+(area?'<details class="evidence"><summary>Area context from the original guide</summary><p>'+esc(area[2])+'</p><p>Area-level descriptions have not been independently rechecked unless a source check above explicitly says so.</p></details>':''):detailTab==='report'&&report?tripLog(report):overview;
+ return '<button class="mobile-back" onclick="backToList()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M19 12H5m5-5-5 5 5 5"/></svg>Back to '+(view==='logs'?'trip logs':'campsites')+'</button><header class="detail-header"><p class="detail-location">'+esc(s[0])+'</p><h2>'+esc(s[1])+'</h2><div class="detail-meta"><span class="'+(report?'owned':'')+'">'+(report?'Owner stay':esc(EV[s[11]]))+'</span>'+(status?'<span>'+status+'</span>':'')+'<span>'+esc(TENTV[s[2]]||'Unknown')+' hammock suitability</span></div></header><nav class="detail-tabs" aria-label="Campsite details"><button class="'+(detailTab==='overview'?'active':'')+'" aria-pressed="'+(detailTab==='overview')+'" onclick="setDetailTab(\'overview\')">Overview</button>'+(report?'<button class="'+(detailTab==='report'?'active':'')+'" aria-pressed="'+(detailTab==='report')+'" onclick="setDetailTab(\'report\')">Stay report</button>':'')+'<button class="'+(detailTab==='sources'?'active':'')+'" aria-pressed="'+(detailTab==='sources')+'" onclick="setDetailTab(\'sources\')">Sources &amp; notes</button></nav><div class="detail-content">'+content+'<div class="detail-bottom"><p>'+(report?'Firsthand report. Estimates are identified in the log.':RESEARCH[key]?'Source check available. Read its scope before booking.':'Inherited assessment; independent source check pending.')+'</p><a href="https://github.com/lehuukha/hang-or-stake/issues/new?title='+encodeURIComponent('Stay report: '+key)+'" target="_blank" rel="noopener">Add a stay report</a></div></div>';
 }
 // ---- stay reports: live voting on the claude.ai copy, GitHub-issue fallback on the static copy ----
 let STAY={}; try{ STAY=JSON.parse(document.getElementById("stay-data").textContent)||{}; }catch(e){}
@@ -541,44 +407,51 @@ function drawMap(){
   g+="</svg>";
   document.getElementById("map").innerHTML=g;
 }
+
+let view='explore', selected='Lake Maria|B11', detailTab='overview', visibleLimit=8;
+function row(s){
+ const k=s[0]+'|'+s[1], report=TRIP_LOGS[k];
+ const status=soloOf(s)===0?'Group only':report?'Owner stay':s[11]==='inferred'?'Inferred assessment':RESEARCH[k]?'Source check available':'Source check pending';
+ return '<button class="site-row" aria-pressed="'+(selected===k)+'" onclick="selectSite('+SITES.indexOf(s)+')"><span><span class="row-place">'+esc(s[0])+'</span><span class="row-name">'+esc(s[1])+'</span><span class="row-status '+(report?'owned':'')+'">'+esc(view==='logs'&&report?report.date:status)+'</span></span>'+rating('Hammock',s[2],gear!=='tent')+rating('Tent',s[3],gear!=='hang')+'</button>';
+}
 function render(){
- document.documentElement.setAttribute('data-gear',gear);
+ document.documentElement.dataset.gear=gear;
+ ['explore','logs','guide'].forEach(v=>{const b=document.getElementById('nav-'+v);b.classList.toggle('active',v===view);b.setAttribute('aria-pressed',String(v===view));});
+ document.getElementById('explore').hidden=view==='guide';document.querySelector('.sitefoot').hidden=view!=='guide';document.getElementById('guide').open=true;
+ document.getElementById('toolbar').hidden=view==='logs';
+ document.getElementById('page-title').textContent=view==='logs'?'Notes from a night outside.':'Find your next campsite.';
+ document.getElementById('page-description').textContent=view==='logs'?'Firsthand stays, with the useful details kept in.':'Good trees. Level ground. Evidence to help you choose.';
  ['hang','tent','either'].forEach(g=>{const b=document.getElementById('g-'+g);b.classList.toggle('on',g===gear);b.setAttribute('aria-pressed',String(g===gear));});
  document.getElementById('area').value=park;
- let html='',total=0,areas=0;
- for(const p of PARKS){
-  if(park!=='all'&&park!==p[0])continue;
-  const rows=SITES.filter(s=>s[0]===p[0]&&matches(s)).sort((a,b)=>(scoreOf(b)??-1)-(scoreOf(a)??-1));
-  if(!rows.length)continue;total+=rows.length;areas++;
-  html+='<section class="park-section"><div class="parkhead"><div class="park-title-group"><h2>'+esc(p[0])+'</h2><span class="parkmeta">'+esc(p[1])+'</span></div><span class="park-count">'+rows.length+' '+(rows.length===1?'listing':'listings')+'</span></div><details class="park-about"><summary>About the area</summary><p>'+esc(p[2])+'</p></details><div class="site-list">';
-  const limit=park==='all'&&!q?5:rows.length;
-  html+=rows.slice(0,limit).map(row).join('');
-  if(rows.length>limit)html+='<details class="more-sites"><summary>Show '+(rows.length-limit)+' more sites in '+esc(p[0])+'</summary>'+rows.slice(limit).map(row).join('')+'</details>';
-  html+='</div></section>';
- }
- document.getElementById('parks').innerHTML=html||'<div class="empty"><h3>No campsites match these filters.</h3><p>Try a broader search, a lower rating, or another area.</p><button class="text-btn" onclick="resetFilters()">Show all campsites</button></div>';
- document.getElementById('result-count').textContent=total+' '+(total===1?'listing':'listings')+' in '+areas+' '+(areas===1?'area':'areas');
- document.getElementById('filter-count').textContent=[park!=='all',min>0,solo,fieldOnly].filter(Boolean).length||'';
- document.getElementById('result-context').textContent=(gear==='either'?'Sorted by the better of the two ratings.':'Highest '+(gear==='hang'?'hammock':'tent')+' rating first within each area.');
- drawMap();
+ const rows=SITES.filter(s=>view==='logs'?!!TRIP_LOGS[s[0]+'|'+s[1]]:(park==='all'||s[0]===park)&&matches(s)).sort((a,b)=>Number(b[1].toLowerCase()===q)-Number(a[1].toLowerCase()===q)||(scoreOf(b)??-1)-(scoreOf(a)??-1)||Number(b[11]==='field')-Number(a[11]==='field'));
+ if(!rows.some(s=>s[0]+'|'+s[1]===selected)){selected=rows.length?rows[0][0]+'|'+rows[0][1]:'';detailTab=view==='logs'?'report':'overview';}
+ document.getElementById('parks').innerHTML=rows.length?'<div class="site-list">'+rows.slice(0,visibleLimit).map(row).join('')+'</div>'+(rows.length>visibleLimit?'<button class="more-button" onclick="showMore()">Show more campsites ('+(rows.length-visibleLimit)+' remaining)</button>':''):'<div class="empty"><h3>No matches.</h3><p>Try another park or a broader search.</p><button class="text-btn" onclick="resetFilters()">Reset filters</button></div>';
+ document.getElementById('result-count').textContent=rows.length+' '+(view==='logs'?'trip logs':'campsites');
+ document.getElementById('result-context').textContent=view==='logs'?'Owner submitted':'Best '+(gear==='hang'?'hammock':gear==='tent'?'tent':'available')+' rating first';
+ document.getElementById('filter-count').textContent=[min>0,solo,fieldOnly].filter(Boolean).length||'';
+ renderDetail();drawMap();
 }
-function setGear(g){gear=g;try{localStorage.setItem('hos-gear',g);}catch(e){}render();}
-function setPark(p){park=p;render();document.getElementById('area-map').close();}
-function setMin(v){min=+v;render();}
-function setSolo(){solo=document.getElementById('solobtn').checked;render();}
-function setField(v){fieldOnly=v;render();}
-function setQ(v){q=v.trim().toLowerCase();render();}
-function resetFilters(){park='all';min=0;q='';solo=false;fieldOnly=false;document.getElementById('q').value='';document.getElementById('minsel').value='0';document.getElementById('solobtn').checked=false;document.getElementById('fieldonly').checked=false;render();}
+function renderDetail(){const s=SITES.find(s=>s[0]+'|'+s[1]===selected);document.getElementById('site-detail').innerHTML=s?detail(s):'<div class="empty"><p>No campsite selected.</p></div>';if(detailTab==='sources')document.querySelector('#site-detail .evidence').open=true;}
+function selectSite(i){selected=SITES[i][0]+'|'+SITES[i][1];detailTab=view==='logs'?'report':'overview';render();if(matchMedia('(max-width:720px)').matches){document.getElementById('workspace').classList.add('mobile-detail');document.body.classList.add('detail-open');window.scrollTo(0,0);}document.getElementById('site-detail').scrollTop=0;document.getElementById('site-detail').focus({preventScroll:true});}
+function setDetailTab(t){detailTab=t;renderDetail();}
+function backToList(){document.getElementById('workspace').classList.remove('mobile-detail');document.body.classList.remove('detail-open');}
+function setView(v){view=v;visibleLimit=8;backToList();document.getElementById('filters').open=false;if(v==='logs')detailTab='report';else detailTab='overview';render();window.scrollTo(0,0);}
+function showTripLogs(){setView('logs');}
+function openB11(){view='logs';selectSite(SITES.findIndex(s=>s[0]==='Lake Maria'&&s[1]==='B11'));}
+function showMore(){visibleLimit+=8;render();}
+function setGear(g){gear=g;visibleLimit=8;try{localStorage.setItem('hos-gear',g);}catch(e){}render();}
+function setPark(p){park=p;view='explore';visibleLimit=8;backToList();render();document.getElementById('area-map').close();}
+function setMin(v){min=+v;visibleLimit=8;render();}
+function setSolo(){solo=document.getElementById('solobtn').checked;visibleLimit=8;render();}
+function setField(v){fieldOnly=v;visibleLimit=8;render();}
+function setQ(v){q=v.trim().toLowerCase();selected='';visibleLimit=8;render();}
+function resetFilters(){park='all';min=0;q='';solo=false;fieldOnly=false;visibleLimit=8;document.getElementById('q').value='';document.getElementById('minsel').value='0';document.getElementById('solobtn').checked=false;document.getElementById('fieldonly').checked=false;render();}
 document.getElementById('area').innerHTML='<option value="all">All areas</option>'+PARKS.map(p=>'<option value="'+esc(p[0])+'">'+esc(p[0])+'</option>').join('');
-document.querySelector('.header-link').addEventListener('click',()=>{document.getElementById('guide').open=true;});
-function openB11(){resetFilters();park='Lake Maria';q='b11';document.getElementById('q').value='B11';render();const site=document.querySelector('.site');if(site){site.open=true;site.scrollIntoView({block:'start'});}}
-function applyTheme(theme){document.documentElement.dataset.theme=theme;document.getElementById('theme-btn').setAttribute('aria-label','Switch to '+(theme==='dark'?'light':'dark')+' theme');}
+document.addEventListener('click',e=>{if(!e.target.closest('#filters'))document.getElementById('filters').open=false;});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('filters').open=false;backToList();}});
+function applyTheme(t){document.documentElement.dataset.theme=t;document.getElementById('theme-btn').setAttribute('aria-label','Switch to '+(t==='dark'?'light':'dark')+' theme');}
 function toggleTheme(){const t=document.documentElement.dataset.theme==='dark'?'light':'dark';applyTheme(t);try{localStorage.setItem('hos-theme',t);}catch(e){}}
-try{applyTheme(localStorage.getItem('hos-theme')==='dark'?'dark':'light');}catch(e){applyTheme('light');}
-const mobileFilters=matchMedia('(max-width:700px)');
-function sizeFilters(){document.getElementById('filters').open=!mobileFilters.matches;}
-mobileFilters.addEventListener('change',sizeFilters);sizeFilters();
-try{ const g=localStorage.getItem("hos-gear"); if(g==="hang"||g==="tent"||g==="either") gear=g; }catch(e){}
+try{applyTheme(localStorage.getItem('hos-theme')==='dark'?'dark':'light');const g=localStorage.getItem('hos-gear');if(['hang','tent','either'].includes(g))gear=g;}catch(e){applyTheme('light');}
 render();
 </script>
 

@@ -23,3 +23,6 @@ The previous oversized intro and schematic map, wall of area buttons, tiny label
 
 ## Accessibility & Inclusion
 Design baseline: readable contrast, keyboard access, explicit form labels, adequate touch targets and reduced-motion support. No additional user-specific needs were supplied.
+
+## Compact finder revision, September 6, 2026
+The owner rejected the spacious editorial introduction and repeated area sections as still too cluttered. Use a compact list and selected-site reading panel, with secondary filters and evidence progressively disclosed. Campsite finding takes precedence over landing-page presentation. Contemporary outdoor products are the craft reference; do not add decorative metrics, invented photography or oversized promotional sections.

@@ -32,3 +32,6 @@ A single-page guide to overnight campsites near the Twin Cities, Minnesota, scor
 ## Owner's gear lists (LighterPack)
 - Fall 2026, Southwest 40: https://lighterpack.com/r/78w2m3
 - Summer 2026, Southwest 40: https://lighterpack.com/r/t2mahw
+
+## Research and presentation update, September 6, 2026
+The source page now includes structured owner trip logs and per-entry independent source checks. Read docs/RESEARCH_2026-09-06.md before changing scores. The historical CSVs and old build scripts predate these corrections; do not use them to overwrite the current page without reconciling changes. Many inherited ratings remain explicitly unverified. Current hammock policy has more specific requirements than the original short rules summary above; use the linked official policies on the page.

@@ -1,25 +1,27 @@
 # Hang or Stake design
 
-## Intent
-A modern campsite browser with a clear editorial introduction and a practical comparison workspace. Light is the default for use while planning trips or checking a phone outdoors; a persistent dark-theme control supports evening use.
+## Direction
+Compact outdoor finder with a separate reading panel. Replaces the rejected marketing introduction, persistent sidebar and repeated park sections. The user requested clarity, substantially less clutter and the craft of an established premium outdoor product; design decisions were delegated to Codex.
 
-## Typography
-Manrope with system-ui fallback. Strong, compact headings; restrained supporting text. Labels and source text use sentence case. No decorative display font or all-caps badges repeated across every row.
+## Reference study
+[AllTrails Minnesota explorer](https://www.alltrails.com/explore/us/minnesota) informed the compact control bar and stable results/detail relationship. [WTA Hiking Guide](https://www.wta.org/go-outside/hikes) informed separation of browse summaries and longer reading. [The Dyrt](https://thedyrt.com/) and [Hiking Project](https://www.hikingproject.com/) were also consulted for discovery structure. No reference photography, branding, map geometry or ratings were copied.
 
-## Color
-Light: white surfaces, #f6f7f8 canvas, #192c26 primary ink, #5c6c66 secondary ink, #22634d accent.
-Dark: #111b17 canvas, #18251f surface, #f0f5f2 primary ink, #b3c4ba secondary ink, #afe1c6 accent.
-Accent signals selection, links, and field evidence. Numeric ratings and text carry meaning without depending on color.
+The Impeccable direction seed was run. The user's requested familiar, clear outdoor-finder direction takes precedence over the unrelated stylistic challengers. Compact controls and a disciplined comparison grid serve the actual campsite task.
 
-## Layout and interaction
-- Sticky masthead with navigation and theme switch.
-- Brief introduction and latest B11 stay report shortcut.
-- Setup switch and search above the browser.
-- Sticky filter sidebar on desktop; collapsible filter panel on phones.
-- Campsites grouped by park, with five initially shown per area when browsing all areas. Search or choosing an area reveals all matches.
-- Numeric hammock and tent ratings side by side; supporting details and source evidence expand inline.
-- Native modal dialog for the schematic area map, with Escape and close-button support.
-- Unknowns, inferred labels, capacity estimates and quotes remain part of the underlying data.
+## Visual system
+- Warm pale canvas (#f5f4ef), white reading surface, dark green ink (#22352e), muted ink (#606d66), restrained forest accent (#255b43).
+- Manrope for navigation, facts and lists; Newsreader for campsite titles and report headlines. System fallbacks remain available if fonts fail.
+- Single comparison list, fine separators, restrained rounded outer surfaces. No decorative hero, dashboard statistics or synthetic campsite photography.
+- Explicit dark appearance retained, including a switch in About for phone access.
 
-## Accessibility
-Explicit input labels, pressed-state setup buttons, live result count, native details and dialog controls, visible keyboard focus and reduced-motion handling. Checked in desktop and 390px/320px phone viewports without horizontal overflow. Light and dark foreground/background text pairs checked for WCAG AA contrast.
+## Interaction
+- Campsites, Trip logs and About are separate views.
+- One control bar: search, shelter choice, area and a closed-by-default filter disclosure.
+- Results sort across areas, with exact campsite-name searches first. Owner stays break equal-score ties. Show more expands the initial eight results.
+- Desktop: list left, selected campsite right. Overview, Stay report (when available), Sources & notes separate different reading tasks.
+- Phone: list first; selecting a site opens a full-width detail screen with Back. No inline expansion of the entire results list.
+- Evidence remains available in the source tab, with source-check scope and inherited-assessment labels. Unknowns and estimates are preserved.
+- Schematic map is optional, explicitly labeled, with no claim of navigation accuracy.
+
+## Verification, September 6, 2026
+Desktop inspection plus local iframe tests at 390px and 320px outer widths. Browser viewport override did not take effect, so the iframe harness supplied real responsive document widths. Both documents had no horizontal overflow. Checked owner log selection, mobile report/back behavior, exact-name search, no-match/reset, group exclusion, owner filtering, tent sorting, source disclosure and map open/close. JavaScript syntax valid; browser error log empty in tested flows. Full source audit remains incomplete and is documented separately.

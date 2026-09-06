@@ -18,3 +18,16 @@
 - Added `src/` (page source and build scripts), `data/` (site CSV and research JSON), `notes/` (fetched Reddit threads, gitignored), `docs/` (gear context, decision briefs, Codex kickoff prompt), `HANDOFF.md`, `AGENTS.md`, `CLAUDE.md`.
 - Fixed `src/publish_pages.py` to use repo-relative paths; regenerated `index.html` from it (no content change intended).
 - Open: fold in the owner's Sept 5-6 Lake Maria B11 stay report (bear locker confirmed; walk-in distance and hang span not yet recorded). Push to GitHub not yet done from this folder.
+
+## 2026-09-06 - Codex, independent research and trip logs
+- Rewrote B11 and Pine Ridge as readable trip logs with original notes retained; added Trip logs navigation.
+- Independently read YouTube captions, Reddit indexed threads, BWCA and Hammock Forums discussions, and agency pages. Applied Afton 8/12/25, Cleary, Sakatah, Stanley Eddy, Lake Elmo and Cannon River corrections; replaced broad footer advice with current linked policies.
+- Added per-entry source-check links and scope. Unchecked original assessments explicitly labeled. Audit sources, conflicts, failed fetches and remaining work are in RESEARCH_2026-09-06.md.
+- Historical CSVs are not updated source truth; preserve current source-page corrections if using the old generators.
+
+## 2026-09-06 - Codex, compact finder replacement
+- Studied AllTrails, WTA, The Dyrt and Hiking Project. Replaced the large intro, filter sidebar and repeated area sections with a compact cross-area list and selected-site panel.
+- Separate Campsites, Trip logs and About views. Overview, Stay report and Sources tabs keep long reports/evidence out of the comparison list. Phone selection opens a detail screen with Back.
+- Exact campsite names sort ahead of incidental mentions. Search, filters, map, unknown ratings and original evidence retained.
+- Desktop and 390px/320px iframe responsive checks passed without horizontal overflow. Owner report flow, exact-name search, empty/reset, owner/group filters, tent sorting and map controls checked; browser errors empty. Standard viewport override was ineffective, so a temporary iframe harness was used and removed afterward.
+- Remaining: full independent audit of inherited campsite ratings, measured spans and owner-supplied photographs. See RESEARCH_2026-09-06.md.
