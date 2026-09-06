@@ -8,7 +8,7 @@ A single-page guide to overnight campsites near the Twin Cities, Minnesota, scor
 ## Layout
 - `index.html` — the published page. Generated, do not hand-edit; regenerate from `src/`.
 - `src/hang_or_stake.html` — the source page in artifact format (title + style + body, no html/head skeleton).
-- `src/publish_pages.py` — wraps the source in a full HTML skeleton and writes `index.html`. Edit the `SP` path at the top to wherever this repo is checked out; it currently points at the original scratchpad.
+- `src/publish_pages.py` — wraps the source in a full HTML skeleton and writes `index.html`. Paths resolve relative to the repo checkout.
 - `src/build_hammock.py`, `src/extend_hammock.py` — the scripts that built and extended the site data from the CSVs.
 - `data/MN_Hammock_Spots_Afton_LakeMaria.csv` — the site table: Park, Site, Score 0-5, Verdict, Hangs, Tree spans, Ground/tent notes, Setting, Cautions, and the verbatim auto-caption quote each row is based on.
 - `data/hammock.csv` — working data from the research passes (moved to notes/, gitignored: Reddit pulls are third-party text).
@@ -22,12 +22,11 @@ A single-page guide to overnight campsites near the Twin Cities, Minnesota, scor
 
 ## Workflow to change the page
 1. Edit `src/hang_or_stake.html` (or regenerate it from the CSV with the build scripts).
-2. `python src/publish_pages.py` (after fixing the `SP` path) to write `index.html`.
+2. `python src/publish_pages.py` to write `index.html`.
 3. Commit and push `main`; Pages redeploys in about a minute.
 
 ## Open items as of 2026-09-05
-- Lake Maria B11: confirmed bear locker on site (owner, 2026-09-04). Walk-in distance still not recorded.
-- Owner's Sept 5-6 solo overnight at B11 is a stay report to fold in.
+- Lake Maria B11: Sept 5-6, 2026 solo stay report added. Bear locker confirmed; direct walk-in about 0.75 mile is an owner estimate; spans not measured. Four hammocks plus two tents is estimated physical space, not tested capacity or permitted occupancy.
 - Fall tarp/stake advice for SHT sites and the tent-vs-hammock toggle could use the gear-list link below.
 
 ## Owner's gear lists (LighterPack)
