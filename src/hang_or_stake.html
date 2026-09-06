@@ -1,237 +1,260 @@
 <title>Hang or Stake</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-  :root{
-    --ground:#EFF1EA; --panel:#F7F8F3; --edge:#D8DDD0; --edge-soft:#E4E8DD; --ink:#1F2922; --muted:#5C685E;
-    --accent:#33628C; --accent-soft:#33628C1E; --quote:#4A5A50; --water:#9FBFD6; --ring:#C4CBBB;
-    --s5:#3E7C59; --s4:#7BA05B; --s3:#C9A227; --s2:#C97F2C; --s1:#B65F3A; --s0:#9A4A44; --sx:#8A948B;
-    --chipink:#FFFFFF; --dot-off:#C9CFC2;
-  }
-  :root[data-gear="tent"]{ --accent:#3E7C59; --accent-soft:#3E7C591E; }
-  :root[data-gear="either"]{ --accent:#7A5C43; --accent-soft:#7A5C431E; }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --ground:#151A16; --panel:#1A211C; --edge:#2C352E; --edge-soft:#232B25; --ink:#E4E8E0; --muted:#97A398;
-      --accent:#8FB4D9; --accent-soft:#8FB4D91E; --quote:#AEB9AF; --water:#3A5468; --ring:#39433B;
-      --s5:#6FAF8B; --s4:#95B472; --s3:#D4B34A; --s2:#D49555; --s1:#C67C5C; --s0:#B56A64; --sx:#6E7A70;
-      --chipink:#141A16; --dot-off:#39433B;
-    }
-    :root:not([data-theme="light"])[data-gear="tent"]{ --accent:#86BC9C; --accent-soft:#86BC9C1E; }
-    :root:not([data-theme="light"])[data-gear="either"]{ --accent:#C2A183; --accent-soft:#C2A1831E; }
-  }
-  :root[data-theme="dark"]{
-    --ground:#151A16; --panel:#1A211C; --edge:#2C352E; --edge-soft:#232B25; --ink:#E4E8E0; --muted:#97A398;
-    --accent:#8FB4D9; --accent-soft:#8FB4D91E; --quote:#AEB9AF; --water:#3A5468; --ring:#39433B;
-    --s5:#6FAF8B; --s4:#95B472; --s3:#D4B34A; --s2:#D49555; --s1:#C67C5C; --s0:#B56A64; --sx:#6E7A70;
-    --chipink:#141A16; --dot-off:#39433B;
-  }
-  :root[data-theme="dark"][data-gear="tent"]{ --accent:#86BC9C; --accent-soft:#86BC9C1E; }
-  :root[data-theme="dark"][data-gear="either"]{ --accent:#C2A183; --accent-soft:#C2A1831E; }
+:root{color-scheme:light;--ground:#f6f7f8;--panel:#fff;--ink:#192c26;--muted:#5c6c66;--edge:#dce3df;--edge-soft:#ebefed;--accent:#22634d;--accent-soft:#eaf3ee;--quote:#425d51;--water:#7695a5;--ring:#ced9d3;--s5:#22634d;--s4:#22634d;--s3:#85601f;--s2:#915132;--s1:#915132;--s0:#915132;--sx:#627469;--chipink:#fff;--dot-off:#dce5df;--shadow:0 8px 28px #192c2606;--z-header:2;--z-skip:3}
 
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
-  body{ background:var(--ground); color:var(--ink); font-family:"Source Sans 3",system-ui,sans-serif;
-        margin:0; line-height:1.5; font-size:15.5px; }
-  a{ color:var(--accent); }
-  .shell{ max-width:1140px; margin:0 auto; padding:0 22px; }
+:root[data-theme="dark"]{color-scheme:dark;--ground:#111b17;--panel:#18251f;--ink:#f0f5f2;--muted:#b3c4ba;--edge:#384d40;--edge-soft:#293d31;--accent:#afe1c6;--accent-soft:#273f32;--quote:#bfd1c5;--water:#91b5c5;--ring:#445c4c;--s5:#afe1c6;--s4:#afe1c6;--s3:#dfc38c;--s2:#edb297;--s1:#edb297;--s0:#edb297;--sx:#b1c2b6;--chipink:#142019}
 
-  /* ---- masthead ---- */
-  .masthead{ position:sticky; top:0; z-index:30; background:var(--ground); border-bottom:1px solid var(--edge); }
-  .mastrow{ display:flex; align-items:center; gap:16px; padding:10px 0; flex-wrap:wrap; }
-  .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); margin-right:auto; }
-  .brand svg{ width:34px; height:30px; display:block; }
-  .brand .wm{ font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:21px; line-height:1;
-              letter-spacing:-.01em; }
-  .brand .tag{ display:block; font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--muted);
-               letter-spacing:.06em; margin-top:2px; }
-  .gear{ display:flex; border:1.5px solid var(--accent); border-radius:3px; overflow:hidden; }
-  .gear button{ font:inherit; font-weight:700; font-size:13.5px; padding:7px 14px; border:0; cursor:pointer;
-                background:transparent; color:var(--accent); display:flex; gap:7px; align-items:center; }
-  .gear button svg{ width:20px; height:13px; }
-  .gear button.on{ background:var(--accent); color:var(--chipink); }
-  .gear button:focus-visible, .pchip:focus-visible, .minsel:focus-visible, .search:focus-visible,
-  details.site summary:focus-visible, .mapdot:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;background:var(--ground);color:var(--ink);font:15px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit}
+button,summary,select{cursor:pointer}
+a{color:var(--accent);text-underline-offset:4px}
+button,a,input,select,summary{touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,.mapdot:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+button{color:var(--ink)}
+button,a{transition:background .18s ease-out,color .18s ease-out,border-color .18s ease-out}
+h1,h2,h3{line-height:1.18;text-wrap:balance}
+p{max-width:70ch;text-wrap:pretty}
+.shell{max-width:1240px;margin:auto;padding:0 36px}
+.skip{position:fixed;top:-100px;left:16px;background:var(--panel);padding:12px;z-index:var(--z-skip)}
+.skip:focus{top:8px}
+.masthead{border-bottom:1px solid var(--edge-soft);background:var(--panel);position:sticky;top:0;z-index:var(--z-header)}
+.mastrow{display:flex;align-items:center;min-height:80px;gap:36px}
+.brand{display:flex;align-items:center;gap:11px;color:var(--ink);text-decoration:none;font-weight:800;font-size:21px;letter-spacing:-.03em;white-space:nowrap}
+.brand-mark{display:grid;place-items:center;background:#22634d;color:white;width:39px;height:39px;border-radius:11px}
+.brand svg{width:29px;height:27px}
+.top-nav{display:flex;gap:26px;align-self:stretch;margin-left:20px}
+.top-nav a{display:flex;align-items:center;font-size:13px;font-weight:700;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent}
+.top-nav a.active{color:var(--ink);border-color:var(--accent)}
+.nav-end{margin-left:auto;display:flex;align-items:center;gap:20px}
+.locality{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.locality svg{width:15px;height:15px}
+.theme-btn{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--edge);border-radius:50%;background:var(--panel);color:var(--ink)}
+.theme-btn svg{width:17px;height:17px}
+.theme-btn:hover{background:var(--accent-soft)}
+.intro-band{background:var(--panel);border-bottom:1px solid var(--edge)}
+.intro{display:grid;grid-template-columns:1.6fr 1fr;gap:80px;align-items:center;padding-top:48px;padding-bottom:45px}
+.eyebrow{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.13em;color:var(--accent);margin:0 0 14px;display:flex;align-items:center;gap:8px}
+.eyebrow::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%}
+.intro h1{font-size:46px;letter-spacing:-.04em;font-weight:800;margin:0 0 17px;max-width:15ch}
+.intro p.description{font-size:15px;color:var(--muted);line-height:1.75;max-width:49ch;margin:0}
+.field-note{padding:22px 0 22px 30px;border-left:1px solid var(--edge)}
+.note-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:15px;color:var(--muted);font-size:11px;font-weight:600}
+.verified{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:11px;font-weight:700}
+.verified svg{height:14px;width:14px}
+.field-note h2{font-size:23px;font-weight:800;letter-spacing:-.03em;margin:0 0 8px}
+.field-note p{font-size:13px;color:var(--muted);margin:0 0 17px;line-height:1.75}
+.inline-action{border:0;background:transparent;padding:0;min-height:36px;display:inline-flex;gap:15px;align-items:center;color:var(--accent);font-weight:750;font-size:12px}
+.inline-action span{font-size:19px;transition:transform .18s ease-out}
+.inline-action:hover span{transform:translateX(4px)}
+.explorer{padding-top:30px;padding-bottom:16px}
+.explore-tools{display:flex;justify-content:space-between;gap:24px;align-items:center;margin-bottom:28px}
+.gear{display:flex;gap:4px;padding:4px;background:var(--edge-soft);border-radius:9px}
+.gear button{border:1px solid transparent;border-radius:6px;padding:10px 20px;min-height:44px;background:transparent;color:var(--muted);font-weight:700;font-size:13px;display:flex;gap:8px;align-items:center;justify-content:center}
+.gear button svg{width:18px;height:18px}
+.gear button.on{background:var(--panel);color:var(--ink);border-color:var(--edge);box-shadow:0 2px 4px #172c2210}
+.search-wrap{position:relative;max-width:380px;flex:1}
+.search-wrap svg{position:absolute;left:15px;top:15px;width:18px;height:18px;color:var(--muted)}
+.search{width:100%;min-height:48px;border:1px solid var(--edge);border-radius:8px;background:var(--panel);color:var(--ink);padding:12px 15px 12px 43px;font-size:13px}
+.search::placeholder{color:var(--muted)}
+.explore-grid{display:grid;grid-template-columns:214px minmax(0,1fr);gap:38px;align-items:start}
+.finder{position:sticky;top:104px}
+.finder>summary{display:none}
+.filter-title{font-size:14px;font-weight:800;margin:0 0 23px}
+.field{display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
+.field>label{font-size:12px;font-weight:750}
+.minsel{width:100%;min-height:44px;border:1px solid var(--edge);border-radius:6px;background:var(--panel);color:var(--ink);padding:9px 10px;font-size:12px}
+.check{display:flex;align-items:center;gap:10px;min-height:44px;font-size:12px;font-weight:600;cursor:pointer}
+.check input{width:16px;height:16px;accent-color:var(--accent);margin:0}
+.filter-checks{border-top:1px solid var(--edge);padding-top:12px;margin-top:6px}
+.text-btn{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:4px;padding:10px 0;min-height:44px;font-size:12px}
+.text-btn:hover{color:var(--accent)}
+.map-button{width:100%;display:flex;gap:10px;align-items:center;justify-content:center;min-height:44px;background:var(--panel);border:1px solid var(--edge);border-radius:6px;color:var(--ink);font-size:12px;font-weight:700;margin-top:18px}
+.map-button svg{width:16px;height:16px}
+.map-button:hover{border-color:var(--accent)}
+.filter-note{margin-top:22px;color:var(--muted);font-size:11px;line-height:1.8;max-width:26ch}
+.filter-note a{font-weight:650}
+.results-bar{display:flex;justify-content:space-between;gap:18px;align-items:center;min-height:36px;margin-bottom:18px}
+.results-bar h2{font-size:17px;letter-spacing:-.02em;margin:0}
+.results-bar p{font-size:11px;color:var(--muted);margin:4px 0 0}
+.results-note{font-size:10px;color:var(--muted);white-space:nowrap}
+.park-section{margin-bottom:30px}
+.parkhead{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 0 14px}
+.park-title-group h2{font-size:22px;letter-spacing:-.035em;margin:0 0 5px}
+.parkmeta{font-size:11px;color:var(--muted)}
+.park-count{font-size:11px;color:var(--muted);background:var(--edge-soft);padding:4px 8px;border-radius:5px;white-space:nowrap}
+.park-about{margin:0 0 14px;color:var(--muted);font-size:12px}
+.park-about summary{padding:2px 0;list-style:none;display:inline-flex;gap:6px;align-items:center}
+.park-about summary::after{content:'+';font-size:15px}
+.park-about[open] summary::after{content:'−'}
+.park-about summary::-webkit-details-marker{display:none}
+.park-about p{margin:8px 0 16px;line-height:1.8}
+.site-list{background:var(--panel);border:1px solid var(--edge);border-radius:10px;box-shadow:var(--shadow)}
+.site+.site,.more-sites{border-top:1px solid var(--edge-soft)}
+.site>summary{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) 76px 76px 26px;gap:18px;align-items:center;padding:22px 24px;border-radius:9px}
+.site>summary::-webkit-details-marker{display:none}
+.site>summary:hover{background:var(--accent-soft)}
+.site[open]>summary{background:var(--accent-soft);border-radius:9px 9px 0 0}
+.site-title{font-size:16px;font-weight:800;line-height:1.4;display:block;letter-spacing:-.015em}
+.site-meta{display:flex;gap:6px 12px;flex-wrap:wrap;color:var(--muted);font-size:10px;margin-top:7px;align-items:center}
+.site-meta .field-mark{color:var(--accent);font-weight:750;display:flex;align-items:center;gap:4px}
+.site-meta .field-mark svg{width:12px;height:12px}
+.site-meta .solo-mark{color:var(--accent);font-weight:650}
+.site-meta .group-mark{font-weight:650}
+.rating{font-size:13px;text-align:center;white-space:nowrap}
+.rating .lab{display:block;color:var(--muted);font-size:10px;margin-bottom:5px;font-weight:600}
+.rating b{font-size:23px;font-weight:750;font-variant-numeric:tabular-nums;letter-spacing:-.05em}
+.rating .denom{font-size:10px;color:var(--muted);margin-left:2px}
+.rating.selected b{color:var(--accent)}
+.chevron{font-size:20px;line-height:1;color:var(--muted);transition:transform .18s ease-out;border:1px solid var(--edge);width:26px;height:26px;border-radius:50%;display:grid;place-items:center}
+.site[open] .chevron{transform:rotate(90deg)}
+.body{padding:6px 24px 24px;border-top:1px solid var(--edge-soft);font-size:13px;line-height:1.8}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0 26px;padding-bottom:20px;border-bottom:1px solid var(--edge-soft)}
+.facts div{min-width:0}
+.facts dt{font-size:11px;color:var(--muted)}
+.facts dd{margin:4px 0 0;font-size:13px;font-weight:700}
+.body h3{font-size:12px;font-weight:800;margin:22px 0 8px}
+.body p{margin:8px 0;overflow-wrap:anywhere;color:var(--muted)}
+.body .quote{margin:14px 0;font-size:15px;font-style:italic;color:var(--ink);line-height:1.75}
+.evidence{border-top:1px solid var(--edge);margin-top:24px;padding-top:16px}
+.evidence summary{font-weight:700;color:var(--accent);min-height:32px;font-size:12px}
+.evidence .ebadge{font-size:11px;color:var(--muted)}
+.votebar{display:flex;align-items:center;gap:9px;margin-top:18px;flex-wrap:wrap;font-size:11px}
+.vlink{padding:6px 0;font-weight:650}
+.vbtn{padding:8px 12px;border:1px solid var(--edge);border-radius:6px;background:var(--panel)}
+.vmsg{color:var(--muted);font-size:11px}
+.more-sites>summary{padding:16px 24px;font-size:12px;font-weight:700;color:var(--accent);list-style:none;text-align:center;min-height:48px}
+.more-sites>summary::-webkit-details-marker{display:none}
+.more-sites>summary::after{content:' +';font-size:16px;margin-left:5px}
+.more-sites[open]>summary::after{content:' −'}
+.more-sites .site{border-top:1px solid var(--edge-soft)}
+.empty{padding:38px;background:var(--panel);border:1px solid var(--edge);border-radius:10px}
+.empty h3{margin:0 0 10px;font-size:20px}
+.empty p{color:var(--muted);margin:0 0 8px;font-size:13px}
+.sitefoot{margin-top:40px;border-top:1px solid var(--edge);background:var(--panel);padding:30px 0}
+.reference>summary{font-size:13px;font-weight:700;padding:10px 0}
+.footgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:35px;padding:22px 0}
+.footgrid h3{font-size:15px;margin:0 0 14px}
+.footgrid p,.footgrid li{font-size:12px;color:var(--muted)}
+.footgrid ul{padding-left:18px}
+.footgrid li{margin-bottom:10px}
+.baseline{font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:24px}
+.noscript{padding:22px;background:var(--panel)}
+.map-dialog{color:var(--ink);background:var(--panel);border:1px solid var(--edge);border-radius:14px;width:min(680px,calc(100% - 24px));max-height:90dvh;padding:24px;box-shadow:0 30px 100px #0003}
+.map-dialog::backdrop{background:#10291ed0}
+.dialog-head{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.dialog-head h2{font-size:21px;margin:0}
+.close-button{background:var(--ground);border:1px solid var(--edge);border-radius:50%;font-size:21px;width:36px;height:36px;display:grid;place-items:center}
+.mapbox{margin:16px 0 0}
+.mapbox svg{width:100%;height:auto;display:block}
+.mapfoot{font-size:11px;color:var(--muted);padding-top:8px}
+.mapdot{cursor:pointer}
+.maplabel{font:13px Manrope,sans-serif;fill:var(--ink)}
+.maplabel.dim{fill:var(--muted)}
+.rivlabel{font:10px system-ui;fill:var(--water)}
+.ringlabel{font:11px system-ui;fill:var(--muted)}
 
-  /* ---- intro + map ---- */
-  .lede{ display:grid; grid-template-columns:minmax(300px,5fr) minmax(330px,6fr); gap:34px; align-items:center;
-         padding:34px 0 12px; }
-  @media (max-width:840px){ .lede{ grid-template-columns:1fr; } }
-  .lede h1{ font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:clamp(28px,4vw,42px);
-            line-height:1.06; margin:0 0 12px; text-wrap:balance; }
-  .lede p{ color:var(--muted); margin:0 0 16px; max-width:56ch; }
-  .lede p strong{ color:var(--ink); }
-  .statrow{ display:flex; gap:22px; font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted); }
-  .statrow b{ display:block; font-family:"Bricolage Grotesque",sans-serif; font-size:23px; color:var(--ink);
-              font-weight:800; line-height:1.1; }
-  .mapbox{ background:var(--panel); border:1px solid var(--edge); border-radius:4px; padding:10px 10px 4px; }
-  .mapbox svg{ width:100%; height:auto; display:block; }
-  .mapfoot{ display:flex; justify-content:space-between; font-family:"IBM Plex Mono",monospace; font-size:10px;
-            color:var(--muted); padding:4px 6px 6px; }
-  .mapdot{ cursor:pointer; }
-  .maplabel{ font-family:"Source Sans 3",sans-serif; font-size:11.5px; fill:var(--ink); }
-  .maplabel.dim{ fill:var(--muted); }
-  .rivlabel{ font-family:"IBM Plex Mono",monospace; font-size:9px; fill:var(--water); letter-spacing:.08em; }
-  .ringlabel{ font-family:"IBM Plex Mono",monospace; font-size:9px; fill:var(--muted); }
+@media(max-width:1000px){.shell{padding:0 26px}
+.intro{gap:38px}
+.intro h1{font-size:39px}
+.locality{display:none}
+.explore-grid{grid-template-columns:190px minmax(0,1fr);gap:26px}
+.site>summary{grid-template-columns:minmax(0,1fr) 54px 54px 24px;gap:12px;padding:20px}
+.results-note{display:none}
+}
 
-  /* ---- toolbar ---- */
-  .toolbar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:16px 0 6px;
-            border-top:1px solid var(--edge-soft); margin-top:20px; }
-  .toolbar .lbl{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); letter-spacing:.05em; }
-  .search{ font:inherit; font-size:13.5px; padding:7px 11px; border:1px solid var(--edge); border-radius:3px;
-           background:var(--panel); color:var(--ink); flex:1; min-width:170px; max-width:300px; }
-  .search::placeholder{ color:var(--muted); }
-  .minsel{ font:inherit; font-size:13.5px; padding:7px 9px; border:1px solid var(--edge); border-radius:3px;
-           background:var(--panel); color:var(--ink); }
-  .pchips{ display:flex; flex-wrap:wrap; gap:6px; padding:8px 0 4px; }
-  .pchip{ font:inherit; font-size:12.5px; font-weight:600; padding:4px 10px; border-radius:3px; cursor:pointer;
-          border:1px solid var(--edge); background:var(--panel); color:var(--muted); }
-  .pchip.on{ background:var(--accent-soft); border-color:var(--accent); color:var(--ink); }
-  .pchip .n{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; opacity:.75; }
+@media(max-width:700px){html{scroll-padding-top:84px}
+.shell{padding:0 20px}
+.mastrow{min-height:68px;gap:14px}
+.brand{font-size:18px}
+.brand-mark{width:33px;height:33px;border-radius:9px}
+.brand svg{width:24px;height:24px}
+.top-nav{margin-left:auto;gap:0}
+.top-nav a{font-size:11px}
+.top-nav a.active{display:none}
+.nav-end{margin-left:0}
+.theme-btn{width:32px;height:32px}
+.intro{grid-template-columns:1fr;padding-top:32px;padding-bottom:28px;gap:22px}
+.intro h1{font-size:37px;max-width:13ch;margin-bottom:12px}
+.intro p.description{font-size:13px;max-width:38ch}
+.eyebrow{font-size:9px;margin-bottom:12px}
+.field-note{border-left:0;border-top:1px solid var(--edge);padding:18px 0 0}
+.note-head{margin-bottom:8px;font-size:10px}
+.field-note h2{font-size:18px;margin-bottom:4px}
+.field-note p{display:none}
+.inline-action{font-size:11px;min-height:32px}
+.explorer{padding-top:22px}
+.explore-tools{flex-direction:column;gap:14px;align-items:stretch;margin-bottom:16px}
+.gear button{flex:1;min-height:42px;padding:8px 10px;font-size:12px}
+.gear button svg{width:16px;height:16px}
+.search-wrap{max-width:none}
+.explore-grid{grid-template-columns:1fr;gap:22px}
+.finder{position:static;border:1px solid var(--edge);border-radius:8px;background:var(--panel);padding:0 14px}
+.finder>summary{display:flex;justify-content:space-between;align-items:center;min-height:46px;font-size:12px;font-weight:750;list-style:none}
+.finder>summary::-webkit-details-marker{display:none}
+.finder>summary::after{content:'+';font-size:19px}
+.finder[open]>summary::after{content:'−'}
+.filter-title{display:none}
+.filter-content{padding:8px 0 16px;display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.field{margin-bottom:14px}
+.filter-checks{grid-column:1/-1;display:flex;justify-content:space-between;gap:8px}
+.check{font-size:11px}
+.filter-note{display:none}
+.map-button{margin-top:0}
+.text-btn{justify-self:start}
+.results-bar{margin-bottom:3px}
+.results-bar h2{font-size:16px}
+.results-bar p{font-size:10px;max-width:35ch}
+.parkhead{padding:20px 0 10px}
+.park-title-group h2{font-size:22px}
+.parkmeta{font-size:10px}
+.park-count{font-size:10px}
+.park-about{font-size:11px;margin-bottom:12px}
+.site>summary{grid-template-columns:minmax(0,1fr) 45px 45px 18px;padding:19px 14px;gap:9px}
+.site-title{font-size:14px}
+.site-meta{font-size:10px;gap:4px 8px}
+.site-meta .field-mark svg{width:11px;height:11px}
+.rating b{font-size:20px}
+.rating .lab{font-size:10px}
+.rating .denom{font-size:10px}
+.chevron{width:19px;height:19px;font-size:16px}
+.body{padding:4px 15px 20px;font-size:13px}
+.facts{grid-template-columns:1fr;gap:14px}
+.facts dd{font-size:13px}
+.footgrid{grid-template-columns:1fr}
+.baseline{font-size:10px}
+.more-sites>summary{font-size:11px;padding:14px}
+.map-dialog{padding:15px}
+.dialog-head h2{font-size:18px}
+}
 
-  /* ---- park sections as index ---- */
-  .parkhead{ display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 14px; margin:38px 0 2px;
-             border-bottom:2px solid var(--ink); padding-bottom:6px; }
-  .parkhead h2{ font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:23px; margin:0; }
-  .parkmeta{ font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); letter-spacing:.03em;
-             margin-left:auto; }
-  .parknote{ color:var(--muted); font-size:14px; max-width:88ch; margin:8px 0 4px; }
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+*,*::before,*::after{transition:none!important}
+}
 
-  details.site{ border-bottom:1px solid var(--edge-soft); }
-  details.site summary{ list-style:none; cursor:pointer; display:grid; align-items:center; gap:6px 16px;
-    grid-template-columns:minmax(180px,1.3fr) 150px 150px minmax(160px,1fr); padding:10px 4px; }
-  details.site summary::-webkit-details-marker{ display:none; }
-  details.site[open]{ background:var(--panel); }
-  details.site summary:hover .sitename{ color:var(--accent); }
-  .sitename{ font-family:"Bricolage Grotesque",sans-serif; font-weight:600; font-size:16.5px; line-height:1.25; }
-  .vchip{ display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
-          padding:2px 8px; border-radius:2px; color:var(--chipink); margin-top:3px; white-space:nowrap; }
-  .meter{ display:flex; align-items:center; gap:7px; font-size:12px; }
-  .meter .lab{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
-               width:42px; color:var(--muted); }
-  .meter.active .lab{ color:var(--ink); font-weight:500; }
-  .meter .dots{ display:flex; gap:3.5px; }
-  .meter .dot{ width:8px; height:8px; border-radius:50%; background:var(--dot-off); }
-  .meter .cap{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); }
-  .meter.dim{ opacity:.45; }
-  .spancell{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted);
-             overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  @media (max-width:760px){
-    details.site summary{ grid-template-columns:1fr 1fr; }
-    .spancell{ display:none; }
-    details.site summary > .namecell{ grid-column:1 / -1; }
-  }
-  .body{ padding:4px 16px 16px; font-size:14px; max-width:86ch; }
-  .body p{ margin:9px 0 0; }
-  .body .k{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
-            color:var(--accent); display:block; margin-bottom:1px; }
-  .quote{ font-style:italic; color:var(--quote); padding-left:18px; position:relative; }
-  .quote::before{ content:"\201C"; position:absolute; left:0; top:-2px; font-family:"Bricolage Grotesque",serif;
-                  font-size:22px; font-style:normal; color:var(--accent); line-height:1; }
-  .spill{ display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.07em;
-          text-transform:uppercase; border:1px solid var(--accent); color:var(--accent); border-radius:2px;
-          padding:1.5px 6px; margin:3px 0 0 6px; vertical-align:1px; }
-  .spill.grp{ border-color:var(--edge); color:var(--muted); }
-  .ebadge{ display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.08em;
-           text-transform:uppercase; border:1px solid var(--edge); border-radius:2px; padding:2px 7px;
-           color:var(--muted); margin-top:11px; }
-  .ebadge.field{ border-color:var(--accent); color:var(--chipink); background:var(--accent); }
-  .ebadge.verbatim{ border-color:var(--s5); color:var(--s5); }
-  .ebadge.official{ border-color:var(--accent); color:var(--accent); }
-  .ebadge.forum{ border-color:var(--s3); color:var(--s3); }
-  .empty{ color:var(--muted); font-size:14px; padding:14px 4px; }
-
-  .votebar{ display:flex; align-items:center; gap:8px; margin-top:12px; flex-wrap:wrap; }
-  .votebar .vlab{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
-                  text-transform:uppercase; color:var(--muted); }
-  .vbtn{ font:inherit; font-size:12px; font-weight:600; padding:4px 10px; border-radius:3px; cursor:pointer;
-         border:1px solid var(--edge); background:var(--panel); color:var(--ink); }
-  .vbtn:hover{ border-color:var(--accent); }
-  .vbtn b{ font-family:"IBM Plex Mono",monospace; font-weight:500; color:var(--accent); }
-  .vbtn:disabled{ opacity:.55; cursor:default; }
-  .vmsg{ font-size:11.5px; color:var(--muted); }
-  .vlink{ font-size:12px; }
-
-  /* ---- footer ---- */
-  .sitefoot{ margin-top:64px; background:var(--panel); border-top:1px solid var(--edge); }
-  .footgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:28px; padding:34px 0 22px; }
-  .footgrid h3{ font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
-                color:var(--muted); margin:0 0 10px; font-weight:500; }
-  .footgrid p, .footgrid li{ font-size:13.5px; color:var(--ink); }
-  .footgrid ul{ margin:0; padding-left:16px; }
-  .footgrid li{ margin:4px 0; }
-  .footgrid .sub{ color:var(--muted); }
-  .baseline{ border-top:1px solid var(--edge-soft); padding:14px 0 26px; display:flex; flex-wrap:wrap; gap:6px 22px;
-             font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); }
 </style>
 
-<header class="masthead"><div class="shell mastrow">
-  <a class="brand" href="#" onclick="setPark('all');return false;">
-    <svg viewBox="0 0 40 34" fill="none" stroke="currentColor" aria-hidden="true">
-      <path d="M5 3v28M35 3v28" stroke-width="3" stroke-linecap="round"/>
-      <path d="M5 9c7 9 23 9 30 0" stroke-width="2.4" stroke-linecap="round"/>
-      <path d="M20 17l-7 12h14l-7-12zm0 0v12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span><span class="wm">Hang or Stake</span><span class="tag">MN METRO OVERNIGHT GUIDE</span></span>
-  </a>
-  <div class="gear" role="group" aria-label="Gear mode">
-    <button id="g-hang" class="on" onclick="setGear('hang')">
-      <svg viewBox="0 0 44 28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M4 4v20M40 4v20M4 8c8 12 28 12 36 0"/></svg>Hammock</button>
-    <button id="g-tent" onclick="setGear('tent')">
-      <svg viewBox="0 0 44 28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 4L4 25h36L22 4zm0 0v21"/></svg>Tent</button>
-    <button id="g-either" onclick="setGear('either')">Either</button>
-  </div>
-</div></header>
-
-<div class="shell">
-<section class="lede">
-  <div>
-    <h1>Where to hang — or pitch — within an hour of the Cities.</h1>
-    <p><strong>Every overnight-able site we know of, scored twice: once for hammocks, once for tents.</strong>
-    Flip the gear switch in the header and the whole guide re-sorts. Scores come from site-by-site walkthrough
-    footage, a park office's own recommendations, forum surveys, and our own stays — never from vibes, and every
-    claim wears its evidence tag.</p>
-    <div class="statrow">
-      <span><b>71</b>sites</span><span><b>18</b>areas</span><span><b id="stat-scored">—</b>hang-scored</span>
-      <span><b>2</b>field-tested</span>
-    </div>
-  </div>
-  <figure class="mapbox" style="margin:0">
-    <div id="map"></div>
-    <figcaption class="mapfoot"><span>tap a dot to filter · sized by site count · colored by best hang score</span>
-    <span>schematic, not to scale</span></figcaption>
-  </figure>
-</section>
-
-<div class="toolbar">
-  <span class="lbl">FILTER</span>
-  <select class="minsel" id="minsel" onchange="setMin(this.value)" aria-label="Minimum score">
-    <option value="0">Any score</option><option value="3">Score 3+</option>
-    <option value="4">Score 4+</option><option value="5">Only 5s</option>
-  </select>
-  <button class="pchip" id="solobtn" onclick="setSolo()" aria-pressed="false">Solo trips</button>
-  <input class="search" id="q" type="search" placeholder="Search sites, features, notes…" oninput="setQ(this.value)">
-</div>
-<div class="pchips" id="parkchips"></div>
-
-<main id="parks"></main>
-</div>
-
+<a class="skip" href="#parks">Skip to campsites</a>
+<header class="masthead"><div class="shell mastrow"><a class="brand" href="./" aria-label="Hang or Stake home"><span class="brand-mark"><svg viewBox="0 0 40 34" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 3v28M35 3v28M5 9c7 9 23 9 30 0M20 17l-7 12h14l-7-12z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hang or Stake</a><nav class="top-nav" aria-label="Main navigation"><a class="active" href="#explore">Explore campsites</a><a class="header-link" href="#guide">The guide</a></nav><div class="nav-end"><span class="locality"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 8c0 5-6 10-6 10S4 13 4 8a6 6 0 1 1 12 0Z"/><circle cx="10" cy="8" r="2"/></svg>Twin Cities, Minnesota</span><button class="theme-btn" onclick="toggleTheme()" aria-label="Switch to dark theme" id="theme-btn"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 12A7 7 0 0 1 8 3a7 7 0 1 0 8 9Z"/></svg></button></div></div></header>
+<div class="intro-band"><section class="shell intro"><div><p class="eyebrow">A local guide to sleeping outside</p><h1>Your next night outside.</h1><p class="description">Find the right trees. Or a little level ground. Campsites around the Twin Cities, with firsthand stays and sources you can actually check.</p></div><aside class="field-note" aria-label="Latest field report"><div class="note-head"><span>Latest from the field</span><span class="verified"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="m6 10 3 3 5-6"/></svg>Field-tested</span></div><h2>Lake Maria, B11</h2><p>A solo overnight among the big woods. Bear locker confirmed, several hanging options, and a few lessons in tarp line length.</p><button class="inline-action" onclick="openB11()">Read the September 5–6 stay report <span aria-hidden="true">↗</span></button></aside></section></div>
+<section class="shell explorer" id="explore" aria-label="Explore campsites"><div class="explore-tools"><div class="gear" role="group" aria-label="Camping setup"><button id="g-hang" onclick="setGear('hang')" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 4v16M21 4v16M3 8c4 10 14 10 18 0"/></svg>Hammock</button><button id="g-tent" onclick="setGear('tent')" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m12 3 10 17H2L12 3Zm0 0v17"/></svg>Tent</button><button id="g-either" onclick="setGear('either')" aria-pressed="false">Either works</button></div><div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><input class="search" id="q" type="search" aria-label="Search the guide" placeholder="Search a park, campsite, or feature" oninput="setQ(this.value)"></div></div>
+<div class="explore-grid"><details class="finder" id="filters" open><summary>Filter campsites <span id="filter-count"></span></summary><div class="filter-content"><h2 class="filter-title">Make it your kind of trip.</h2><div class="field"><label for="area">Where to?</label><select class="minsel" id="area" onchange="setPark(this.value)" aria-label="Area"><option value="all">All areas</option></select></div><div class="field"><label for="minsel">Minimum rating</label><select class="minsel" id="minsel" onchange="setMin(this.value)"><option value="0">Any rating</option><option value="3">3 / 5 or better</option><option value="4">4 / 5 or better</option><option value="5">5 / 5 only</option></select></div><div class="filter-checks"><label class="check"><input type="checkbox" id="solobtn" onchange="setSolo()">Hide group-only</label><label class="check"><input type="checkbox" id="fieldonly" onchange="setField(this.checked)">Field-tested only</label></div><button class="text-btn" onclick="resetFilters()">Reset filters</button><button class="map-button" onclick="document.getElementById('area-map').showModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2V5Zm6-2v16m6-14v16"/></svg>Explore the area map</button><p class="filter-note">A good rating is a starting point. Open any campsite to see the evidence and what remains unknown. <a href="#guide" onclick="document.getElementById('guide').open=true">About the ratings</a></p></div></details><div class="results"><div class="results-bar"><div><h2 id="result-count" role="status" aria-live="polite"></h2><p id="result-context"></p></div><span class="results-note">Hammock &amp; tent ratings / 5</span></div><main id="parks" tabindex="-1" aria-label="Campsite results"></main></div></div><noscript><p class="noscript">Enable JavaScript to search the guide, or read the <a href="https://github.com/lehuukha/hang-or-stake/blob/main/data/MN_Hammock_Spots_Afton_LakeMaria.csv">Afton and Lake Maria source table</a>.</p></noscript></section>
+<dialog id="area-map" class="map-dialog" aria-labelledby="map-title"><div class="dialog-head"><h2 id="map-title">Find your corner of Minnesota.</h2><button class="close-button" aria-label="Close area map" onclick="document.getElementById('area-map').close()">×</button></div><figure class="mapbox"><div id="map"></div><figcaption class="mapfoot">Select an area to filter the list. Schematic only, not a navigation map. Dots show the best hammock rating in each area.</figcaption></figure></dialog>
 <footer class="sitefoot"><div class="shell">
-  <div class="footgrid">
+  <details class="reference" id="guide"><summary>About the guide, ratings &amp; sources</summary><div class="footgrid">
     <div><h3>About this guide</h3>
       <p>A working reference for hammock and tent overnights around the Twin Cities, kept by one hammock crew and
       updated after every trip. Ratings are secondhand unless tagged <em>field-tested</em>; tree spans are eyeball
       estimates from the people who stood there.</p>
-      <p class="sub">Evidence tags: <strong>Field-tested</strong> — we hung there ourselves. <strong>Verbatim</strong> —
-      said on camera at the site. <strong>Official rec</strong> — named by the park office. <strong>Forum report</strong> —
+      <p class="sub">Evidence tags: <strong>Field-tested</strong> — we hung there ourselves. <strong>Video quote</strong> —
+      said on camera at the site. <strong>Park recommendation</strong> — named by the park office. <strong>Community report</strong> —
       hammockforums or reviewer. <strong>Inferred</strong> — read from terrain; scout before you commit.</p>
       <p class="sub">Solo: every site is solo-bookable unless marked <strong>group only</strong>. A <strong>solo pick</strong>
       is a site whose sources specifically flag seclusion, quiet, or low foot traffic — the ones worth going to alone.
-      The "Solo trips" filter hides group-only sites.</p>
-      <p class="sub">Stay reports: each site has a "Stayed here?" row. On the interactive (claude.ai) copy, crew members
-      with edit access can tally a hang or tent stay directly — the page saves itself and everyone sees the count. On
-      this public copy, the link files a stay report on GitHub; reports get folded into the scores on the next update.</p></div>
+      The "Hide group-only" filter removes those sites from the results.</p>
+      <p class="sub">Stayed somewhere listed here? Open the campsite details to send a stay report through GitHub.</p></div>
     <div><h3>Field rules</h3>
       <ul>
         <li>Hammocks are legal in MN state parks — camp in designated sites and don't damage trees
@@ -269,8 +292,9 @@
             <a href="https://www.threeriversparks.org/activity/camping">Three Rivers</a></li>
       </ul></div>
   </div>
+</details>
   <div class="baseline">
-    <span>Updated Aug 31, 2026</span><span>Conditions and rules change — verify before booking</span>
+    <span>Updated September 6, 2026</span><span>Conditions and rules change — verify before booking</span>
     <span>Not affiliated with the MN DNR or NPS</span>
   </div>
 </div></footer>
@@ -395,10 +419,10 @@ const SOLO2=new Set(["Afton|Site 25","Afton|Site 16","Lake Maria|B7","Lake Maria
 const SOLO0=new Set(["Crow-Hassan Park Reserve|Group hike-in camps","Lake Maria|G1 Whitetail (group)",
 "Lake Maria|G2 Oak Hill (group)"]);
 function soloOf(s){ const k=s[0]+"|"+s[1]; return SOLO0.has(k)?0:SOLO2.has(k)?2:1; }
-const EV={field:"Field-tested",verbatim:"Verbatim",official:"Official rec",forum:"Forum report",inferred:"Inferred",none:"Not assessed"};
+const EV={field:"Field-tested",verbatim:"Video quote",official:"Park recommendation",forum:"Community report",inferred:"Inferred",none:"Not assessed"};
 const RAMP=["--s0","--s1","--s2","--s3","--s4","--s5"];
 const TENTV=["Avoid","Poor","Marginal","Decent","Good","Excellent"];
-let gear="hang", park="all", min=0, q="", solo=false;
+let gear="hang", park="all", min=0, q="", solo=false, fieldOnly=false;
 
 function scoreOf(s){ const h=s[2], t=s[3];
   if(gear==="hang") return h; if(gear==="tent") return t;
@@ -413,34 +437,21 @@ function vchip(s){ const h=s[2], t=s[3];
 function dots(v){ let o='<span class="dots">';
   for(let i=1;i<=5;i++) o+='<span class="dot"'+(v!=null&&i<=v?' style="background:var('+RAMP[v]+')"':'')+'></span>';
   return o+'</span><span class="cap">'+(v==null?"–":v)+'</span>'; }
-function esc(x){ return String(x).replace(/&(?!amp;)/g,"&amp;").replace(/</g,"&lt;"); }
+function esc(x){ return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
 function matches(s){
   const sc=scoreOf(s);
   if(solo&&soloOf(s)===0) return false;
+  if(fieldOnly&&s[11]!=="field") return false;
   if(min>0&&(sc==null||sc<min)) return false;
   if(q){ const hay=(s[0]+" "+s[1]+" "+s[4]+" "+s[7]+" "+s[8]+" "+s[9]+" "+s[10]).toLowerCase();
     if(!hay.includes(q)) return false; }
   return true;
 }
+function rating(label,value,selected){return '<span class="rating'+(selected?' selected':'')+'"><span class="lab">'+label+'</span>'+(value==null?'<span>Unknown</span>':'<b>'+value+'</b><span class="denom"> / 5</span>')+'</span>';}
 function row(s){
-  const [vtext,vcol]=vchip(s);
-  const spans=(s[6]?"spans: "+s[6]:"")+(s[5]?(s[6]?" · ":"")+"hangs: "+s[5]:"");
-  return '<details class="site"><summary>'+
-    '<span class="namecell"><span class="sitename">'+esc(s[1])+'</span><br><span class="vchip" style="background:var('+vcol+')">'+esc(vtext)+"</span>"+
-    (soloOf(s)===2?'<span class="spill">Solo pick</span>':soloOf(s)===0?'<span class="spill grp">Group only</span>':"")+"</span>"+
-    '<span class="meter '+(gear==="tent"?"dim":"active")+'"><span class="lab">Hang</span>'+dots(s[2])+"</span>"+
-    '<span class="meter '+(gear==="hang"?"dim":"active")+'"><span class="lab">Stake</span>'+dots(s[3])+"</span>"+
-    '<span class="spancell">'+esc(spans)+"</span>"+
-    "</summary>"+
-    '<div class="body">'+
-    (s[8]?'<p><span class="k">Setting</span>'+esc(s[8])+"</p>":"")+
-    (function(){ const g=s[7], tb=s[12];
-      const extra = tb && (!g || !g.toLowerCase().includes(tb.toLowerCase().slice(0,18))) ? tb : "";
-      const txt = g ? esc(g)+(extra?" — "+esc(extra):"") : (extra?esc(extra):"");
-      return txt?'<p><span class="k">Ground &amp; tents</span>'+txt+"</p>":""; })()+
-    (s[9]?'<p><span class="k">Worth knowing</span>'+s[9]+"</p>":"")+
-    (s[10]?'<p class="quote">&ldquo;'+s[10]+'&rdquo;</p>':"")+
-    '<span class="ebadge '+s[11]+'">'+EV[s[11]]+"</span>"+votebar(s)+"</div></details>";
+ const status=soloOf(s)===0?'Group only':soloOf(s)===2?'Solo pick':'';
+ const notes=esc(s[9]).split(/(?<=\.) (?=Whoopie|Felt very hot|Bugs were|Earlier walkthrough|Existing hang)/).map(t=>'<p>'+t+'</p>').join('');
+ return '<details class="site"><summary><span class="namecell"><span class="site-title">'+esc(s[1])+'</span><span class="site-meta">'+(status?'<span class="'+(soloOf(s)===0?'group-mark':'solo-mark')+'">'+status+'</span>':'')+'<span class="'+(s[11]==='field'?'field-mark':'')+'">'+(s[11]==='field'?'<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="10" r="8"/><path d="m6 10 3 3 5-6"/></svg>':'')+esc(EV[s[11]])+'</span></span></span>'+rating('Hammock',s[2],gear!=='tent')+rating('Tent',s[3],gear!=='hang')+'<span class="chevron" aria-hidden="true">›</span></summary><div class="body"><dl class="facts"><div><dt>Hanging options</dt><dd>'+esc(s[5]||'Unknown')+'</dd></div><div><dt>Tree spans</dt><dd>'+esc(s[6]||'not measured')+'</dd></div></dl>'+(s[8]?'<h3>Setting &amp; access</h3><p>'+esc(s[8])+'</p>':'')+(s[7]?'<h3>Ground &amp; tents</h3><p>'+esc(s[7])+'</p>':'')+(s[9]?'<h3>What to know</h3>'+notes:'')+'<details class="evidence"><summary>Rating evidence · '+esc(EV[s[11]])+'</summary><p>'+esc(s[4])+'</p>'+(s[10]?'<blockquote class="quote">'+esc(s[10])+'</blockquote>':'')+(s[12]?'<h3>Tent rating basis</h3><p>'+esc(s[12])+'</p>':'')+'<p class="ebadge">'+esc(EV[s[11]])+'. <a href="#guide" onclick="document.getElementById(&quot;guide&quot;).open=true">How sources are used</a></p></details>'+votebar(s)+'</div></details>';
 }
 // ---- stay reports: live voting on the claude.ai copy, GitHub-issue fallback on the static copy ----
 let STAY={}; try{ STAY=JSON.parse(document.getElementById("stay-data").textContent)||{}; }catch(e){}
@@ -522,35 +533,42 @@ function drawMap(){
   document.getElementById("map").innerHTML=g;
 }
 function render(){
-  document.documentElement.setAttribute("data-gear",gear);
-  ["hang","tent","either"].forEach(g=>document.getElementById("g-"+g).classList.toggle("on",g===gear));
-  const chips=PARKS.map(p=>{
-    const n=SITES.filter(s=>s[0]===p[0]&&matches(s)).length;
-    return '<button class="pchip'+(park===p[0]?" on":"")+'" onclick="setPark(\''+p[0].replace(/'/g,"\\'")+'\')">'+esc(SHORT[p[0]]||p[0])+' <span class="n">'+n+"</span></button>";});
-  document.getElementById("parkchips").innerHTML=
-    '<button class="pchip'+(park==="all"?" on":"")+'" onclick="setPark(\'all\')">All areas <span class="n">'+SITES.filter(matches).length+"</span></button>"+chips.join("");
-  let html="";
-  for(const p of PARKS){
-    if(park!=="all"&&park!==p[0]) continue;
-    const rows=SITES.filter(s=>s[0]===p[0]&&matches(s))
-      .sort((a,b)=>((scoreOf(b)??-1)-(scoreOf(a)??-1)));
-    if(!rows.length&&park==="all") continue;
-    html+='<section><div class="parkhead"><h2>'+esc(p[0])+'</h2><span class="parkmeta">'+esc(p[1])+" · "+rows.length+" listed</span></div><p class=\"parknote\">"+p[2]+"</p>";
-    html+=rows.length?rows.map(row).join(""):'<p class="empty">No sites match the current filters.</p>';
-    html+="</section>";
-  }
-  document.getElementById("parks").innerHTML=html||'<p class="empty">No sites match. Loosen the score filter or clear the search.</p>';
-  const scored=SITES.filter(s=>s[2]!=null).length;
-  const st=document.getElementById("stat-scored"); if(st) st.textContent=scored;
-  drawMap();
+ document.documentElement.setAttribute('data-gear',gear);
+ ['hang','tent','either'].forEach(g=>{const b=document.getElementById('g-'+g);b.classList.toggle('on',g===gear);b.setAttribute('aria-pressed',String(g===gear));});
+ document.getElementById('area').value=park;
+ let html='',total=0,areas=0;
+ for(const p of PARKS){
+  if(park!=='all'&&park!==p[0])continue;
+  const rows=SITES.filter(s=>s[0]===p[0]&&matches(s)).sort((a,b)=>(scoreOf(b)??-1)-(scoreOf(a)??-1));
+  if(!rows.length)continue;total+=rows.length;areas++;
+  html+='<section class="park-section"><div class="parkhead"><div class="park-title-group"><h2>'+esc(p[0])+'</h2><span class="parkmeta">'+esc(p[1])+'</span></div><span class="park-count">'+rows.length+' '+(rows.length===1?'listing':'listings')+'</span></div><details class="park-about"><summary>About the area</summary><p>'+esc(p[2])+'</p></details><div class="site-list">';
+  const limit=park==='all'&&!q?5:rows.length;
+  html+=rows.slice(0,limit).map(row).join('');
+  if(rows.length>limit)html+='<details class="more-sites"><summary>Show '+(rows.length-limit)+' more sites in '+esc(p[0])+'</summary>'+rows.slice(limit).map(row).join('')+'</details>';
+  html+='</div></section>';
+ }
+ document.getElementById('parks').innerHTML=html||'<div class="empty"><h3>No campsites match these filters.</h3><p>Try a broader search, a lower rating, or another area.</p><button class="text-btn" onclick="resetFilters()">Show all campsites</button></div>';
+ document.getElementById('result-count').textContent=total+' '+(total===1?'listing':'listings')+' in '+areas+' '+(areas===1?'area':'areas');
+ document.getElementById('filter-count').textContent=[park!=='all',min>0,solo,fieldOnly].filter(Boolean).length||'';
+ document.getElementById('result-context').textContent=(gear==='either'?'Sorted by the better of the two ratings.':'Highest '+(gear==='hang'?'hammock':'tent')+' rating first within each area.');
+ drawMap();
 }
-function setGear(g){ gear=g; try{ localStorage.setItem("hos-gear",g); }catch(e){} render(); }
-function setPark(p){ park=(park===p?"all":p); render();
-  if(p!=="all"&&park===p){ const el=document.getElementById("parks"); if(el) el.scrollIntoView({block:"start"}); } }
-function setMin(v){ min=+v; render(); }
-function setSolo(){ solo=!solo; const b=document.getElementById("solobtn");
-  b.classList.toggle("on",solo); b.setAttribute("aria-pressed",solo?"true":"false"); render(); }
-function setQ(v){ q=v.trim().toLowerCase(); render(); }
+function setGear(g){gear=g;try{localStorage.setItem('hos-gear',g);}catch(e){}render();}
+function setPark(p){park=p;render();document.getElementById('area-map').close();}
+function setMin(v){min=+v;render();}
+function setSolo(){solo=document.getElementById('solobtn').checked;render();}
+function setField(v){fieldOnly=v;render();}
+function setQ(v){q=v.trim().toLowerCase();render();}
+function resetFilters(){park='all';min=0;q='';solo=false;fieldOnly=false;document.getElementById('q').value='';document.getElementById('minsel').value='0';document.getElementById('solobtn').checked=false;document.getElementById('fieldonly').checked=false;render();}
+document.getElementById('area').innerHTML='<option value="all">All areas</option>'+PARKS.map(p=>'<option value="'+esc(p[0])+'">'+esc(p[0])+'</option>').join('');
+document.querySelector('.header-link').addEventListener('click',()=>{document.getElementById('guide').open=true;});
+function openB11(){resetFilters();park='Lake Maria';q='b11';document.getElementById('q').value='B11';render();const site=document.querySelector('.site');if(site){site.open=true;site.scrollIntoView({block:'start'});}}
+function applyTheme(theme){document.documentElement.dataset.theme=theme;document.getElementById('theme-btn').setAttribute('aria-label','Switch to '+(theme==='dark'?'light':'dark')+' theme');}
+function toggleTheme(){const t=document.documentElement.dataset.theme==='dark'?'light':'dark';applyTheme(t);try{localStorage.setItem('hos-theme',t);}catch(e){}}
+try{applyTheme(localStorage.getItem('hos-theme')==='dark'?'dark':'light');}catch(e){applyTheme('light');}
+const mobileFilters=matchMedia('(max-width:700px)');
+function sizeFilters(){document.getElementById('filters').open=!mobileFilters.matches;}
+mobileFilters.addEventListener('change',sizeFilters);sizeFilters();
 try{ const g=localStorage.getItem("hos-gear"); if(g==="hang"||g==="tent"||g==="either") gear=g; }catch(e){}
 render();
 </script>
