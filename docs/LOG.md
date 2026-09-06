@@ -31,3 +31,10 @@
 - Exact campsite names sort ahead of incidental mentions. Search, filters, map, unknown ratings and original evidence retained.
 - Desktop and 390px/320px iframe responsive checks passed without horizontal overflow. Owner report flow, exact-name search, empty/reset, owner/group filters, tent sorting and map controls checked; browser errors empty. Standard viewport override was ineffective, so a temporary iframe harness was used and removed afterward.
 - Remaining: full independent audit of inherited campsite ratings, measured spans and owner-supplied photographs. See RESEARCH_2026-09-06.md.
+
+## 2026-09-06 - Codex, park directory redesign
+- User rejected the split-panel design as still too artificial. Replaced it with a park-first directory, full-width campsite lists and full-page reading views.
+- Added real, attributed DNR park photos for Lake Maria, Afton and Wild River. Park photos are explicitly distinguished from campsite photos. No synthetic scenery or new campsite claims.
+- Changed typography to Public Sans / Barlow Condensed and removed the dashboard panel treatment. Less repeated audit text while browsing; full source status remains within each listing.
+- Verified identical SITES block, photo loading, park/site navigation, Back, trip logs, search/source access and 390px/320px iframe layouts without horizontal overflow. Browser errors empty in exercised flows.
+- Open: independent source audit remains incomplete; owner site photos and measured spans are still unavailable.

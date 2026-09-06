@@ -1,27 +1,21 @@
 # Hang or Stake design
 
-## Direction
-Compact outdoor finder with a separate reading panel. Replaces the rejected marketing introduction, persistent sidebar and repeated park sections. The user requested clarity, substantially less clutter and the craft of an established premium outdoor product; design decisions were delegated to Codex.
+## Current direction, September 6, 2026
+The owner rejected both the spacious introduction and compact split-panel dashboard. The site now starts with a park directory, using actual Minnesota DNR park photographs. Choosing a park opens a full-width campsite list; choosing a campsite opens a full-page reading view with Back. Sources and reports remain separate tabs within that view.
 
-## Reference study
-[AllTrails Minnesota explorer](https://www.alltrails.com/explore/us/minnesota) informed the compact control bar and stable results/detail relationship. [WTA Hiking Guide](https://www.wta.org/go-outside/hikes) informed separation of browse summaries and longer reading. [The Dyrt](https://thedyrt.com/) and [Hiking Project](https://www.hikingproject.com/) were also consulted for discovery structure. No reference photography, branding, map geometry or ratings were copied.
+## Visual language
+White background, charcoal text, understated olive accents, straight-edged controls and open layouts. Public Sans for reading and UI, Barlow Condensed for the wordmark and place headings. No oversized numbered campsite title floating in a dashboard panel. No repeated pending-research message on every browse row; verification scope remains explicit inside each entry.
 
-The Impeccable direction seed was run. The user's requested familiar, clear outdoor-finder direction takes precedence over the unrelated stylistic challengers. Compact controls and a disciplined comparison grid serve the actual campsite task.
-
-## Visual system
-- Warm pale canvas (#f5f4ef), white reading surface, dark green ink (#22352e), muted ink (#606d66), restrained forest accent (#255b43).
-- Manrope for navigation, facts and lists; Newsreader for campsite titles and report headlines. System fallbacks remain available if fonts fail.
-- Single comparison list, fine separators, restrained rounded outer surfaces. No decorative hero, dashboard statistics or synthetic campsite photography.
-- Explicit dark appearance retained, including a switch in About for phone access.
+Lake Maria, Afton and Wild River use banner images verified on their official DNR pages. Photos load from the DNR image host, link back to their source, and are labeled as park landscapes, never photographs of individual campsites. Other areas use a plain text directory rather than invented or irrelevant images. External images and fonts depend on their hosts; names, navigation and data still work without them.
 
 ## Interaction
-- Campsites, Trip logs and About are separate views.
-- One control bar: search, shelter choice, area and a closed-by-default filter disclosure.
-- Results sort across areas, with exact campsite-name searches first. Owner stays break equal-score ties. Show more expands the initial eight results.
-- Desktop: list left, selected campsite right. Overview, Stay report (when available), Sources & notes separate different reading tasks.
-- Phone: list first; selecting a site opens a full-width detail screen with Back. No inline expansion of the entire results list.
-- Evidence remains available in the source tab, with source-check scope and inherited-assessment labels. Unknowns and estimates are preserved.
-- Schematic map is optional, explicitly labeled, with no claim of navigation accuracy.
+- Campsites navigation returns to the park directory.
+- Search and advanced filters can show matching campsite listings across parks.
+- Shelter choice controls score ordering. All source data, unknowns and estimates are retained.
+- Campsite reading uses the full content width, with Overview, Stay report when available, and Sources & notes.
+- Trip logs opens the two owner reports directly through their list entries.
+- On phones, park photographs become small thumbnails alongside the place descriptions. No horizontal overflow was found in 390px and 320px iframe tests.
+- Dark appearance and the optional schematic area map are retained.
 
-## Verification, September 6, 2026
-Desktop inspection plus local iframe tests at 390px and 320px outer widths. Browser viewport override did not take effect, so the iframe harness supplied real responsive document widths. Both documents had no horizontal overflow. Checked owner log selection, mobile report/back behavior, exact-name search, no-match/reset, group exclusion, owner filtering, tent sorting, source disclosure and map open/close. JavaScript syntax valid; browser error log empty in tested flows. Full source audit remains incomplete and is documented separately.
+## Verification
+Compared the entire SITES data block with the prior commit: identical. Checked park selection, full-page campsite selection, Back, both trip logs, exact-name search, source access and image loading. Desktop and phone screenshots inspected; browser error log empty in tested flows.
