@@ -52,3 +52,8 @@
 - Osceola Landing coordinates were read from page 55 of the NPS response-strategy PDF. They are a landing reference, not an individual campsite or surveyed current ramp position. Governor Knowles uses the official headquarters directions pin, not Randall Creek.
 - Preserved campsite ratings/reports. Checked all 18 location keys, 19 rendered pins, forest selection/extent, source links and campsite navigation. Phone selection notes scroll within a capped panel.
 - Previous location-verification open item is closed. Exact campsite pins and the separate inherited campsite-score audit remain outside this verification.
+
+## 2026-09-06 - Codex, Muddy Boots Camping source triage
+- Inspected the user-supplied YouTube channel's Latest and Oldest catalogs in the browser. Saved site-specific links for Afton 1-27, boat/canoe site 1 and the campground overview, plus BWCA leads, in MUDDY_BOOTS_SOURCE_INVENTORY.md.
+- Rechecked dated captions for Afton 8 and 25. These are already-used sources, not independent new corroboration. No campsite scores or live-page content changed.
+- Flagged conflicting Smoke/Flame titles for BWCA campsite 918. Full remaining-video review is pending; inventory entries explicitly distinguish titles checked from captions reviewed.
