@@ -1,0 +1,74 @@
+{
+  "Wild River": {
+    "label": "Wild River State Park",
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00254",
+    "coordinates": [
+      -92.754468,
+      45.524211
+    ],
+    "checked": "2026-09-06"
+  },
+  "Sakatah Lake": {
+    "label": "Sakatah Lake State Park",
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00256",
+    "coordinates": [
+      -93.532328,
+      44.217841
+    ],
+    "checked": "2026-09-06"
+  },
+  "Lake Maria": {
+    "label": "Lake Maria State Park",
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00217",
+    "coordinates": [
+      -93.931667,
+      45.317411
+    ],
+    "checked": "2026-09-06"
+  },
+  "William O'Brien": {
+    "label": "William O'Brien State Park",
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00283",
+    "coordinates": [
+      -92.763574,
+      45.225346
+    ],
+    "checked": "2026-09-06"
+  },
+  "MN Valley SRA": {
+    "label": "Minnesota Valley State Recreation Area",
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=sra00304",
+    "coordinates": [
+      -93.715927,
+      44.650309
+    ],
+    "checked": "2026-09-06"
+  },
+  "Nerstrand Big Woods": {
+    "label": "Nerstrand Big Woods State Park",
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00241",
+    "coordinates": [
+      -93.091041,
+      44.341775
+    ],
+    "checked": "2026-09-06"
+  },
+  "Frontenac": {
+    "label": "Frontenac State Park",
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00160",
+    "coordinates": [
+      -92.343275,
+      44.521833
+    ],
+    "checked": "2026-09-06"
+  },
+  "Afton": {
+    "label": "Afton State Park",
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00100",
+    "coordinates": [
+      -92.797608,
+      44.847822
+    ],
+    "checked": "2026-09-06"
+  }
+}

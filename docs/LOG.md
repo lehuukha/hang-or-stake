@@ -38,3 +38,10 @@
 - Changed typography to Public Sans / Barlow Condensed and removed the dashboard panel treatment. Less repeated audit text while browsing; full source status remains within each listing.
 - Verified identical SITES block, photo loading, park/site navigation, Back, trip logs, search/source access and 390px/320px iframe layouts without horizontal overflow. Browser errors empty in exercised flows.
 - Open: independent source audit remains incomplete; owner site photos and measured spans are still unavailable.
+
+## 2026-09-06 - Codex, geographic area map
+- Replaced the hand-positioned SVG and approximate drive-time rings with a lazy-loaded Leaflet/OpenStreetMap explorer. Searchable area list, keyboard-accessible pins, listing counts, zoom/reset and direct campsite browsing.
+- Eight state-park reference points sourced from the Minnesota DNR Compass service, with exact coordinates and retrieval date in data/park_locations.json and source links in the selection panel. These are not campsite or trailhead positions. Ten other areas remain selectable without invented pins.
+- Mobile layout puts the map above the searchable list. External-library failure retains working park selection. No location permission requested and no tiles prefetched.
+- Checked JavaScript syntax, desktop map/selection, 390px and 320px layouts without overflow, unknown-location selection and simulated library failure. Original SITES data unchanged.
+- Open: source coordinates for the remaining county/forest/river areas; broader campsite-source audit remains incomplete.
