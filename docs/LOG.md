@@ -57,3 +57,12 @@
 - Inspected the user-supplied YouTube channel's Latest and Oldest catalogs in the browser. Saved site-specific links for Afton 1-27, boat/canoe site 1 and the campground overview, plus BWCA leads, in MUDDY_BOOTS_SOURCE_INVENTORY.md.
 - Rechecked dated captions for Afton 8 and 25. These are already-used sources, not independent new corroboration. No campsite scores or live-page content changed.
 - Flagged conflicting Smoke/Flame titles for BWCA campsite 918. Full remaining-video review is pending; inventory entries explicitly distinguish titles checked from captions reviewed.
+
+## 2026-09-06 - Codex, all-area campsite-count audit
+- Audited all 18 areas using official DNR camping data and notes, Three Rivers details and 2026 Cleary map, county inventories/maps, Wisconsin DNR and NPS section maps. Findings and provenance are in docs/CAMPING_INVENTORY_AUDIT.md and data/camping_inventory.json.
+- Replaced guide-entry counts in park directory and map pins with actual scoped inventory. Park pages distinguish count breakdown/source/status from the number of guide entries. Group, bike-only, paddle-access and dispersed categories stay separate.
+- Confirmed Afton 27+1, Lake Maria 17 plus B1 closure, Wild River 8, Nerstrand 4+6, Frontenac 2+6, Cleary 14, Lake Elmo 5, William O'Brien 2 (130/131), Cannon River 4, Stanley Eddy 12 and Governor Knowles 9. Ann Lake has six mapped walk-ins with current operational breakdown not reconfirmed. No invented fixed dispersed total.
+- Added Wild River Breezy Valley and Meadow Vista, corrected Dry Creek to Dry Creek Hollow, and added Nerstrand's cart-in category. New entries have unknown hammock/tent ratings.
+- Withdrew Minnesota Valley's historical eight-walk-in claim as current inventory and cleared unsupported current tent ratings on its two historical entries. Current DNR page/map lists equestrian camping only; direct DNR confirmation remains required. Removed unsupported NPS blanket count of 13 from current listing/park prose.
+- Count audit also surfaced a DNR note that neither Frontenac backpack site is good for hammocks; added it without assigning a new score. Marked Lake Maria B1 closed per the August 2026 alert and removed its Solo pick; retained historical evidence.
+- JavaScript syntax, 18 inventory keys, 74 guide entries, eight Wild River entries, unknown new ratings, 320px directory/source disclosure overflow and map count/source navigation checked. Grouped entries still represent multiple sites; individual suitability audit remains separate work.

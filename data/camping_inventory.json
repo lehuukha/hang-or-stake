@@ -1,0 +1,298 @@
+{
+  "Afton": {
+    "count": 28,
+    "label": "28 backpack / walk-in sites",
+    "breakdown": "27 main backpack sites + 1 separate walk-in site. Two group camps are separate.",
+    "note": "The separate site is accessible on foot or from the river. Inventory is not nightly availability.",
+    "sources": [
+      [
+        "DNR camping inventory",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00100"
+      ]
+    ],
+    "quote": "27 backpack sites available year-round",
+    "checked": "2026-09-06"
+  },
+  "Lake Maria": {
+    "count": 17,
+    "label": "17 backpack sites",
+    "breakdown": "17 backpack sites + 2 separate group camps.",
+    "note": "DNR alert lists B1 closed as of August 22, 2026. Seventeen is the park inventory, not the number currently open or available.",
+    "sources": [
+      [
+        "DNR inventory and closure alert",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00217"
+      ]
+    ],
+    "quote": "17 Sites",
+    "checked": "2026-09-06"
+  },
+  "Sand Dunes SF": {
+    "count": 6,
+    "label": "6 mapped walk-in sites",
+    "breakdown": "Ann Lake sites 31–36 are the six mapped walk-ins. Dispersed camping has no fixed site count.",
+    "note": "The DNR campground map and 2017 forest appendix support six walk-ins. The current forest overview does not repeat that breakdown; confirm the operational count with Lake Maria State Park.",
+    "sources": [
+      [
+        "DNR Ann Lake campground map",
+        "https://files.dnr.state.mn.us/maps/state_forests/cmp00046.pdf"
+      ],
+      [
+        "DNR forest appendix (2017)",
+        "https://files.dnr.state.mn.us/forestry/subsection/anoka/sfrmp_anoka-appendices.pdf"
+      ],
+      [
+        "Current DNR forest information",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=sft00045"
+      ]
+    ],
+    "quote": "6 walk-in sites",
+    "checked": "2026-09-06"
+  },
+  "Cleary Lake Regional": {
+    "count": 14,
+    "label": "14 walk-in sites",
+    "breakdown": "Basswood: 14 walk-in sites. White Pine: 6 drive-in sites. Two RV sites and 3 group camps are separate.",
+    "note": "The page introduction says 25 tent sites, but its detailed breakdown and April 29, 2026 map identify 14 Basswood walk-ins. Do not use the headline as a walk-in count.",
+    "sources": [
+      [
+        "Three Rivers campground details",
+        "https://www.threeriversparks.org/location/cleary-lake-campground"
+      ],
+      [
+        "April 2026 campground map",
+        "https://trpd.maps.arcgis.com/sharing/rest/content/items/b70154da024f4cc89f18e4822e261e40/data"
+      ]
+    ],
+    "quote": "Basswood has 14 camp sites and two RV sites.",
+    "checked": "2026-09-06"
+  },
+  "Nerstrand Big Woods": {
+    "count": 10,
+    "label": "4 walk-in + 6 cart-in sites",
+    "breakdown": "4 walk-in sites + 6 cart-in sites = 10 sites reached on foot.",
+    "note": "The earlier guide omitted the cart-in category. These are separate from the drive-in campground.",
+    "sources": [
+      [
+        "DNR camping inventory",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00241"
+      ]
+    ],
+    "quote": "Six rustic sites, located 150 to 200 feet from parking.",
+    "checked": "2026-09-06"
+  },
+  "Wild River": {
+    "count": 8,
+    "label": "8 backpack sites",
+    "breakdown": "Aspen Knob, Breezy Valley, Buck Hill, Deer Creek, Dry Creek Hollow, Meadow Vista, Pine Ridge and Spring Creek.",
+    "note": "Four canoe-in sites and nine walk-to group camps are separate categories. The guide previously described only six backpack sites.",
+    "sources": [
+      [
+        "DNR camping inventory",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00254"
+      ],
+      [
+        "DNR 2025 map",
+        "https://files.dnr.state.mn.us/maps/state_parks/spk00254.pdf"
+      ]
+    ],
+    "quote": "There are eight backpack sites.",
+    "checked": "2026-09-06"
+  },
+  "Frontenac": {
+    "count": 8,
+    "label": "2 backpack + 6 cart-in sites",
+    "breakdown": "2 backpack sites + 6 cart-in sites = 8 sites reached on foot.",
+    "note": "The guide previously had only two individual cart-in descriptions and one entry covering both backpack sites. DNR says neither backpack site is good for hammock camping.",
+    "sources": [
+      [
+        "DNR camping inventory",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00160"
+      ]
+    ],
+    "quote": "Two backpack sites located one and one-quarter miles from the designated parking lot at the ranger station.",
+    "checked": "2026-09-06"
+  },
+  "Sakatah Lake": {
+    "count": null,
+    "label": "Drive-in / bike-in camping",
+    "breakdown": "No individual backpack or walk-in category in the current DNR inventory. Five bike-in sites are restricted to campers arriving by bike without motor vehicles.",
+    "note": "Site 3 in this guide is a drive-in site. Do not count it or the bike-only sites as hike-in inventory.",
+    "sources": [
+      [
+        "DNR camping inventory",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00256"
+      ]
+    ],
+    "quote": "5 Sites",
+    "checked": "2026-09-06"
+  },
+  "Lake Elmo Park Reserve": {
+    "count": 5,
+    "label": "5 hike-in sites",
+    "breakdown": "5 individual hike-in tent sites + 3 separate walk-to group sites.",
+    "note": "The hike-in count was correct, but the guide covered the five sites in one entry. One tent per individual hike-in site.",
+    "sources": [
+      [
+        "Washington County campground information",
+        "https://www.washingtoncountymn.gov/1820/Camping-Reservations"
+      ]
+    ],
+    "quote": "Five hike-in tent sites. One tent per site.",
+    "checked": "2026-09-06"
+  },
+  "MN Valley SRA": {
+    "count": null,
+    "label": "Hike-in count unknown",
+    "breakdown": "The old eight-walk-in claim is historical, not verified current inventory. Current DNR camping information lists only six equestrian sites.",
+    "note": "The current map also shows the equestrian campground without the old walk-in category. Ask DNR at 651-259-5774 whether any individual hike-in or backcountry campsites remain open before planning an overnight.",
+    "sources": [
+      [
+        "Current DNR camping inventory",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=sra00304"
+      ],
+      [
+        "DNR 2025 map",
+        "https://files.dnr.state.mn.us/maps/state_parks/sra00304.pdf"
+      ],
+      [
+        "Historical 2006 management plan",
+        "https://files.dnr.state.mn.us/input/mgmtplans/parks/mn-valley/mn-valley-plan-2006.pdf"
+      ]
+    ],
+    "quote": "Six equestrian sites are available seasonally, from April to November.",
+    "checked": "2026-09-06"
+  },
+  "Crow-Hassan Park Reserve": {
+    "count": null,
+    "label": "2 named group camps",
+    "breakdown": "Bluestem and Riverbend are the two named group camps.",
+    "note": "Current official page does not establish an individual backpack/hike-in inventory. Group camps and horse camping are not counted as individual hike-in sites.",
+    "sources": [
+      [
+        "Three Rivers park camping information",
+        "https://www.threeriversparks.org/location/crow-hassan-park-reserve"
+      ]
+    ],
+    "quote": "The Blue Stem and Riverbend group camps can accommodate horses.",
+    "checked": "2026-09-06"
+  },
+  "William O'Brien": {
+    "count": 2,
+    "label": "2 walk-in sites",
+    "breakdown": "Walk-in sites 130 and 131, beside Wedge Hill Group Campsites. Four group camps are separate.",
+    "note": "The two walk-ins appear in DNR park notes even though the main camping-category summary omits them.",
+    "sources": [
+      [
+        "DNR park notes and inventory",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=spk00283"
+      ]
+    ],
+    "quote": "Walk-in sites 130 and 131 are located next to the Wedge Hill Group Campsites.",
+    "checked": "2026-09-06"
+  },
+  "Cannon River Wilderness Area": {
+    "count": 4,
+    "label": "4 primitive campsites",
+    "breakdown": "Four primitive first-come campsites; no reservations.",
+    "note": "The guide represents these in one area entry. Individual site suitability is not yet surveyed.",
+    "sources": [
+      [
+        "Rice County camping information",
+        "https://www.ricecountymn.gov/facilities/facility/details/Cannon-River-Wilderness-Area-4"
+      ]
+    ],
+    "quote": "four primitive campsites",
+    "checked": "2026-09-06"
+  },
+  "Rum River State Forest": {
+    "count": null,
+    "label": "Dispersed camping",
+    "breakdown": "Dispersed camping is not a numbered campground inventory.",
+    "note": "Do not turn one forest entry into a count of one campsite, or estimate how many dispersed spots exist.",
+    "sources": [
+      [
+        "DNR forest information",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=sft00043"
+      ],
+      [
+        "DNR forest camping rules",
+        "https://www.dnr.state.mn.us/state_forests/rules.html"
+      ]
+    ],
+    "quote": "camping_dispersed: 1",
+    "checked": "2026-09-06"
+  },
+  "St. Croix Riverway (NPS)": {
+    "count": null,
+    "label": "Paddle-access campsites",
+    "breakdown": "River campsite inventory is separate from backpack/hike-in camping.",
+    "note": "Removed the unsupported blanket count of 13. Current NPS maps distinguish individual shoreline sites, group sites and the Eagle’s Nest cluster. A current campsite total for the former loosely defined stretch remains unknown.",
+    "sources": [
+      [
+        "NPS camping zones",
+        "https://www.nps.gov/sacn/planyourvisit/camping.htm"
+      ],
+      [
+        "NPS section maps",
+        "https://www.nps.gov/sacn/planyourvisit/maps.htm"
+      ]
+    ],
+    "quote": "These campsites are often only accessible from the water",
+    "checked": "2026-09-06"
+  },
+  "Stanley Eddy Park Reserve": {
+    "count": 12,
+    "label": "12 backcountry sites",
+    "breakdown": "7 campsite symbols on the North Unit map + 5 on the South/Alama map = 12.",
+    "note": "The county explicitly confirms 12 backcountry campsites. The old guide bundled them into one entry.",
+    "sources": [
+      [
+        "County park inventory",
+        "https://wrightcountymn.gov/1237/Wright-County-Parks-Trails"
+      ],
+      [
+        "North Unit map",
+        "https://www.wrightcountymn.gov/DocumentCenter/View/26726"
+      ],
+      [
+        "South Unit map",
+        "https://www.wrightcountymn.gov/DocumentCenter/View/26725"
+      ]
+    ],
+    "quote": "Backcountry Camping (12 campsites)",
+    "checked": "2026-09-06"
+  },
+  "St. Croix / Chengwatana SF": {
+    "count": null,
+    "label": "Drive-in + dispersed camping",
+    "breakdown": "Boulder and Snake River are drive-in campgrounds. Dispersed camping has no fixed inventory.",
+    "note": "These forest entries are alternatives to designated backpack sites, not a count of hike-in campsites.",
+    "sources": [
+      [
+        "St. Croix DNR facilities",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=sft00044"
+      ],
+      [
+        "Chengwatana DNR facilities",
+        "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=sft00012"
+      ]
+    ],
+    "quote": "drive_in_campsites",
+    "checked": "2026-09-06"
+  },
+  "Gov. Knowles SF (WI)": {
+    "count": 9,
+    "label": "9 primitive hike-in sites",
+    "breakdown": "Nine primitive campsites along hiking trails, separate from the developed campgrounds.",
+    "note": "One guide entry covers the whole category; the confirmed hammock report is for Randall Creek, not all nine sites.",
+    "sources": [
+      [
+        "Wisconsin DNR remote camping",
+        "https://dnr.wisconsin.gov/topic/StateForests/govknowles/recreation/camping"
+      ]
+    ],
+    "quote": "nine primitive campsites along the hiking trails",
+    "checked": "2026-09-06"
+  }
+}

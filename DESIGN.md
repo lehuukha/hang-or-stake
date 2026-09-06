@@ -19,3 +19,6 @@ Lake Maria, Afton and Wild River use banner images verified on their official DN
 
 ## Verification
 Compared the entire SITES data block with the prior commit: identical. Checked park selection, full-page campsite selection, Back, both trip logs, exact-name search, source access and image loading. Desktop and phone screenshots inspected; browser error log empty in tested flows.
+
+## Camping inventory
+Park and map counts now come from the scoped camping inventory in the source page and data/camping_inventory.json. Guide entries are coverage, not campsite totals. Park pages disclose the inventory breakdown, date, official sources and unresolved status. No numeric pin total is assigned to dispersed, paddle-only, group-only or unknown individual inventory.
