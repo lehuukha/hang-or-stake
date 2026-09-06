@@ -15,7 +15,7 @@ Lake Maria, Afton and Wild River use banner images verified on their official DN
 - Campsite reading uses the full content width, with Overview, Stay report when available, and Sources & notes.
 - Trip logs opens the two owner reports directly through their list entries.
 - On phones, park photographs become small thumbnails alongside the place descriptions. No horizontal overflow was found in 390px and 320px iframe tests.
-- Dark appearance is retained. The optional area explorer uses a geographic map with a searchable park list. Official park reference pins link to their coordinate source; unverified areas stay in the list without a pin.
+- Dark appearance is retained. The optional area explorer uses a geographic map with a searchable park list. All 18 areas have official-source references, with scope explained in the selection panel. The combined forest entry has two facility pins; Rum River uses a labeled map-extent center.
 
 ## Verification
 Compared the entire SITES data block with the prior commit: identical. Checked park selection, full-page campsite selection, Back, both trip logs, exact-name search, source access and image loading. Desktop and phone screenshots inspected; browser error log empty in tested flows.

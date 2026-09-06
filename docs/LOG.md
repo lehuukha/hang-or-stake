@@ -45,3 +45,10 @@
 - Mobile layout puts the map above the searchable list. External-library failure retains working park selection. No location permission requested and no tiles prefetched.
 - Checked JavaScript syntax, desktop map/selection, 390px and 320px layouts without overflow, unknown-location selection and simulated library failure. Original SITES data unchanged.
 - Open: source coordinates for the remaining county/forest/river areas; broader campsite-source audit remains incomplete.
+
+## 2026-09-06 - Codex, remaining map locations verified
+- Verified all ten previously unpinned areas from official Three Rivers, Rice/Wright/Washington county, Minnesota/Wisconsin DNR, and NPS coordinate sources. All 18 areas now have sourced geographic references; the combined St. Croix/Chengwatana entry has two facility pins.
+- Rum River is explicitly a calculated center of the official DNR bounding box, with its map extent shown on selection. The extent is not claimed to be a legal boundary. Other broad areas use named facility references, with scope explained and linked in the panel.
+- Osceola Landing coordinates were read from page 55 of the NPS response-strategy PDF. They are a landing reference, not an individual campsite or surveyed current ramp position. Governor Knowles uses the official headquarters directions pin, not Randall Creek.
+- Preserved campsite ratings/reports. Checked all 18 location keys, 19 rendered pins, forest selection/extent, source links and campsite navigation. Phone selection notes scroll within a capped panel.
+- Previous location-verification open item is closed. Exact campsite pins and the separate inherited campsite-score audit remain outside this verification.

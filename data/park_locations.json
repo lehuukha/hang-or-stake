@@ -6,7 +6,8 @@
       -92.754468,
       45.524211
     ],
-    "checked": "2026-09-06"
+    "checked": "2026-09-06",
+    "note": "Official DNR park reference location; not an individual campsite."
   },
   "Sakatah Lake": {
     "label": "Sakatah Lake State Park",
@@ -15,7 +16,8 @@
       -93.532328,
       44.217841
     ],
-    "checked": "2026-09-06"
+    "checked": "2026-09-06",
+    "note": "Official DNR park reference location; not an individual campsite."
   },
   "Lake Maria": {
     "label": "Lake Maria State Park",
@@ -24,7 +26,8 @@
       -93.931667,
       45.317411
     ],
-    "checked": "2026-09-06"
+    "checked": "2026-09-06",
+    "note": "Official DNR park reference location; not an individual campsite."
   },
   "William O'Brien": {
     "label": "William O'Brien State Park",
@@ -33,7 +36,8 @@
       -92.763574,
       45.225346
     ],
-    "checked": "2026-09-06"
+    "checked": "2026-09-06",
+    "note": "Official DNR park reference location; not an individual campsite."
   },
   "MN Valley SRA": {
     "label": "Minnesota Valley State Recreation Area",
@@ -42,7 +46,8 @@
       -93.715927,
       44.650309
     ],
-    "checked": "2026-09-06"
+    "checked": "2026-09-06",
+    "note": "Official DNR park reference location; not an individual campsite."
   },
   "Nerstrand Big Woods": {
     "label": "Nerstrand Big Woods State Park",
@@ -51,7 +56,8 @@
       -93.091041,
       44.341775
     ],
-    "checked": "2026-09-06"
+    "checked": "2026-09-06",
+    "note": "Official DNR park reference location; not an individual campsite."
   },
   "Frontenac": {
     "label": "Frontenac State Park",
@@ -60,7 +66,8 @@
       -92.343275,
       44.521833
     ],
-    "checked": "2026-09-06"
+    "checked": "2026-09-06",
+    "note": "Official DNR park reference location; not an individual campsite."
   },
   "Afton": {
     "label": "Afton State Park",
@@ -69,6 +76,134 @@
       -92.797608,
       44.847822
     ],
-    "checked": "2026-09-06"
+    "checked": "2026-09-06",
+    "note": "Official DNR park reference location; not an individual campsite."
+  },
+  "Cleary Lake Regional": {
+    "coordinates": [
+      -93.3932,
+      44.6876
+    ],
+    "source": "https://www.threeriversparks.org/location/cleary-lake-regional-park",
+    "label": "Cleary Lake Regional Park",
+    "note": "Official Three Rivers park-map center; not an individual campsite.",
+    "checked": "2026-09-06",
+    "field": "div#map data-latitude/data-longitude"
+  },
+  "Crow-Hassan Park Reserve": {
+    "coordinates": [
+      -93.6285,
+      45.1857
+    ],
+    "source": "https://www.threeriversparks.org/location/crow-hassan-park-reserve",
+    "label": "Crow-Hassan Park Reserve",
+    "note": "Official Three Rivers park-map center; not an individual campsite.",
+    "checked": "2026-09-06",
+    "field": "div#map data-latitude/data-longitude"
+  },
+  "Cannon River Wilderness Area": {
+    "coordinates": [
+      -93.2310709977411,
+      44.370271993961
+    ],
+    "source": "https://www.ricecountymn.gov/facilities/facility/details/Cannon-River-Wilderness-Area-4",
+    "label": "Cannon River Wilderness Area",
+    "note": "Official Rice County facility reference at 3471 151st Street East; not a campsite.",
+    "checked": "2026-09-06",
+    "field": "hdn_MapSearchResults facility 4"
+  },
+  "Stanley Eddy Park Reserve": {
+    "coordinates": [
+      -94.2400396394197,
+      45.2126433262093
+    ],
+    "source": "https://www.wrightcountymn.gov/facilities/facility/details/Stanley-Eddy-Memorial-Park-Reserve-23",
+    "label": "Stanley Eddy Regional Park",
+    "note": "Official Wright County facility reference on Rhoades Avenue NW; not an individual campsite or a pin for every park unit.",
+    "checked": "2026-09-06",
+    "field": "hdn_MapSearchResults facility 23"
+  },
+  "Lake Elmo Park Reserve": {
+    "coordinates": [
+      -92.8957839999216,
+      44.972535999961
+    ],
+    "source": "https://washingtoncountymn.gov/facilities/facility/details/Lake-Elmo-Park-Reserve-15",
+    "label": "Lake Elmo Park Reserve",
+    "note": "Official Washington County facility reference; not the hike-in campsites.",
+    "checked": "2026-09-06",
+    "field": "hdn_MapSearchResults facility 15"
+  },
+  "Sand Dunes SF": {
+    "coordinates": [
+      -93.694715,
+      45.424333
+    ],
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=sft00045",
+    "label": "Ann Lake Campground & Day-Use Area",
+    "note": "Ann Lake facility reference in Sand Dunes State Forest. Dispersed campsites are elsewhere.",
+    "checked": "2026-09-06",
+    "field": "facilities[id=cmp00046].lon/lat"
+  },
+  "Rum River State Forest": {
+    "coordinates": [
+      -93.642205,
+      45.9747785
+    ],
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=sft00043",
+    "label": "Rum River State Forest map extent",
+    "note": "Calculated center of the DNR map extent, not an entrance or campsite. The dashed rectangle is the map extent, not a legal forest boundary.",
+    "checked": "2026-09-06",
+    "bounds": [
+      -93.832818,
+      45.844888,
+      -93.451592,
+      46.104669
+    ],
+    "field": "midpoint of bbox[epsg:4326]"
+  },
+  "St. Croix / Chengwatana SF": {
+    "coordinates": [
+      -92.419047,
+      46.049412
+    ],
+    "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=sft00044",
+    "label": "Boulder Campground and Day-Use Area",
+    "note": "Two forest references: Boulder Campground in St. Croix State Forest and Snake River Campground in Chengwatana. Dispersed sites are elsewhere.",
+    "checked": "2026-09-06",
+    "field": "facilities[id=cmp00044].lon/lat",
+    "extra": [
+      {
+        "coordinates": [
+          -92.779952,
+          45.822517
+        ],
+        "label": "Snake River Campground, Chengwatana",
+        "source": "https://maps.dnr.state.mn.us/cgi-bin/compass/feature_detail.cgi?id=sft00012",
+        "field": "facilities[id=cmp00008].lon/lat"
+      }
+    ]
+  },
+  "Gov. Knowles SF (WI)": {
+    "coordinates": [
+      -92.68856,
+      45.772948
+    ],
+    "source": "https://dnr.wisconsin.gov/topic/StateForests/govknowles/info",
+    "label": "Governor Knowles Headquarters",
+    "note": "Forest headquarters, as linked by Wisconsin DNR. This is not Randall Creek or any backpack campsite.",
+    "checked": "2026-09-06",
+    "field": "Directions: To Governor Knowles Headquarters"
+  },
+  "St. Croix Riverway (NPS)": {
+    "coordinates": [
+      -92.710657,
+      45.321596
+    ],
+    "source": "https://rrt5.org/Portals/0/PDFs/NPS_RSP_Tables.pdf#page=55",
+    "label": "Osceola Landing, St. Croix Riverway",
+    "note": "Osceola Landing reference from the NPS response-strategy document, page 55. River campsites are spread along the corridor; this is not a campsite or a surveyed current boat-ramp position.",
+    "checked": "2026-09-06",
+    "field": "page 55, site 45b, Latitude/Longitude"
   }
 }
