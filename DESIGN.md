@@ -22,3 +22,6 @@ Compared the entire SITES data block with the prior commit: identical. Checked p
 
 ## Camping inventory
 Park and map counts now come from the scoped camping inventory in the source page and data/camping_inventory.json. Guide entries are coverage, not campsite totals. Park pages disclose the inventory breakdown, date, official sources and unresolved status. No numeric pin total is assigned to dispersed, paddle-only, group-only or unknown individual inventory.
+
+## Forecasts and booking, September 8, 2026
+Campsite Overview includes an integrated seven-day NWS strip with day/night temperatures and consistent olive line icons. Booking sits beside the weather heading as a quiet outlined action. Phones scroll the day strip; long condition previews are limited to two lines with complete text in the full outlook disclosure. Location and reservation instructions are secondary disclosures, with closure warnings retained visibly. The forecast loads on opening a site, not on the park directory. Errors offer Retry and the official forecast link.

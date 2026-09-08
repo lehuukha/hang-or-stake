@@ -27,7 +27,12 @@ context.fetch=async()=>{throw Error('offline');};
 context.box={textContent:''};
 context.panel={dataset:{lat:'45.317411',lon:'-93.931667'},querySelector:()=>context.box};
 vm.runInContext('loadForecast(panel)',context).then(()=>{
- assert.match(context.box.textContent,/Forecast unavailable/);
+ assert.match(context.box.innerHTML,/Forecast unavailable/);
  assert.equal(context.panel.dataset.loading,undefined);
  console.log('Passed: offline forecast fallback and retry guard.');
 });
+
+context.sample={properties:{updateTime:new Date().toISOString(),periods:[{name:'Day',startTime:new Date().toISOString(),endTime:new Date(Date.now()+3600000).toISOString(),isDaytime:true,temperature:70,temperatureUnit:'F'},{name:'Night',startTime:new Date().toISOString(),endTime:new Date(Date.now()+7200000).toISOString(),isDaytime:false,temperature:40,temperatureUnit:'F'}]}};
+const grouped=vm.runInContext('forecastHTML(sample)',context);
+assert.equal((grouped.match(/class="forecast-day"/g)||[]).length,1);
+assert.match(grouped,/Day 70\u00b0F/);assert.match(grouped,/Night 40\u00b0F/);
